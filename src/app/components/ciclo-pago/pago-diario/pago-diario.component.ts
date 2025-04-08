@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfirmationService, Message, MessageService } from 'primeng/api';
+import { ConfirmationService, Message } from 'primeng/api';
 import { Table } from 'primeng/table';
 
 @Component({
@@ -14,8 +14,7 @@ export class PagoDiarioComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit(): void {
