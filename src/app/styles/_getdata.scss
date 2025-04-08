@@ -1,0 +1,13 @@
+// Estilos getdata
+.custom-table-header {
+  height: 32px;
+}
+
+// Arreglos globales tablas
+// Se modifica, para que usen todo el largo y no pasen a varias filas
+.p-datatable .p-datatable-thead>tr>th {
+  white-space: nowrap;
+}
+.p-datatable .p-datatable-tbody>tr>td {
+  white-space: nowrap;
+}

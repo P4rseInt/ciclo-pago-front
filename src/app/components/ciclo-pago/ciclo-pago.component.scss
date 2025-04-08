@@ -1,0 +1,182 @@
+$grey-light: #f6f7fc;
+/**VARIABLES**/
+$light-blue: #a6caf1;
+$blue: #1d65b3;
+$red: #ca082c;
+$grey-dark: #8f99a3;
+$white: #ffffff;
+$grey-medium: #e4e6e9;
+$grey-light: #f6f7fc;
+$grey-checkbox: #c8cdd2;
+$black : #000000;
+$black-text: #16191B;
+
+
+/**TEXTS**/
+
+.text13bold {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.text14 {
+  font-size: 14px;
+}
+
+.text15 {
+  font-size: 15px;
+}
+
+.text15bold {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.text16 {
+  font-size: 16px;
+}
+
+/**TABS*/
+
+::ng-deep .mat-mdc-tab-header {
+  justify-content: center;
+}
+
+::ng-deep .mat-mdc-tab-labels {
+  display: flex;
+  width: 50%;
+}
+
+::ng-deep .mat-mdc-tab-list {
+  background: white;
+}
+
+::ng-deep .mdc-tab-indicator {
+  width: 90%;
+  padding-left: 1rem;
+}
+
+::ng-deep .mdc-tab__text-label {
+  letter-spacing: normal;
+  font-size: 14px;
+}
+
+::ng-deep .mat-mdc-tab:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline,
+.mat-mdc-tab-link:not(.mat-mdc-tab-disabled) .mdc-tab-indicator__content--underline {
+  border-color: $red;
+}
+
+::ng-deep .mat-mdc-tab-ripple {
+  background-color: white;
+}
+
+::ng-deep .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label,
+.mat-mdc-tab-link:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label {
+  color: $black-text;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+::ng-deep .mat-mdc-tab .mdc-tab__text-label {
+  display: inline-flex;
+  align-items: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.app-container {
+  padding: 1.5rem;
+}
+
+/**Estilos para prueba**/
+
+.privilegios-container {
+  background: $grey-light;
+}
+
+/*FILTER-INPUT*/
+.clear-filter {
+  cursor: pointer;
+}
+
+.header18bold {
+  font-weight: 500;
+  font-size: 18px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: normal;
+  margin: 0 0 16px;
+}
+
+/**CHECKBOX**/
+
+::ng-deep app-privilegios .mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background,
+.mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background,
+.mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]:enabled~.mdc-checkbox__background {
+  border-color: $blue;
+  background-color: $blue;
+}
+
+::ng-deep app-privilegios .mat-mdc-checkbox.mat-accent .mdc-checkbox--selected~.mdc-checkbox__ripple {
+  background: $blue;
+}
+
+::ng-deep app-privilegios .mat-mdc-checkbox.mat-accent {
+  --mdc-checkbox-selected-focus-icon-color: #1d65b3;
+  --mdc-checkbox-selected-hover-icon-color: #1d65b3;
+  --mdc-checkbox-selected-icon-color: #1d65b3;
+  --mdc-checkbox-selected-pressed-icon-color: #1d65b3;
+}
+
+::ng-deep app-privilegios .mat-ripple-element {
+  background-color: transparent;
+}
+
+::ng-deep app-privilegios .mdc-checkbox__background {
+  border: 2px solid $grey-checkbox;
+  border-radius: 4px;
+}
+
+::ng-deep app-privilegios .mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.mdc-checkbox__background {
+  border-color: $grey-checkbox;
+  background-color: transparent;
+}
+
+::ng-deep app-privilegios mat-checkbox {
+
+  .mat-ripple-element {
+    background-color: transparent;
+  }
+}
+
+::ng-deep mat-checkbox app-privilegios .mat-checkbox-ripple .mat-ripple-element,
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: transparent !important;
+}
+
+::ng-deep app-privilegios .mat-checkbox-ripple {
+  display: none;
+}
+
+::ng-deep app-privilegios .mat-mdc-checkbox-ripple,
+.mdc-checkbox__ripple {
+  display: none;
+}
+
+::ng-deep {
+
+  .mat-mdc-button-ripple,
+  .mdc-button__ripple {
+    display: none !important;
+  }
+}
+
+.ciclodepago-container {
+  background: $grey-light;
+}
+
+::mat-expansion-panel,
+.mat-expansion-panel {
+  overflow: visible !important;
+}

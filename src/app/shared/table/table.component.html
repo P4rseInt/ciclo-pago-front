@@ -1,0 +1,256 @@
+<div class="app-table-container">
+  <div class="detail-container">
+    <mat-card class="mat-card-detail " [ngClass]="[title, parentClass]">
+      <div *ngIf="title" class="header">
+        <mat-card-title>
+          {{ title }}
+          <span *ngIf="estado" [ngClass]="{
+            'text-bg-danger': estado === 'Con Errores',
+            'text-bg-success': estado === 'Proceso finalizado' || estado === 'Terminado' || estado === 'Cálculo De Pensión Finalizado',
+            'text-bg-warning': estado === 'En proceso'
+          }" class="badge rounded-pill mx-2">{{ estado }}</span>
+        </mat-card-title>
+
+        <span *ngIf="pill" class="badge-pill red">{{pill}}</span>
+
+        <div class="buscador">
+
+          <div class="element-buscador" *ngIf="searchInputTable">
+            Buscar:
+          </div>
+
+          <div class="element-buscador" *ngIf="searchInputTable">
+            <mat-icon matSuffix class="icon-search">search</mat-icon>
+            <input matInput [ngClass]="'filter-input'" placeholder="En la tabla" (keyup)="searchOnTable($event)" />
+          </div>
+
+          <div class="element-buscador header-button" *ngIf="headerButton">
+            <div *ngIf="headerButton.type === 1">
+              <button [class]="headerButton.class" mat-stroked-button [color]="headerButton.color"
+                (click)="headerButton.action()" [disabled]="!headerButton.enabled">
+                <span class="material-icons">
+                  {{ headerButton.icon }}
+                </span>
+                {{ headerButton.name }}
+              </button>
+            </div>
+            <div *ngIf="headerButton.type === 2">
+              <button [class]="headerButton.class" mat-raised-button [color]="headerButton.color"
+                (click)="headerButton.action()" [disabled]="!headerButton.enabled">
+                {{ headerButton.name }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="filter-bar" *ngIf="showFilterBar">
+        <p>Filtros: </p>
+        <mat-chip-row class="delete-filter" *ngFor="let filter of filtersArray" [removable]="true"
+          (removed)="removeFilter(filter)" [editable]="false">
+          {{filter.name}}
+          <button matChipRemove [attr.aria-label]="'remove ' + filter.name" class="chip-remove-filter">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+        <mat-chip-row class="chip-delete-all-filters" *ngIf="showDeleteFilters" [editable]="false"
+          (click)="deleteAllFiltersChip()">
+          Eliminar Todo
+        </mat-chip-row>
+      </div>
+
+      <div class="table-container">
+        <mat-table [dataSource]="dataSource" matSort class="mat-table-custom">
+          <div *ngFor="let rowInfo of tableInfo">
+            <ng-container matColumnDef="{{ isArray(rowInfo.id) ? rowInfo.id[0] : rowInfo.id }}"
+              *ngIf="rowInfo.id !== 'actions' && rowInfo.type !== 'toggle'">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="{{ rowInfo.class }}">
+                <div class="header-filter {{ rowInfo.class }}">
+                  <span *ngIf="rowInfo.type !== 'radio'">{{ rowInfo.name }}</span>
+                  <button *ngIf="showFilterColumn && !rowInfo.hideFilter" class="btn-filter" mat-icon-button
+                    (click)="showFilter($event, rowInfo)">
+                    <svg fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M0.129239 1.305C1.13924 2.6 3.00424 5 3.00424 5V8C3.00424 8.275 3.22924 8.5 3.50424 8.5H4.50424C4.77924 8.5 5.00424 8.275 5.00424 8V5C5.00424 5 6.86424 2.6 7.87424 1.305C8.12924 0.975 7.89424 0.5 7.47924 0.5H0.524239C0.109239 0.5 -0.125761 0.975 0.129239 1.305Z"
+                        fill="#727E8B" />
+                    </svg>
+                  </button>
+
+                </div>
+              </th>
+              <div *ngIf="!rowInfo.chip">
+                <div *ngIf="isArray(rowInfo.id)">
+                  <div *ngIf="rowInfo.template && rowInfo.template === 1">
+                    <td mat-cell *matCellDef="let row"> {{ row[rowInfo.id[0]] }}
+                      <br />
+                      <span class="small">{{ row[rowInfo.id[1]] }}</span>
+                    </td>
+                  </div>
+                </div>
+                <div *ngIf="!isArray(rowInfo.id)">
+                  <td mat-cell *matCellDef="let row">
+                    <ng-container *ngIf="rowInfo.type === 'radio'; else otherContent">
+                      <mat-radio-button color="primary" [name]="rowInfo.name" (change)="onRadioButtonChange(row)"
+                        [checked]="row.activado"></mat-radio-button>
+                    </ng-container>
+                    <ng-template #otherContent>
+                      <p *ngIf="rowInfo.type === 'href'" [innerHTML]="row[rowInfo.id]"></p>
+                      <span *ngIf="rowInfo.type !== 'UF' && rowInfo.type !== 'money' && rowInfo.type !== 'href'">{{
+                        row[rowInfo.id] }}</span>
+                      <span *ngIf="rowInfo.type === 'UF'">{{ row[rowInfo.id] | uf }}</span>
+                      <span *ngIf="rowInfo.type === 'money'">{{ row[rowInfo.id] | money }}</span>
+                    </ng-template>
+                  </td>
+                </div>
+              </div>
+              <div *ngIf="rowInfo.chip">
+                <td mat-cell *matCellDef="let row">
+                  <div *ngIf="rowInfo.showTooltip" [matTooltip]="row[rowInfo.tooltipId]"
+                    [ngClass]="{'colLoading': rowInfo.showLoading && rowInfo.valuesLoading.includes(row[rowInfo.id])}">
+                    <div class="chip {{row[rowInfo.id]}}">
+                      <small>{{ row[rowInfo.id] }}</small>
+                    </div>
+                    <mat-progress-spinner *ngIf="rowInfo.showLoading && rowInfo.valuesLoading.includes(row[rowInfo.id])"
+                      mode="indeterminate" diameter="30"></mat-progress-spinner>
+                  </div>
+                  <div *ngIf="!rowInfo.showTooltip"
+                    [ngClass]="{'colLoading': rowInfo.showLoading && rowInfo.valuesLoading.includes(row[rowInfo.id])}">
+                    <div class="chip {{row[rowInfo.id]}}">
+                      <small>{{ row[rowInfo.id] }}</small>
+                    </div>
+                    <mat-progress-spinner *ngIf="rowInfo.showLoading && rowInfo.valuesLoading.includes(row[rowInfo.id])"
+                      mode="indeterminate" diameter="30"></mat-progress-spinner>
+                  </div>
+                </td>
+              </div>
+            </ng-container>
+            <ng-container matColumnDef="{{ rowInfo.id }}" *ngIf="rowInfo.type === 'toggle'">
+              <th mat-header-cell *matHeaderCellDef class="{{ rowInfo.class }}">
+                <div *ngIf="!rowInfo.toggleAll">
+                  {{ rowInfo.name }}
+                </div>
+                <div *ngIf="rowInfo.toggleAll">
+                  {{ rowInfo.name }}
+                  <mat-slide-toggle class="slide-togle-custom" color="primary"
+                    (change)="toggleAll(rowInfo.id, rowInfo.action)" />
+                </div>
+              </th>
+              <td mat-cell *matCellDef="let row" class="header-center">
+                <ng-container
+                  *ngIf="row[rowInfo.idShowToggle == undefined ? 'showToggle' : rowInfo.idShowToggle] == undefined || row[rowInfo.idShowToggle == undefined ? 'showToggle' : rowInfo.idShowToggle]">
+                  <mat-slide-toggle class="slide-togle-custom" color="primary"
+                    (change)="rowInfo.action($event.checked, row)" [(ngModel)]="row[rowInfo.id]" />
+                </ng-container>
+                <ng-container
+                  *ngIf="row[rowInfo.idShowToggle == undefined ? 'showToggle' : rowInfo.idShowToggle] !== undefined && !row[rowInfo.idShowToggle == undefined ? 'showToggle' : rowInfo.idShowToggle]">
+                  <span>-</span>
+                </ng-container>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="{{ rowInfo.id }}" *ngIf="rowInfo.id === 'actions'">
+              <th mat-header-cell *matHeaderCellDef class="{{ rowInfo.class }}">{{ rowInfo.name }}</th>
+              <td mat-cell *matCellDef="let row" class="botones-acciones {{rowInfo.classTd}}">
+
+
+                <div *ngFor="let rowAction of rowInfo.actions; let actionIndex = index">
+
+                  <button *ngIf="rowAction.class === 'button' && !rowAction.options" [disabled]="rowAction.disabled"
+                    mat-stroked-button color="primary" (click)="rowAction.action(row)"
+                    [ngClass]="rowAction.extraClass ? rowAction.extraClass : null">
+                    <mat-icon>{{ rowAction.icon }}</mat-icon>
+                    <span>{{ rowAction.value }}</span>
+                  </button>
+
+                  <button [matTooltip]="rowAction.name" *ngIf="rowAction.class === 'icon'" [disabled]="rowAction.disabled"
+                    color="primary" mat-icon-button (click)="rowAction.action(row)"
+                    [ngClass]="rowAction.extraClass ? rowAction.extraClass : null">
+                    <mat-icon>{{ rowAction.icon }}</mat-icon>
+                  </button>
+
+                </div>
+
+              </td>
+            </ng-container>
+          </div>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </mat-table>
+      </div>
+      <div *ngIf="dataSource.data.length === 0" class="no-data-message">
+        <mat-icon fontIcon="sentiment_very_dissatisfied"></mat-icon>
+        <p>No se encuentra registros de acuerdo a los parámetros de búsqueda</p>
+      </div>
+      <mat-paginator *ngIf="showPaginator" [length]="totalRegisters" [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+
+    </mat-card>
+  </div>
+
+  <div class="filter-container modal" [ngStyle]="stylesFilter" *ngIf="displayFilter">
+    <div class="triangle"></div>
+    <mat-card-content (appClickOutside)="resetFilter()">
+      <div class="filter-content" mat-dialog-content *ngIf="activeFilterHeader.type === 'number'">
+        <p>Buscar:</p>
+        <div class="search-container">
+          <mat-icon matSuffix class="icon-search">search</mat-icon>
+          <input matInput type="number" inputmode="none" placeholder="En la tabla" (keyup)="applyFilter($event)" />
+        </div>
+      </div>
+
+      <div class="section_2" mat-dialog-content *ngIf="activeFilterHeader.type === 'array'">
+        <div *ngFor="let value of activeFilterHeader.values">
+          <mat-checkbox [value]="value" (change)="onCheckboxChange(value)">{{ value }}</mat-checkbox>
+        </div>
+      </div>
+
+      <div class="section_2" mat-dialog-content
+        *ngIf="activeFilterHeader.type === 'array' && activeFilterHeader.checks==='true'">
+        <div *ngFor="let value of checksFiltros">
+          <mat-checkbox color="primary" [value]="value.value" (change)="onCheckboxChange(value.description)">{{
+            value.description }}</mat-checkbox>
+        </div>
+      </div>
+
+      <div class="filter-content" mat-dialog-content *ngIf="activeFilterHeader.type === 'date'">
+        <div class="search-container-date">
+          <p>Desde</p>
+          <mat-form-field class="narrow-input">
+            <input matInput [matDatepicker]="pickerDesde" (dateChange)="changeInputDate($event, 'start')"
+              placeholder="DD / MM / YYYY" name="fechaDesde" id="fechaDesde">
+            <mat-datepicker-toggle matIconSuffix [for]="pickerDesde"></mat-datepicker-toggle>
+            <mat-datepicker #pickerDesde></mat-datepicker>
+          </mat-form-field>
+          <p>Hasta</p>
+          <mat-form-field class="narrow-input">
+            <input matInput [matDatepicker]="pickerHasta" [min]="minEndDate"
+              (dateChange)="changeInputDate($event, 'end')" placeholder="DD / MM / YYYY" name="fechaHasta"
+              id="fechaHasta" [(ngModel)]="fechaHasta">
+            <mat-datepicker-toggle matIconSuffix [for]="pickerHasta"
+              [disabled]="!enableEndDateButton"></mat-datepicker-toggle>
+            <mat-datepicker #pickerHasta></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="filter-content" mat-dialog-content
+        *ngIf="activeFilterHeader.type === 'string' || activeFilterHeader.type === 'href'">
+        <p>Buscar:</p>
+        <div class="search-container">
+          <mat-icon matSuffix class="icon-search">search</mat-icon>
+          <input matInput placeholder="En la tabla" (keyup)="applyFilter($event)" />
+        </div>
+      </div>
+      <br>
+      <div class="button">
+        <div class="section_3" mat-dialog-actions>
+          <button mat-raised-button class="btn-filter" [disabled]="!enableFilter" color="primary" cdkFocusInitial
+            (click)="applyColumnFilter()">Filtrar</button>
+        </div>
+        <div class="section_3" mat-dialog-actions>
+          <button mat-stroked-button color="primary" [ngClass]="'btn-cancelar'"
+            (click)="resetFilter()">Cancelar</button>
+        </div>
+      </div>
+    </mat-card-content>
+  </div>
+</div>
