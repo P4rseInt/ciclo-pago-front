@@ -11,8 +11,10 @@ import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { SidebarModule } from 'primeng/sidebar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
+import { CardModule } from 'primeng/card';
+import { MessagesModule } from 'primeng/messages';
 
 @NgModule({
   declarations: [PagoDiarioComponent],
@@ -28,9 +30,11 @@ import { DialogModule } from 'primeng/dialog';
     ButtonModule,
     DropdownModule,
     SidebarModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    CardModule,
+    MessagesModule
   ],
   exports: [PagoDiarioComponent],
-  providers: [ConfirmationService]
+  providers: [ConfirmationService, MessageService]
 })
 export class PagoDiarioModule {}

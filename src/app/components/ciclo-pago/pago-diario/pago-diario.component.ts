@@ -1,6 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, Message, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 
 @Component({
@@ -8,13 +8,24 @@ import { Table } from 'primeng/table';
   templateUrl: './pago-diario.component.html',
   styleUrls: ['./pago-diario.component.scss']
 })
-export class PagoDiarioComponent {
+export class PagoDiarioComponent implements OnInit {
   @ViewChild('dtTable') table!: Table;
+  messages: Message[] | undefined;
 
   constructor(
     private router: Router,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) {}
+
+  ngOnInit(): void {
+    this.messages = [
+      {
+        severity: 'warn',
+        detail: 'Recuerda que aún existen casos pendientes por procesar.'
+      }
+    ];
+  }
 
   ciclos = [
     {
