@@ -15,6 +15,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 import { MessagesModule } from 'primeng/messages';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [PagoDiarioComponent],
@@ -32,7 +33,8 @@ import { MessagesModule } from 'primeng/messages';
     SidebarModule,
     ConfirmDialogModule,
     CardModule,
-    MessagesModule
+    MessagesModule,
+    ToastModule
   ],
   exports: [PagoDiarioComponent],
   providers: [ConfirmationService, MessageService]

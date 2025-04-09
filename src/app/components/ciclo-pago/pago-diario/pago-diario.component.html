@@ -1,5 +1,5 @@
 <div class="p-4">
-  <p-messages [closable]="true" [style]="{ width: '100%' }"
+  <p-messages *ngIf="pendingCases" [closable]="true" [style]="{ width: '100%' }"
               [(value)]="messages"
               class="mb-4">
   </p-messages>
@@ -27,26 +27,35 @@
     </div>
 
     <!--Tabla ciclos-->
-    <p-table #dtTable [value]="ciclos" [paginator]="true" [rows]="10"
+    <p-table #dtTable
+             [value]="ciclos"
+             [paginator]="true"
+             [rows]="10"
+             dataKey="id"
              [globalFilterFields]="['numero', 'creacion', 'calculo', 'segmentacion', 'pensionados', 'disponibilidad', 'estado']"
-             [rowsPerPageOptions]="[10,20,50]" [filterDelay]="0" [showCurrentPageReport]="true"
-             currentPageReportTemplate="{first} - {last} de {totalRecords}" [responsiveLayout]="'scroll'">
+             [rowsPerPageOptions]="[10,20,50]"
+             [filterDelay]="0"
+             [showCurrentPageReport]="true"
+             currentPageReportTemplate="{first} - {last} de {totalRecords}"
+             [responsiveLayout]="'scroll'"
+             [scrollHeight]="'500px'"
+    >
       <ng-template pTemplate="header">
         <tr>
-          <th pSortableColumn="numero">N° Ciclo
-            <p-sortIcon field="numero"></p-sortIcon>
+          <th>
+            N° Ciclo
             <p-columnFilter type="numeric" field="numero" display="menu"></p-columnFilter>
           </th>
-          <th pSortableColumn="creacion">Fecha de Creación
-            <p-sortIcon field="creacion"></p-sortIcon>
+          <th>
+            Fecha de Creación
             <p-columnFilter type="date" field="creacion" display="menu"></p-columnFilter>
           </th>
-          <th pSortableColumn="calculo">Fecha de Cálculo
-            <p-sortIcon field="calculo"></p-sortIcon>
+          <th>
+            Fecha de Cálculo
             <p-columnFilter type="date" field="calculo" display="menu"></p-columnFilter>
           </th>
-          <th pSortableColumn="segmentacion">Segmentación
-            <p-sortIcon field="segmentacion"></p-sortIcon>
+          <th>
+            Segmentación
             <p-columnFilter type="text" field="segmentacion" display="menu">
               <ng-template pTemplate="filter" let-value let-filterCallback="filterCallback">
                 <p-dropdown [options]="segmentacionOptions" [ngModel]="value" (onChange)="filterCallback($event.value)"
@@ -54,13 +63,16 @@
               </ng-template>
             </p-columnFilter>
           </th>
-          <th>Pensionados
+          <th>
+            Pensionados
             <p-columnFilter type="numeric" field="pensionados" display="menu"></p-columnFilter>
           </th>
-          <th>Fecha de Disponibilidad
+          <th>
+            Fecha de Disponibilidad
             <p-columnFilter type="date" field="disponibilidad" display="menu"></p-columnFilter>
           </th>
-          <th>Estado
+          <th>
+            Estado
             <p-columnFilter type="text" field="estado" display="menu"></p-columnFilter>
           </th>
           <th>Acciones</th>
@@ -142,8 +154,11 @@
     </ng-container>
   </p-sidebar>
 
-  <!--  Dialogo Eliminar -->
+  <!--  Dialogo Confirmar Eliminar -->
   <p-confirmDialog [style]="{ width: '350px' }">
   </p-confirmDialog>
+
+  <p-toast>
+  </p-toast>
 
 </div>

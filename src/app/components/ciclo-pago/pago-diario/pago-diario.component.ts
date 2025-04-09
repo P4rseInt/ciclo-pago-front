@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConfirmationService, Message } from 'primeng/api';
+import { ConfirmationService, Message, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 
 @Component({
@@ -11,21 +11,6 @@ import { Table } from 'primeng/table';
 export class PagoDiarioComponent implements OnInit {
   @ViewChild('dtTable') table!: Table;
   messages: Message[] | undefined;
-
-  constructor(
-    private router: Router,
-    private confirmationService: ConfirmationService
-  ) {}
-
-  ngOnInit(): void {
-    this.messages = [
-      {
-        severity: 'warn',
-        detail: 'Recuerda que aún existen casos pendientes por procesar.'
-      }
-    ];
-  }
-
   ciclos = [
     {
       numero: 2042,
@@ -75,6 +60,22 @@ export class PagoDiarioComponent implements OnInit {
   selectedCiclo: any = null;
   visible = false;
   cicloParaEliminar: any = null;
+  pendingCases = false;
+
+  constructor(
+    private router: Router,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
+
+  ngOnInit(): void {
+    this.messages = [
+      {
+        severity: 'warn',
+        detail: 'Recuerda que aún existen casos pendientes por procesar.'
+      }
+    ];
+  }
 
   getEstadoClass(tipo: string): string {
     switch (tipo) {
@@ -92,7 +93,7 @@ export class PagoDiarioComponent implements OnInit {
     this.visible = true;
   }
 
-  handleDelete(ciclo: any) {
+  handleDelete(ciclo: { numero: any }) {
     this.cicloParaEliminar = ciclo;
     this.confirmationService.confirm({
       message: `¿Está seguro de eliminar el ciclo N° ${ciclo.numero}?`,
@@ -100,24 +101,40 @@ export class PagoDiarioComponent implements OnInit {
       icon: 'pi pi-info-circle',
       acceptLabel: 'Eliminar',
       rejectLabel: 'Cancelar',
-      accept: async () => {
-        await this.eliminarCiclo();
-        window.location.reload();
-        window.location.href = window.location.href + '/';
+      accept: () => {
+        const removed = this.eliminarCiclo();
+        setTimeout(() => {
+          this.reloadPage();
+        }, 2000);
+        this.showAlerts(removed ? 'success' : 'danger');
       },
       reject: () => {
-        console.log('Eliminación cancelada');
-        window.location.reload();
-        window.location.href = window.location.href + '/';
+        setTimeout(() => {
+          this.reloadPage();
+        }, 2000);
+        this.showAlerts('warn');
       }
     });
   }
 
-  async eliminarCiclo(): Promise<void> {
-    console.log('Se elimina el ciclo');
-    // this.ciclos = this.ciclos.filter(
-    //   (c) => c.numero !== this.cicloParaEliminar.numero
-    // );
+  async eliminarCiclo() {
+    return this.ciclos.splice(this.ciclos.indexOf(this.cicloParaEliminar), 1);
+  }
+
+  showAlerts(severity: string) {
+    const msg = {
+      success: {
+        severity: 'success',
+        summary: 'Éxito',
+        detail: `Ciclo N°${this.cicloParaEliminar.numero} eliminado correctamente`
+      },
+      warn: {
+        severity: 'warn',
+        summary: 'Cancelado',
+        detail: 'Se canceló la operación'
+      }
+    };
+    this.messageService.add(msg[severity]);
   }
 
   async navigateToNuevoCiclo() {
@@ -127,5 +144,10 @@ export class PagoDiarioComponent implements OnInit {
   onGlobalFilter(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     this.table.filterGlobal(value, 'contains');
+  }
+
+  reloadPage() {
+    window.location.reload();
+    window.location.href = window.location.href + '/';
   }
 }

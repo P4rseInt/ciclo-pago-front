@@ -53,3 +53,26 @@
   text-align: center;
 }
 
+.p-column-filter-overlay {
+  z-index: 1100 !important;
+}
+
+th {
+  min-width: 150px;
+}
+
+::ng-deep .p-card {
+  overflow: visible !important;
+}
+
+::ng-deep .p-column-filter-overlay {
+  z-index: 1101 !important;
+}
+
+::ng-deep .p-column-filter-overlay .p-overlaypanel-content {
+  overflow: visible !important;
+}
+
+
+
+
