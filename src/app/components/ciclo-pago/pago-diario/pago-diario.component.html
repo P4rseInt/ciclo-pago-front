@@ -103,12 +103,22 @@
   </p-card>
 
   <!--  Sidebar Detalles-->
-  <p-sidebar [(visible)]="visible" position="right" [baseZIndex]="10000" styleClass="w-full md:w-2/3 lg:w-1/2">
+  <
+  <p-sidebar
+    [showCloseIcon]="false"
+    [closeOnEscape]="true"
+    [(visible)]="visible"
+    position="right"
+    [baseZIndex]="10000"
+    [modal]="true"
+    [style]="{ width: '100%', maxWidth: '600px' }"
+  >
     <ng-container *ngIf="selectedCiclo">
       <div class="flex justify-between items-center mb-4">
         <h3 class="text-lg font-semibold">N° Ciclo {{ selectedCiclo.numero }}</h3>
         <button pButton type="button" icon="pi pi-times" class="p-button-text p-button-rounded"
-                (click)="visible = false"></button>
+                (click)="visible = false">
+        </button>
       </div>
       <div class="grid grid-cols-2 gap-4">
         <div>
@@ -148,6 +158,9 @@
           <p>{{ selectedCiclo.modificacion }}</p>
         </div>
       </div>
+      <br>
+      <br>
+      <hr>
       <div class="mt-6">
         <button pButton type="button" label="Cerrar" (click)="visible = false" class="p-button-danger"></button>
       </div>

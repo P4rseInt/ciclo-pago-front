@@ -117,7 +117,7 @@ export class PagoDiarioComponent implements OnInit {
     });
   }
 
-  async eliminarCiclo() {
+  eliminarCiclo() {
     return this.ciclos.splice(this.ciclos.indexOf(this.cicloParaEliminar), 1);
   }
 
