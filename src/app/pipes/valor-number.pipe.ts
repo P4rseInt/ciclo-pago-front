@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'valorNumber',
+  standalone: true
 })
 export class ValorNumberPipe implements PipeTransform {
   transform(value: any): string {
@@ -21,13 +22,16 @@ export class ValorNumberPipe implements PipeTransform {
     }
 
     if (value >= 1000 && value < 10000) {
-      return new Intl.NumberFormat('de-DE', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(value);
+      return new Intl.NumberFormat('de-DE', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(value);
     }
 
     // Formatear el número con separadores de miles
     return value.toLocaleString('es-ES', {
       maximumFractionDigits: 2, // Máximo dos decimales
-      minimumFractionDigits: 0, // No forzar decimales si no los hay
+      minimumFractionDigits: 0 // No forzar decimales si no los hay
     });
   }
 }

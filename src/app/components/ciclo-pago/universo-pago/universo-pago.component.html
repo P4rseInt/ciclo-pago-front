@@ -1,0 +1,150 @@
+<div class="p-4">
+  <h3 class="text-xl font-semibold mb-1">Universo de Pago</h3>
+  <p class="text-sm text-gray-600 mb-4">Vista general del ciclo, con resúmenes y datos importantes.</p>
+
+  <p-divider></p-divider>
+
+  <!-- Configuración de Lotes y Segmentación -->
+  <div>
+    <h4 class="text-lg font-semibold mb-1">Configuración de Lotes y Segmentación</h4>
+    <p class="text-sm text-gray-600 mb-4">Lotes asignados con su respectiva segmentación.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+      <div>
+        <span class="text-gray-500 text-sm">Segmentación</span><br>
+        <span class="font-medium">Financiamiento - Todos</span>
+      </div>
+      <div>
+        <span class="text-gray-500 text-sm">Fecha de Cálculo</span><br>
+        <span class="font-medium">07/01/2024</span>
+      </div>
+      <div>
+        <span class="text-gray-500 text-sm">Fecha Valor Cuota</span><br>
+        <span class="font-medium">07/01/2024</span>
+      </div>
+      <div>
+        <span class="text-gray-500 text-sm">Fecha de Disponibilidad</span><br>
+        <span class="font-medium">10/01/2024</span>
+      </div>
+    </div>
+    <br>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <p-card [style]="{ width: '50rem', height: '10rem'}">
+        <ng-template pTemplate="content">
+          <span class="text-gray-500 text-sm">Lote Asignado</span><br>
+          <span class="font-medium">Lote 2</span>
+          <br><br>
+          <span class="text-gray-500 text-sm">Casos Incluidos</span><br>
+          <span class="font-medium">48.520</span>
+        </ng-template>
+      </p-card>
+      <p-card [style]="{ width: '50rem', height: '10rem'}">
+        <ng-template pTemplate="content">
+          <span class="text-gray-500 text-sm">Lote Asignado</span><br>
+          <span class="font-medium">Lote 3</span>
+          <br><br>
+          <span class="text-gray-500 text-sm">Casos Incluidos</span><br>
+          <span class="font-medium">54.325</span>
+        </ng-template>
+      </p-card>
+    </div>
+  </div>
+
+  <!-- Tabla de resumen -->
+
+  <p-table styleClass="p-datatable-gridlines" [value]="resumenBeneficios" [responsiveLayout]="'scroll'">
+    <ng-template style="background: #005aff5c; height: 5rem" pTemplate="caption">
+      Resumen por tipo beneficio y modalidad
+      <div
+        style="display: inline-grid!important; margin-left: 79rem">
+        <button pButton type="button" icon="pi pi-download" label="Generar Reporte"
+                class="p-button-outlined p-button-sm"></button>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="tipo">Tipo Beneficio
+          <p-sortIcon field="tipo"></p-sortIcon>
+        </th>
+        <th pSortableColumn="modalidad">Modalidad
+          <p-sortIcon field="modalidad"></p-sortIcon>
+        </th>
+        <th pSortableColumn="beneficios">Cantidad de Beneficios
+          <p-sortIcon field="beneficios"></p-sortIcon>
+        </th>
+        <th pSortableColumn="pensionados">Nº Pensionados/Beneficiarios
+          <p-sortIcon field="pensionados"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr>
+        <td>{{ row.tipo }}</td>
+        <td>{{ row.modalidad }}</td>
+        <td>{{ row.beneficios }}</td>
+        <td>{{ row.pensionados }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <tr class="bg-gray-100 font-semibold">
+        <td>Total</td>
+        <td></td>
+        <td>102.846</td>
+        <td>102.846</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <br>
+  <p-divider></p-divider>
+  <!-- Exclusión -->
+  <div>
+    <h4 class="text-lg font-semibold mb-1">Exclusión</h4>
+    <p class="text-sm text-gray-600 mb-4">Es posible excluir uno o más casos dentro del Ciclo de Pago.</p>
+
+    <a href="#" class="text-blue-700 font-semibold text-sm hover:underline inline-flex items-center mb-4">
+      Excluir Casos <i class="pi pi-external-link ml-2"></i>
+    </a>
+
+    <p-accordion>
+      <p-accordionTab header="Casos Excluidos">
+        <ng-template pTemplate="content">
+
+          <p-table [value]="casosExcluidos" [responsiveLayout]="'scroll'">
+            <ng-template style="background: #005aff5c; height: 5rem" pTemplate="caption">
+              Listado casos excluidos
+              <div class="flex justify-between items-center mb-3">
+                <input type="text" pInputText placeholder="Buscar" class="w-1/3" />
+                <button pButton type="button" icon="pi pi-download" label="Descargar"
+                        class="p-button-outlined p-button-sm"></button>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Nº Cuenta</th>
+                <th>RUT y Nombre</th>
+                <th>Tipo Beneficio</th>
+                <th>Modalidad</th>
+                <th>Fecha de Inicio</th>
+                <th>Fecha Último Pago</th>
+                <th>Fecha Término</th>
+                <th>Exclusión</th>
+                <th>Acciones</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body">
+              <tr>
+                <td colspan="9">
+                  <div class="text-center text-gray-500 py-6">
+                    <i class="pi pi-meh text-2xl mb-2 block"></i>
+                    Aun no hay casos excluidos.
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </ng-template>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+
+</div>

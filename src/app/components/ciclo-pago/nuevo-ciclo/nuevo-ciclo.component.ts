@@ -14,10 +14,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { UniversoPago } from '@models/nuevo-pago/universo';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { catchError, forkJoin, of } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { formatDate } from '@angular/common';
 import { HttpParams } from '@angular/common/http';
 import html2canvas from 'html2canvas';
+import { MenuItem } from 'primeng/api';
 
 //(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 type MessageType =
@@ -267,6 +268,7 @@ export class NuevoCicloComponent implements OnInit {
   datosTramosImpuestosPDF: any[] = [];
   nombreUsuario = '';
 
+
   constructor(
     private cdRef: ChangeDetectorRef,
     private router: Router,
@@ -281,7 +283,6 @@ export class NuevoCicloComponent implements OnInit {
     this.dataAsignacionFamiliar = new MatTableDataSource<any>([]);
     this.dataBonificaciones = new MatTableDataSource<any>([]);
     this.dataTramosImpuestos = new MatTableDataSource<any>([]);
-    this.obtenerProps();
   }
 
   async obtenerProps() {
@@ -416,13 +417,15 @@ export class NuevoCicloComponent implements OnInit {
     });*/
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+
     this.setearParametros();
     const currentDate = new Date();
     const day = String(currentDate.getDate()).padStart(2, '0');
     const month = String(currentDate.getMonth() + 1).padStart(2, '0');
     const year = currentDate.getFullYear();
     this.fechaActual = `${day}/${month}/${year}`;
+    await this.obtenerProps();
   }
 
   async setearParametros() {

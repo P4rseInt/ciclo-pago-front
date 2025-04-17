@@ -1,10 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
+  standalone: true,
   name: 'money'
 })
 export class MoneyPipe implements PipeTransform {
-
   transform(valor: string | number | null | undefined): string {
     if (valor === null || valor === undefined) {
       return '';
@@ -16,7 +16,9 @@ export class MoneyPipe implements PipeTransform {
       return '';
     }
 
-    return new Intl.NumberFormat('de-DE', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(numero);
+    return new Intl.NumberFormat('de-DE', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(numero);
   }
-
 }

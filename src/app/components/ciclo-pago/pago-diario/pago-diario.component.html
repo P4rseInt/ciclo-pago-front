@@ -103,9 +103,8 @@
   </p-card>
 
   <!--  Sidebar Detalles-->
-  <
   <p-sidebar
-    [showCloseIcon]="false"
+    [showCloseIcon]="true"
     [closeOnEscape]="true"
     [(visible)]="visible"
     position="right"
@@ -116,9 +115,6 @@
     <ng-container *ngIf="selectedCiclo">
       <div class="flex justify-between items-center mb-4">
         <h3 class="text-lg font-semibold">N° Ciclo {{ selectedCiclo.numero }}</h3>
-        <button pButton type="button" icon="pi pi-times" class="p-button-text p-button-rounded"
-                (click)="visible = false">
-        </button>
       </div>
       <div class="grid grid-cols-2 gap-4">
         <div>

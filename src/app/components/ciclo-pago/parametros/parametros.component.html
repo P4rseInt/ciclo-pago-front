@@ -1,0 +1,201 @@
+<div class="p-4">
+  <h2 class="text-2xl font-bold mb-1">Parámetros</h2>
+  <p class="text-sm text-gray-600 mb-4">Estos son los parámetros correspondientes al ciclo. No se encontraron todos
+    los
+    parámetros.
+  </p>
+
+  <p-divider></p-divider>
+
+  <p-messages severity="info" class="mb-4">
+    <ng-template pTemplate="message">
+      <div class="flex justify-between items-center flex-wrap">
+        <span>Si requieres hacer una modificación, debes ir al mantenedor de parámetros</span>
+        <a class="ml-4 text-blue-800 font-medium hover:underline" href="#">Ir a parámetros</a>
+      </div>
+    </ng-template>
+  </p-messages>
+  <br>
+
+  <div>
+    <!-- Información del Proceso -->
+    <div>
+      <h3 class="text-lg font-semibold border-b pb-1 mb-2">Información del Proceso</h3>
+      <div style="display: flex; justify-content: space-between;">
+        <div><strong>Tipo de Proceso</strong><br>Pago Diario</div>
+        <br>
+        <div><strong>Fecha de Disponibilidad</strong><br>17/04/2025</div>
+        <br>
+        <div><strong>Fecha Prox. Pago Pensión</strong><br>20/05/2025</div>
+        <br>
+        <div><strong>Fecha de Cálculo</strong><br>14/04/2025</div>
+      </div>
+    </div>
+    <br>
+    <!-- Detalle de Valor Cuota -->
+    <div>
+      <h3 class="text-lg font-semibold border-b pb-1 mb-2">Detalle de Valor Cuota</h3>
+      <div style="display: flex; justify-content: space-between">
+        <div><strong>Fondo:</strong><br><span class="text-red-600">Sin Información</span></div>
+        <br>
+        <div><strong>Fecha Valor Cuota</strong><br>10/04/2025</div>
+      </div>
+    </div>
+    <br>
+    <!-- Valor UF -->
+    <div>
+      <h3 class="text-lg font-semibold border-b pb-1 mb-2">Valor UF</h3>
+      <div style="display: flex; justify-content: space-between">
+        <div><strong>Fecha UF Salud</strong><br>09/04/2025</div>
+        <br>
+        <div><strong>Valor UF Salud</strong><br>38.939,22</div>
+        <br>
+        <div><strong>Fecha UF Disponibilidad</strong><br>09/04/2025</div>
+        <br>
+        <div><strong>Valor UF Disponibilidad</strong><br>38.939,22</div>
+      </div>
+    </div>
+    <br>
+    <!-- Salud -->
+    <div>
+      <h3 class="text-lg font-semibold border-b pb-1 mb-2">Salud</h3>
+      <div style="display: flex; justify-content: space-between">
+        <div><strong>Porcentaje Imponible</strong><br>7</div>
+        <br>
+        <div><strong>Tope Imponible UF</strong><br>60</div>
+      </div>
+    </div>
+    <br>
+    <!-- Monto de Pensión Mínima -->
+    <div>
+      <h3 class="text-lg font-semibold border-b pb-1 mb-2">Monto de Pensión Mínima</h3>
+      <div style="display: flex; justify-content: space-between">
+        <div><strong>Menores de 70 años</strong><br>$ 190.695,98</div>
+        <br>
+        <div><strong>Entre 70 y 74 años</strong><br>$ 208.511,41</div>
+        <br>
+        <div><strong>Mayores de 74 años</strong><br>$ 222.474,62</div>
+      </div>
+    </div>
+    <br>
+    <!-- Pensión Básica Solidaria -->
+    <div>
+      <h3 class="text-lg font-semibold border-b pb-1 mb-2">Pensión Básica Solidaria</h3>
+      <div style="display: flex; justify-content: space-between">
+        <div><strong>Menor a 75 años</strong><br>$ 221.616</div>
+        <br>
+        <div><strong>Entre 75 y 79 años</strong><br>$ 221.616</div>
+        <br>
+        <div><strong>Mayor a 79 años</strong><br>$ 221.616</div>
+      </div>
+    </div>
+    <br>
+    <!-- Asignación Familiar -->
+    <div>
+      <p-table styleClass="p-datatable-gridlines" [value]="asignacionFamiliar" [responsiveLayout]="'scroll'">
+        <ng-template style="background: #005aff5c" pTemplate="caption">
+          Asignación Familiar
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Rango</th>
+            <th>Desde</th>
+            <th>Hasta</th>
+            <th>Monto</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rango>
+          <tr>
+            <td>{{ rango.rango }}</td>
+            <td>{{ rango.desde }}</td>
+            <td>{{ rango.hasta }}</td>
+            <td>{{ rango.monto }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <br>
+    <!-- Valores de Ingreso Mínimo -->
+    <div>
+      <h3 class="text-lg font-semibold border-b pb-1 mb-2">Valores de Ingreso Mínimo</h3>
+      <div style="display: flex; justify-content: space-between">
+        <div><strong>Valor Ingreso Mínimo</strong><br>$ 510.636</div>
+        <br>
+        <div><strong>Valor Ingreso Mínimo sin Incrementos</strong><br>$ 329.151</div>
+        <br>
+        <div><strong>Valor Sueldo Vital</strong><br>$ 73.321</div>
+      </div>
+    </div>
+    <br>
+    <!-- PMAS -->
+    <div>
+      <h3 class="text-lg font-semibold border-b pb-1 mb-2">PMAS (Pensión Máxima con Aporte Solidario)</h3>
+      <div style="display: flex; justify-content: space-between">
+        <div><strong>Valor</strong><br>$ 654.877</div>
+      </div>
+    </div>
+    <br>
+    <div>
+      <h3 class="text-lg font-semibold border-b pb-1 mb-2">Rebaja Asignación de Zona Extrema</h3>
+      <div style="display: flex; justify-content: space-between">
+        <div><strong>Valor</strong><br>$ 715.858</div>
+      </div>
+    </div>
+    <br>
+    <div>
+      <p-table styleClass="p-datatable-gridlines" [value]="bonificacionesEdad" [responsiveLayout]="'scroll'">
+        <ng-template pTemplate="caption">Bonificaciones por Tramo de Edad</ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Categoría</th>
+            <th>Cónyuge</th>
+            <th>Madre</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+          <tr>
+            <td>{{ row.categoria }}</td>
+            <td>{{ row.conyuge }}</td>
+            <td>{{ row.madre }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <br>
+    <!-- Tramos de Impuestos -->
+    <div>
+      <p-table styleClass="p-datatable-gridlines" [value]="tramosImpuestos" [responsiveLayout]="'scroll'">
+        <ng-template pTemplate="caption"> Tramos de Impuestos</ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Tramo</th>
+            <th>Desde</th>
+            <th>Hasta</th>
+            <th>Rebaja</th>
+            <th>Factor</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-tramo>
+          <tr>
+            <td>{{ tramo.tramo }}</td>
+            <td>{{ tramo.desde }}</td>
+            <td>{{ tramo.hasta }}</td>
+            <td>{{ tramo.rebaja }}</td>
+            <td>{{ tramo.factor }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <br>
+    <!-- Aprobar Parámetros -->
+    <div>
+      <h3 class="text-lg font-semibold border-b pb-1 mb-2">Aprobar Parámetros</h3>
+      <p-message severity="info" [style]="{display: 'block'}"
+                 text="Se deben aprobar los parámetros para continuar con la creación del ciclo de pago.">
+      </p-message>
+    </div>
+    <br>
+    <br>
+    <button pButton label="Ir a Aprobar" class="p-button-outlined"></button>
+  </div>
+</div>

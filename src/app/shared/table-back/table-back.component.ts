@@ -7,7 +7,6 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import {
   MatPaginator,
@@ -17,7 +16,6 @@ import {
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Table } from 'primeng/table';
-import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-table-back',

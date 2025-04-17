@@ -59,7 +59,6 @@ import { CardModule } from 'primeng/card';
     MatRadioModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    NuevoCicloModule,
     TableModule,
     ButtonModule,
     SplitButtonModule,
