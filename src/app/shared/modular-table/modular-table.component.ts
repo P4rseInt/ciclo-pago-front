@@ -73,8 +73,23 @@ export class ModularTableComponent implements OnInit {
       ],
       today: 'Hoy',
       clear: 'Limpiar',
+      apply: 'Aplicar',
       dateFormat: 'dd/mm/yy', // <-- ESTE CAMBIA EL FORMATO DE FECHA
-      firstDayOfWeek: 1
+      firstDayOfWeek: 1,
+      addRule: 'Aplicar Regla',
+      removeRule: 'Eliminar Regla',
+      matchAll: 'Coincidir Todos',
+      matchAny: 'Coincidir con cualquier',
+      startsWith: 'Empieza con',
+      contains: 'Contiene',
+      notContains: 'No contiene',
+      endsWith: 'Termina con',
+      equals: 'Igual a',
+      notEquals: 'Distinto a',
+      lt: 'Menor que',
+      lte: 'Menor o igual que',
+      gt: 'Mayor que',
+      gte: 'Mayor o igual que'
     });
   }
 
@@ -144,4 +159,10 @@ export class ModularTableComponent implements OnInit {
   }
 
   private openParametros(element: any) {}
+
+  isDateField(field: string): boolean {
+    return this.cols.some(
+      (col) => col.field === field && col.filterType === 'date'
+    );
+  }
 }

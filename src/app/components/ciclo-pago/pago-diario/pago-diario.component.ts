@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, Message, MessageService } from 'primeng/api';
 import { ColsModel } from '@models/modular-table/cols-model';
+import moment from 'moment';
 
 @Component({
   selector: 'app-pago-diario',
@@ -14,11 +15,11 @@ export class PagoDiarioComponent implements OnInit {
   ciclos = [
     {
       numero: 2042,
-      creacion: new Date(22, 3, 2025),
-      calculo: '25/03/2025',
+      creacion: moment('04/15/2025').toDate(), // mm/dd/yyyy
+      calculo: moment('04/02/2025').toDate(),
       segmentacion: 'Sin segmentación',
       pensionados: 1,
-      disponibilidad: '28/03/2025',
+      disponibilidad: moment('04/01/2025').toDate(),
       estado: 'Cálculo de Cargos - En Proceso',
       estadoTipo: 'info',
       usuarioCreacion: 'fmunozm',
@@ -27,11 +28,11 @@ export class PagoDiarioComponent implements OnInit {
     },
     {
       numero: 2041,
-      creacion: '19/03/2025',
-      calculo: '19/03/2025',
+      creacion: moment('04/01/2025').toDate(),
+      calculo: moment('04/01/2025').toDate(),
       segmentacion: 'Primer pago',
       pensionados: 3,
-      disponibilidad: '24/03/2025',
+      disponibilidad: moment('04/02/2025').toDate(),
       estado: 'Gestión Financiera - En Proceso',
       estadoTipo: 'info',
       usuarioCreacion: 'fmunozm',
@@ -40,11 +41,11 @@ export class PagoDiarioComponent implements OnInit {
     },
     {
       numero: 2038,
-      creacion: '14/03/2025',
-      calculo: '14/03/2025',
+      creacion: moment('04/01/2025').toDate(),
+      calculo: moment('04/01/2025').toDate(),
       segmentacion: 'Primer pago',
       pensionados: 3,
-      disponibilidad: '19/03/2025',
+      disponibilidad: moment('04/03/2025').toDate(),
       estado: 'Eliminado',
       estadoTipo: 'danger',
       usuarioCreacion: 'fmunozm',

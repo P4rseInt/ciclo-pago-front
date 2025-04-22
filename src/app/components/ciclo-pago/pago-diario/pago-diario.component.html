@@ -37,11 +37,11 @@
       <div class="grid grid-cols-2 gap-4">
         <div>
           <strong>Fecha de Creación</strong>
-          <p>{{ selectedCiclo.creacion }}</p>
+          <p>{{ selectedCiclo.creacion| date:'dd/MM/yyyy' }}</p>
         </div>
         <div>
           <strong>Fecha de Cálculo</strong>
-          <p>{{ selectedCiclo.calculo || '-' }}</p>
+          <p>{{ selectedCiclo.calculo | date:'dd/MM/yyyy' }}</p>
         </div>
         <div>
           <strong>Segmentación</strong>
@@ -53,7 +53,7 @@
         </div>
         <div>
           <strong>Fecha de Disponibilidad</strong>
-          <p>{{ selectedCiclo.disponibilidad }}</p>
+          <p>{{ selectedCiclo.disponibilidad | date:'dd/MM/yyyy' }}</p>
         </div>
         <div>
           <strong>Estado</strong>
