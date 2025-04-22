@@ -12,7 +12,6 @@
 >
   <ng-template pTemplate="caption">
     <div class="flex items-center mb-2 w-full">
-      <!-- Buscar a la izquierda -->
       <div class="p-input-icon-left">
         <i class="pi pi-search"></i>
         <input
@@ -25,10 +24,8 @@
         />
       </div>
 
-      <!-- Espaciador flexible -->
       <div class="flex-grow"></div>
 
-      <!-- Limpiar filtros a la derecha -->
       <div>
         <button style="margin-left: 10px" pButton label="Limpiar filtros" class="p-button-outlined"
                 icon="pi pi-filter-slash"
@@ -44,24 +41,39 @@
       <th *ngFor="let col of columns" id="cols">
         <div class="flex align-items-center">
           {{ col.header }}
-          <p-columnFilter *ngIf="col.filterType !== 'dropdown' && col.hasFilter"
-                          [type]="col.filterType"
-                          [field]="col.field"
-                          [display]="col.displayType">
+
+          <p-columnFilter
+            *ngIf="col.hasFilter"
+            [field]="col.field"
+            [display]="col.displayType"
+            [type]="col.filterType !== 'dropdown' && col.filterType !== 'date' ? col.filterType : null">
+
+            <ng-container [ngSwitch]="getFilterTemplateType(col)">
+
+              <!-- Filtro por dropdown -->
+              <ng-template *ngSwitchCase="'dropdown'" pTemplate="filter" let-value let-filterCallback="filterCallback">
+                <p-dropdown
+                  [formControl]="dropdownsControl"
+                  [options]="col.options"
+                  (onChange)="filterCallback($event.value)"
+                  placeholder="Todos">
+                </p-dropdown>
+              </ng-template>
+
+              <!-- Filtro por fecha -->
+              <ng-template *ngSwitchCase="'date'" pTemplate="filter" let-value let-filterCallback="filterCallback">
+                <p-calendar
+                  [formControl]="dateFormControl"
+                  (onSelect)="filterCallback($event)"
+                  dateFormat="dd/mm/yy"
+                  placeholder="dd/mm/aa"
+                  [showIcon]="true">
+                </p-calendar>
+              </ng-template>
+            </ng-container>
+
           </p-columnFilter>
 
-          <p-columnFilter *ngIf="col.filterType === 'dropdown'"
-                          [field]="col.field"
-                          [display]="col.displayType">
-            <ng-template pTemplate="filter" let-value let-filterCallback="filterCallback">
-              <p-dropdown
-                [options]="col.options"
-                [ngModel]="value"
-                (onChange)="filterCallback($event.value)"
-                placeholder="Todos">
-              </p-dropdown>
-            </ng-template>
-          </p-columnFilter>
         </div>
       </th>
     </tr>
@@ -79,21 +91,19 @@
           {{ rowData.estado }}
         </span>
 
+        <!-- Acciones -->
         <div class="flex items-center gap-2 justify-center">
-          <button *ngIf="shouldShowAction(col, 'Parametros')" pButton icon="pi pi-cog"
-                  class="p-button-text p-button-sm">
-          </button>
-
-          <button *ngIf="shouldShowAction(col, 'Ver')" pButton icon="pi pi-eye"
-                  class="p-button-text p-button-sm"
-                  (click)="ver(rowData)">
-          </button>
-
-          <button *ngIf="shouldShowAction(col, 'Eliminar')" pButton icon="pi pi-trash"
-                  class="p-button-text p-button-sm"
-                  (click)="handleDelete(rowData)">
-          </button>
+          <ng-container *ngFor="let action of getColumnActions(col, rowData)">
+            <button
+              pButton
+              class="p-button-text p-button-sm"
+              [icon]="action.icon"
+              (click)="action.clickHandler()">
+              {{ action.label }}
+            </button>
+          </ng-container>
         </div>
+
       </td>
     </tr>
   </ng-template>

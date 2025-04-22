@@ -8,8 +8,8 @@ import {
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Table } from 'primeng/table';
-import { ColsModel } from '@models/modular-table/cols-model';
-import { ConfirmationService } from 'primeng/api';
+import { ActionButton, ColsModel } from '@models/modular-table/cols-model';
+import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
   selector: 'app-modular-table',
@@ -18,20 +18,65 @@ import { ConfirmationService } from 'primeng/api';
 })
 export class ModularTableComponent implements OnInit {
   @ViewChild('dtTable') table!: Table;
-  @Input() tableData: any[];
-  @Input() cols: ColsModel[];
+  @Input() public tableData: any[];
+  @Input() public cols: ColsModel[];
 
   @Output() verOutput: EventEmitter<any> = new EventEmitter();
   @Output() eliminarOutput: EventEmitter<any> = new EventEmitter();
 
-  creacionControl = new FormControl(null);
-  calculoControl = new FormControl(null);
-  disponibilidadControl = new FormControl(null);
+  dateFormControl = new FormControl(null);
+  dropdownsControl = new FormControl(null);
   searchControl = new FormControl(null);
 
-  constructor() {}
+  constructor(private primengConfig: PrimeNGConfig) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.primengConfig.setTranslation({
+      dayNames: [
+        'domingo',
+        'lunes',
+        'martes',
+        'miércoles',
+        'jueves',
+        'viernes',
+        'sábado'
+      ],
+      dayNamesShort: ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
+      dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+      monthNames: [
+        'enero',
+        'febrero',
+        'marzo',
+        'abril',
+        'mayo',
+        'junio',
+        'julio',
+        'agosto',
+        'septiembre',
+        'octubre',
+        'noviembre',
+        'diciembre'
+      ],
+      monthNamesShort: [
+        'ene',
+        'feb',
+        'mar',
+        'abr',
+        'may',
+        'jun',
+        'jul',
+        'ago',
+        'sep',
+        'oct',
+        'nov',
+        'dic'
+      ],
+      today: 'Hoy',
+      clear: 'Limpiar',
+      dateFormat: 'dd/mm/yy', // <-- ESTE CAMBIA EL FORMATO DE FECHA
+      firstDayOfWeek: 1
+    });
+  }
 
   getColumns(): ColsModel[] {
     return this.cols;
@@ -63,10 +108,40 @@ export class ModularTableComponent implements OnInit {
   }
 
   handleDelete(element) {
+    console.log(element);
     this.eliminarOutput.emit(element);
   }
 
   shouldShowAction(col: any, actionName: string): boolean {
     return col?.actions?.some((a: any) => a.actionName === actionName);
   }
+
+  getFilterTemplateType(col: any): 'dropdown' | 'date' | 'default' {
+    if (!col.hasFilter) return 'default';
+    if (col.filterType === 'dropdown') return 'dropdown';
+    if (col.filterType === 'date') return 'date';
+    return 'default';
+  }
+
+  getColumnActions(col: any, rowData: any): ActionButton[] {
+    return [
+      {
+        icon: 'pi pi-cog',
+        actionName: 'Parametros',
+        clickHandler: () => this.openParametros(rowData)
+      },
+      {
+        icon: 'pi pi-eye',
+        actionName: 'Ver',
+        clickHandler: () => this.ver(rowData)
+      },
+      {
+        icon: 'pi pi-trash',
+        actionName: 'Eliminar',
+        clickHandler: () => this.handleDelete(rowData)
+      }
+    ].filter((action) => this.shouldShowAction(col, action.actionName));
+  }
+
+  private openParametros(element: any) {}
 }

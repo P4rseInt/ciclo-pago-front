@@ -14,8 +14,8 @@ export class PagoDiarioComponent implements OnInit {
   ciclos = [
     {
       numero: 2042,
-      creacion: '25/03/2025',
-      calculo: null,
+      creacion: new Date(22, 3, 2025),
+      calculo: '25/03/2025',
       segmentacion: 'Sin segmentación',
       pensionados: 1,
       disponibilidad: '28/03/2025',
@@ -41,7 +41,7 @@ export class PagoDiarioComponent implements OnInit {
     {
       numero: 2038,
       creacion: '14/03/2025',
-      calculo: null,
+      calculo: '14/03/2025',
       segmentacion: 'Primer pago',
       pensionados: 3,
       disponibilidad: '19/03/2025',
