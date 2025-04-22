@@ -38,6 +38,11 @@ testem.log
 /typings
 
 # System files
+# Otros
+/dist/
+/package-lock.json
+.vscode/settings.json
+src/app/.DS_Store
 .DS_Store
 Thumbs.db
 .angular
