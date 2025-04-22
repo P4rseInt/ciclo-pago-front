@@ -4,16 +4,15 @@
               class="mb-4">
   </p-messages>
 
-  <p-card>
-    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-2">
-      <h2 class="text-xl font-semibold">Listado de Ciclos de Pagos</h2>
-      <div class="sm:ml-auto sm:self-end">
-        <button (click)="navigateToNuevoCiclo()" pButton type="button" label="+ Nuevo Ciclo"
-                class="p-button-danger"></button>
-      </div>
+  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-2">
+    <h2 class="text-xl font-semibold">Listado de Ciclos de Pagos</h2>
+    <div class="sm:ml-auto sm:self-end">
+      <button (click)="navigateToNuevoCiclo()" pButton type="button" label="+ Nuevo Ciclo"
+              class="p-button-danger"></button>
     </div>
+  </div>
 
-    <div class="w-full flex justify-end items-center gap-2 mb-2">
+  <div class="w-full flex justify-end items-center gap-2 mb-2">
       <span class="p-input-icon-left">
     <i class="pi pi-search"></i>
     <input
@@ -24,83 +23,157 @@
       placeholder="Buscar en la tabla"
     />
   </span>
-    </div>
+  </div>
 
-    <!--Tabla ciclos-->
-    <p-table #dtTable
-             [value]="ciclos"
-             [paginator]="true"
-             [rows]="10"
-             dataKey="id"
-             [globalFilterFields]="['numero', 'creacion', 'calculo', 'segmentacion', 'pensionados', 'disponibilidad', 'estado']"
-             [rowsPerPageOptions]="[10,20,50]"
-             [filterDelay]="0"
-             [showCurrentPageReport]="true"
-             currentPageReportTemplate="{first} - {last} de {totalRecords}"
-             [responsiveLayout]="'scroll'"
-             [scrollHeight]="'500px'"
-    >
-      <ng-template pTemplate="header">
-        <tr>
-          <th>
+  <!--Tabla ciclos-->
+  <p-table
+    #dtTable
+    [value]="ciclos"
+    dataKey="id"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10,20,50]"
+    [paginator]="true"
+    currentPageReportTemplate="{first} - {last} de {totalRecords}"
+    [globalFilterFields]="['numero', 'creacion', 'calculo', 'segmentacion', 'pensionados', 'disponibilidad', 'estado']"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <button pButton label="Limpiar filtros" class="p-button-outlined" icon="pi pi-filter-slash"
+                (click)="clear(dtTable)">
+        </button>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th>
+          <div class="flex align-items-center">
             N° Ciclo
-            <p-columnFilter type="numeric" field="numero" display="menu"></p-columnFilter>
-          </th>
-          <th>
+            <p-columnFilter #columnFilter type="numeric" field="numero" display="menu"></p-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="flex align-items-center">
             Fecha de Creación
-            <p-columnFilter type="date" field="creacion" display="menu"></p-columnFilter>
-          </th>
-          <th>
-            Fecha de Cálculo
-            <p-columnFilter type="date" field="calculo" display="menu"></p-columnFilter>
-          </th>
-          <th>
-            Segmentación
-            <p-columnFilter type="text" field="segmentacion" display="menu">
+            <p-columnFilter #columnFilter field="creacion" display="menu">
               <ng-template pTemplate="filter" let-value let-filterCallback="filterCallback">
-                <p-dropdown [options]="segmentacionOptions" [ngModel]="value" (onChange)="filterCallback($event.value)"
-                            placeholder="Todos"></p-dropdown>
+                <p-calendar
+                  [formControl]="creacionControl"
+                  (onSelect)="filterCallback(creacionControl.value)"
+                  appendTo="body"
+                  dateFormat="dd/mm/yy"
+                  placeholder="Seleccionar fecha"
+                ></p-calendar>
               </ng-template>
             </p-columnFilter>
-          </th>
-          <th>
+          </div>
+        </th>
+        <th>
+          <div class="flex align-items-center">
+            Fecha de Cálculo
+            <p-columnFilter #columnFilter field="calculo" display="menu">
+              <ng-template pTemplate="filter" let-value let-filterCallback="filterCallback">
+                <p-calendar
+                  [formControl]="calculoControl"
+                  (onSelect)="filterCallback(calculoControl.value)"
+                  appendTo="body"
+                  dateFormat="dd/mm/yy"
+                  placeholder="Seleccionar fecha"
+                ></p-calendar>
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="flex align-items-center">
+            Segmentación
+            <p-columnFilter #columnFilter field="segmentacion" display="menu">
+              <ng-template pTemplate="filter" let-value let-filterCallback="filterCallback">
+                <p-dropdown
+                  [options]="segmentacionOptions"
+                  [ngModel]="value"
+                  (onChange)="filterCallback($event.value)"
+                  appendTo="body"
+                  placeholder="Todos"
+                ></p-dropdown>
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="flex align-items-center">
             Pensionados
-            <p-columnFilter type="numeric" field="pensionados" display="menu"></p-columnFilter>
-          </th>
-          <th>
+            <p-columnFilter #columnFilter type="numeric" field="pensionados" display="menu">
+              <ng-template pTemplate="filter" let-value let-filterCallback="filterCallback">
+                <input
+                  pInputText
+                  type="number"
+                  [ngModel]="value"
+                  (ngModelChange)="filterCallback($event)"
+                  placeholder="Filtrar"
+                />
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="flex align-items-center">
             Fecha de Disponibilidad
-            <p-columnFilter type="date" field="disponibilidad" display="menu"></p-columnFilter>
-          </th>
-          <th>
+            <p-columnFilter #columnFilter field="disponibilidad" display="menu">
+              <ng-template pTemplate="filter" let-value let-filterCallback="filterCallback">
+                <p-calendar
+                  [formControl]="disponibilidadControl"
+                  (onSelect)="filterCallback(disponibilidadControl.value)"
+                  appendTo="body"
+                  dateFormat="dd/mm/yy"
+                  placeholder="Seleccionar fecha"
+                ></p-calendar>
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+        <th>
+          <div class="flex align-items-center">
             Estado
-            <p-columnFilter type="text" field="estado" display="menu"></p-columnFilter>
-          </th>
-          <th>Acciones</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-ciclo>
-        <tr>
-          <td>{{ ciclo.numero | number:'1.0-0' }}</td>
-          <td>{{ ciclo.creacion }}</td>
-          <td>{{ ciclo.calculo || '-' }}</td>
-          <td>{{ ciclo.segmentacion }}</td>
-          <td>{{ ciclo.pensionados | number:'1.0-0' }}</td>
-          <td>{{ ciclo.disponibilidad }}</td>
-          <td>
-          <span class="px-2 py-1 rounded-full text-sm font-medium" [ngClass]="getEstadoClass(ciclo.estadoTipo)">
-            {{ ciclo.estado }}
-          </span>
-          </td>
-          <td>
-            <button pButton icon="pi pi-cog" class="p-button-text p-button-sm"></button>
-            <button pButton icon="pi pi-eye" class="p-button-text p-button-sm" (click)="verCiclo(ciclo)"></button>
-            <button pButton icon="pi pi-trash" class="p-button-text p-button-sm"
-                    (click)="handleDelete(ciclo)"></button>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </p-card>
+            <p-columnFilter #columnFilter field="estado" display="menu">
+              <ng-template pTemplate="filter" let-value let-filterCallback="filterCallback">
+                <input
+                  pInputText
+                  type="text"
+                  [ngModel]="value"
+                  (ngModelChange)="filterCallback($event)"
+                  placeholder="Filtrar estado"
+                />
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-ciclo>
+      <tr>
+        <td>{{ ciclo.numero | number:'1.0-0' }}</td>
+        <td>{{ ciclo.creacion }}</td>
+        <td>{{ ciclo.calculo || '-' }}</td>
+        <td>{{ ciclo.segmentacion }}</td>
+        <td>{{ ciclo.pensionados | number:'1.0-0' }}</td>
+        <td>{{ ciclo.disponibilidad }}</td>
+        <td>
+        <span class="px-2 py-1 rounded-full text-sm font-medium" [ngClass]="getEstadoClass(ciclo.estadoTipo)">
+          {{ ciclo.estado }}
+        </span>
+        </td>
+        <td>
+          <button pButton icon="pi pi-cog" class="p-button-text p-button-sm"></button>
+          <button pButton icon="pi pi-eye" class="p-button-text p-button-sm" (click)="verCiclo(ciclo)"></button>
+          <button pButton icon="pi pi-trash" class="p-button-text p-button-sm" (click)="handleDelete(ciclo)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 
   <!--  Sidebar Detalles-->
   <p-sidebar

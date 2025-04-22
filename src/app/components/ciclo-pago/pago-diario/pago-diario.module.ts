@@ -5,7 +5,7 @@ import { TableBackModule } from '@shared/table-back/table-back.module';
 import { PagoDiarioRoutingModule } from '@components/ciclo-pago/pago-diario/pago-diario-routing.module';
 import { MessageModule } from 'primeng/message';
 import { TableModule } from 'primeng/table';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
@@ -16,6 +16,7 @@ import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [PagoDiarioComponent],
@@ -34,7 +35,9 @@ import { ToastModule } from 'primeng/toast';
     ConfirmDialogModule,
     CardModule,
     MessagesModule,
-    ToastModule
+    ToastModule,
+    CalendarModule,
+    ReactiveFormsModule
   ],
   exports: [PagoDiarioComponent],
   providers: [ConfirmationService, MessageService]

@@ -1,78 +1,47 @@
-.container {
-  align-items: center;
-  padding: 1%;
-  grid-template-columns: 1fr;
-  gap: 3%;
-}
-
-.alert {
-  margin: 1rem 0;
-
-  &-container {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 1rem;
-
-    &-warning {
-      background-color: #fcf0c2;
-      border-style: solid;
-      border-color: var(--warning-warning-1, #f4ce38);
-      border-width: 0px 0px 0px 4px;
-      width: 100%;
-    }
-  }
-}
-
-.alert-warning .alert-content {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 1rem;
-}
-
-.alert-warning .alert-content .content-left {
-  display: flex;
-  align-items: center;
-}
-
-.alert-warning .alert-content .content-left p {
-  padding: 2px 0 0 10px;
-}
-
-.alert-warning .alert-content .content-right p {
-  cursor: pointer;
-}
-
-.dialog-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.text-center {
-  text-align: center;
-}
-
 .p-column-filter-overlay {
-  z-index: 1100 !important;
+  position: fixed !important;
+  background-color: var(--surface-overlay, #fff) !important;
+  z-index: 1050 !important;
+  top: var(--overlay-top, auto) !important;
+  left: var(--overlay-left, auto) !important;
+  transform: none !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 6px !important;
 }
 
-th {
-  min-width: 150px;
+.p-column-filter-overlay .p-button {
+  background-color: #005eff !important;
+  color: white !important;
+  border: none !important;
 }
 
-::ng-deep .p-card {
-  overflow: visible !important;
+.p-column-filter-overlay .p-button.p-button-outlined {
+  background-color: transparent !important;
+  color: #005eff !important;
+  border: 1px solid #005eff !important;
 }
 
-::ng-deep .p-column-filter-overlay {
-  z-index: 1101 !important;
+.p-column-filter-overlay .p-dropdown,
+.p-column-filter-overlay .p-inputtext {
+  background-color: white !important;
 }
 
-::ng-deep .p-column-filter-overlay .p-overlaypanel-content {
-  overflow: visible !important;
+.p-dropdown-panel {
+  position: fixed !important;     /* Asegura que se salga del flujo local */
+  z-index: 1100 !important;       /* Z-index más alto que cualquier overlay de filtro */
+  background-color: white !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  overflow: hidden;
 }
 
+.p-datepicker {
+  z-index: 1060 !important;
+}
 
+.p-column-filter-overlay .p-button {
+  z-index: 1055 !important;
+  position: relative;
+}
 
 

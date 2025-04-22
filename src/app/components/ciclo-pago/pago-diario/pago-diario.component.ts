@@ -1,15 +1,25 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, Message, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-pago-diario',
   templateUrl: './pago-diario.component.html',
-  styleUrls: ['./pago-diario.component.scss']
+  styleUrls: ['./pago-diario.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class PagoDiarioComponent implements OnInit {
   @ViewChild('dtTable') table!: Table;
+
   messages: Message[] | undefined;
   ciclos = [
     {
@@ -61,6 +71,9 @@ export class PagoDiarioComponent implements OnInit {
   visible = false;
   cicloParaEliminar: any = null;
   pendingCases = false;
+  creacionControl = new FormControl(null);
+  calculoControl = new FormControl(null);
+  disponibilidadControl = new FormControl(null);
 
   constructor(
     private router: Router,
@@ -149,5 +162,9 @@ export class PagoDiarioComponent implements OnInit {
   reloadPage() {
     window.location.reload();
     window.location.href = window.location.href + '/';
+  }
+
+  clear(dtTable: Table) {
+    dtTable.clear();
   }
 }
