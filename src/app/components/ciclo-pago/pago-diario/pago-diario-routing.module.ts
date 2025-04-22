@@ -8,4 +8,4 @@ const routes: Routes = [{ path: '', component: PagoDiarioComponent }];
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PagoDiarioRoutingModule { }
+export class PagoDiarioRoutingModule {}

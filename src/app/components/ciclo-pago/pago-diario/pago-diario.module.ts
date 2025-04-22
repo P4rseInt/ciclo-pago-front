@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PagoDiarioComponent } from '@components/ciclo-pago/pago-diario/pago-diario.component';
-import { TableBackModule } from '@shared/table-back/table-back.module';
 import { PagoDiarioRoutingModule } from '@components/ciclo-pago/pago-diario/pago-diario-routing.module';
 import { MessageModule } from 'primeng/message';
 import { TableModule } from 'primeng/table';
@@ -17,13 +16,13 @@ import { CardModule } from 'primeng/card';
 import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
+import { ModularTableModule } from '@shared/modular-table/modular-table.module';
 
 @NgModule({
   declarations: [PagoDiarioComponent],
   imports: [
     DialogModule,
     CommonModule,
-    TableBackModule,
     PagoDiarioRoutingModule,
     MessageModule,
     TableModule,
@@ -37,7 +36,8 @@ import { CalendarModule } from 'primeng/calendar';
     MessagesModule,
     ToastModule,
     CalendarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ModularTableModule
   ],
   exports: [PagoDiarioComponent],
   providers: [ConfirmationService, MessageService]

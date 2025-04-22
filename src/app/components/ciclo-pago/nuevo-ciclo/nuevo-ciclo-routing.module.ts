@@ -8,4 +8,4 @@ const routes: Routes = [{ path: '', component: NuevoCicloComponent }];
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class NuevoCicloRoutingModule { }
+export class NuevoCicloRoutingModule {}

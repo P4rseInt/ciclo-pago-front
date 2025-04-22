@@ -12,7 +12,7 @@ import { By } from '@angular/platform-browser';
       (appClickOutside)="onClickOutside()"
     ></div>
     <div class="other-element"></div>
-  `,
+  `
 })
 class TestComponent {
   public clickedOutside = false;
@@ -114,5 +114,5 @@ describe('ClickOutsideDirective', () => {
     } else {
       fail('El elemento directiveElement o directiveElement.nativeElement es undefined');
     }
-  });  
+  });
 });

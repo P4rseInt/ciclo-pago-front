@@ -1,4 +1,4 @@
-import { TruncarPipe } from "./truncar.pipe";
+import { TruncarPipe } from './truncar.pipe';
 
 describe('TruncarPipe', () => {
   let pipe: TruncarPipe;

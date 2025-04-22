@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CicloPagoComponent } from '@components/ciclo-pago/ciclo-pago.component';
-import { ParametrosComponent } from '@components/ciclo-pago/parametros/parametros.component';
 
 const routes: Routes = [
   {
@@ -11,14 +10,6 @@ const routes: Routes = [
         (m) => m.CicloPagoModule
       ),
     component: CicloPagoComponent
-  },
-  {
-    path: 'ciclo-pago-front/parametros',
-    loadChildren: () =>
-      import('@components/ciclo-pago/parametros/parametros.module').then(
-        (m) => m.ParametrosModule
-      ),
-    component: ParametrosComponent
   },
   {
     path: 'ciclo-pago-front/pago-diario',

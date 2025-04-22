@@ -1,15 +1,7 @@
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation
-} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, Message, MessageService } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { FormControl } from '@angular/forms';
+import { ColsModel } from '@models/modular-table/cols-model';
 
 @Component({
   selector: 'app-pago-diario',
@@ -18,8 +10,6 @@ import { FormControl } from '@angular/forms';
   encapsulation: ViewEncapsulation.None
 })
 export class PagoDiarioComponent implements OnInit {
-  @ViewChild('dtTable') table!: Table;
-
   messages: Message[] | undefined;
   ciclos = [
     {
@@ -62,18 +52,83 @@ export class PagoDiarioComponent implements OnInit {
       modificacion: '08/04/2025'
     }
   ];
-  segmentacionOptions = [
-    { label: 'Todos', value: null },
-    { label: 'Sin segmentación', value: 'Sin segmentación' },
-    { label: 'Primer pago', value: 'Primer pago' }
+  cols: ColsModel[] = [
+    {
+      field: 'numero',
+      header: 'N° Ciclo',
+      hasFilter: true,
+      filterType: 'numeric',
+      displayType: 'menu'
+    },
+    {
+      hasFilter: true,
+      filterType: 'date',
+      header: 'Fecha de Creación',
+      field: 'creacion',
+      displayType: 'menu'
+    },
+    {
+      hasFilter: true,
+      filterType: 'date',
+      header: 'Fecha de Cálculo',
+      field: 'calculo',
+      displayType: 'menu'
+    },
+    {
+      field: 'segmentacion',
+      hasFilter: true,
+      filterType: 'dropdown',
+      header: 'Segmentación',
+      displayType: 'menu',
+      options: [
+        { label: 'Todos', value: null },
+        { label: 'Sin segmentación', value: 'Sin segmentación' },
+        { label: 'Primer pago', value: 'Primer pago' }
+      ]
+    },
+    {
+      field: 'pensionados',
+      hasFilter: true,
+      filterType: 'numeric',
+      header: 'Pensionados',
+      displayType: 'menu'
+    },
+    {
+      field: 'disponibilidad',
+      hasFilter: true,
+      filterType: 'date',
+      header: 'Fecha de Disponibilidad',
+      displayType: 'menu'
+    },
+    {
+      field: 'estado',
+      hasFilter: true,
+      filterType: 'text',
+      header: 'Estado',
+      displayType: 'menu'
+    },
+    {
+      field: 'acciones',
+      hasFilter: false,
+      header: 'Acciones',
+      actions: [
+        {
+          actionName: 'Ver'
+        },
+        {
+          actionName: 'Eliminar'
+        },
+        {
+          actionName: 'Parametros'
+        }
+      ]
+    }
   ];
+
   selectedCiclo: any = null;
   visible = false;
   cicloParaEliminar: any = null;
   pendingCases = false;
-  creacionControl = new FormControl(null);
-  calculoControl = new FormControl(null);
-  disponibilidadControl = new FormControl(null);
 
   constructor(
     private router: Router,
@@ -88,17 +143,6 @@ export class PagoDiarioComponent implements OnInit {
         detail: 'Recuerda que aún existen casos pendientes por procesar.'
       }
     ];
-  }
-
-  getEstadoClass(tipo: string): string {
-    switch (tipo) {
-      case 'info':
-        return 'bg-blue-100 text-blue-800';
-      case 'danger':
-        return 'bg-red-100 text-red-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
-    }
   }
 
   verCiclo(ciclo: any) {
@@ -116,15 +160,9 @@ export class PagoDiarioComponent implements OnInit {
       rejectLabel: 'Cancelar',
       accept: () => {
         const removed = this.eliminarCiclo();
-        setTimeout(() => {
-          this.reloadPage();
-        }, 2000);
         this.showAlerts(removed ? 'success' : 'danger');
       },
       reject: () => {
-        setTimeout(() => {
-          this.reloadPage();
-        }, 2000);
         this.showAlerts('warn');
       }
     });
@@ -152,19 +190,5 @@ export class PagoDiarioComponent implements OnInit {
 
   async navigateToNuevoCiclo() {
     await this.router.navigate(['ciclo-pago-front', 'nuevo-ciclo']);
-  }
-
-  onGlobalFilter(event: Event) {
-    const value = (event.target as HTMLInputElement).value;
-    this.table.filterGlobal(value, 'contains');
-  }
-
-  reloadPage() {
-    window.location.reload();
-    window.location.href = window.location.href + '/';
-  }
-
-  clear(dtTable: Table) {
-    dtTable.clear();
   }
 }

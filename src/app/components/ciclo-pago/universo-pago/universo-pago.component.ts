@@ -46,9 +46,7 @@ export class UniversoPagoComponent implements OnInit {
   ];
   casosExcluidos: any[] = [];
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }

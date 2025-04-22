@@ -1,27 +1,31 @@
 import {
   Directive,
   ElementRef,
-  Output,
   EventEmitter,
   HostListener,
+  Output
 } from '@angular/core';
 
 @Directive({
-  selector: '[appClickOutside]',
+  selector: '[appClickOutside]'
 })
 export class ClickOutsideDirective {
-
   @Output() appClickOutside = new EventEmitter();
 
-  constructor(private elementRef: ElementRef) { }
+  constructor(private elementRef: ElementRef) {}
 
   @HostListener('document:click', ['$event.target'])
-
   public onClick(targetElement: any) {
-    const isButtonToOpenModal = targetElement.classList.contains('mat-mdc-button-touch-target');
+    const isButtonToOpenModal = targetElement.classList.contains(
+      'mat-mdc-button-touch-target'
+    );
     const isIgnoredClass = this.checkIfIgnoredClass(targetElement);
 
-    if (!isButtonToOpenModal && !isIgnoredClass && !this.elementRef.nativeElement.contains(targetElement)) {
+    if (
+      !isButtonToOpenModal &&
+      !isIgnoredClass &&
+      !this.elementRef.nativeElement.contains(targetElement)
+    ) {
       this.appClickOutside.emit();
     }
   }
@@ -50,7 +54,7 @@ export class ClickOutsideDirective {
       'mat-mdc-button',
       'mat-unthemed',
       'mat-mdc-button-base',
-      'mat-calendar-toggle',
+      'mat-calendar-toggle'
     ];
 
     for (const className of ignoredClasses) {
@@ -60,7 +64,10 @@ export class ClickOutsideDirective {
     }
 
     // Verificar si el elemento es un <span> y si su padre tiene la clase 'mdc-button__label'
-    if (element.tagName === 'SPAN' && element.parentElement.classList.contains('mdc-button__label')) {
+    if (
+      element.tagName === 'SPAN' &&
+      element.parentElement.classList.contains('mdc-button__label')
+    ) {
       return true;
     }
 
