@@ -1,20 +1,35 @@
-export interface ColsModel {
+export type ColsModel =
+  | (BaseCol & { field: 'acciones'; actions: TableActions[] }) // si es acciones → requiere actions
+  | DropdownCol // si es dropdown → requiere options
+  | OtherCol; // cualquier otra combinación
+
+interface BaseCol {
   field: string;
   header: string;
-  hasFilter?: boolean;
-  filterType?: string;
+  hasFilter: boolean;
   displayType?: string;
-  options?: DropDownOptions[];
-  actions?: TableActions[];
+  filterType?: string;
 }
 
-export interface DropDownOptions {
+interface DropdownCol extends BaseCol {
+  filterType: 'dropdown';
+  options: DropDownOptions[];
+  actions?: never;
+}
+
+interface OtherCol extends BaseCol {
+  filterType?: Exclude<string, 'dropdown'>;
+  options?: never;
+  actions?: never;
+}
+
+interface DropDownOptions {
   label: string;
-  value: string;
+  value: string | null;
 }
 
-export interface TableActions {
-  actionName: string;
+interface TableActions {
+  actionName: 'ver' | 'eliminar' | 'parametros' | 'download';
 }
 
 export interface ActionButton {

@@ -5,13 +5,14 @@
   dataKey="id"
   [rows]="10"
   [showCurrentPageReport]="true"
-  [rowsPerPageOptions]="[10,20,50]"
+  [rowsPerPageOptions]="[10,20,30,40,50]"
   [paginator]="true"
   currentPageReportTemplate="{first} - {last} de {totalRecords}"
-  [globalFilterFields]="['numero', 'creacion', 'calculo', 'segmentacion', 'pensionados', 'disponibilidad', 'estado']"
+  [globalFilterFields]="getGlobalFilterFields()"
 >
   <ng-template pTemplate="caption">
-    <div class="flex items-center mb-2 w-full">
+    <div class="flex items-center justify-between mb-2 w-full">
+      <!-- Buscar (izquierda) -->
       <div class="p-input-icon-left">
         <i class="pi pi-search"></i>
         <input
@@ -24,17 +25,21 @@
         />
       </div>
 
-      <div class="flex-grow"></div>
+      <!-- Botones alineados a la derecha -->
+      <div class="flex items-center gap-2 ml-auto">
+        <button *ngIf="shouldRenderDownloadButton()" pButton type="button" icon="pi pi-download"
+                label="Generar Reporte"
+                (click)="exportTableToExcel()"
+                class="p-button-outlined p-button-sm">
+        </button>
 
-      <div>
-        <button style="margin-left: 10px" pButton label="Limpiar filtros" class="p-button-outlined"
+        <button pButton label="Limpiar filtros" class="p-button-outlined p-button-sm"
                 icon="pi pi-filter-slash"
                 (click)="clear(dtTable)">
         </button>
       </div>
     </div>
   </ng-template>
-
 
   <ng-template pTemplate="header" let-columns>
     <tr>

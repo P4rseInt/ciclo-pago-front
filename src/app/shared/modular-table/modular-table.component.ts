@@ -10,6 +10,8 @@ import { FormControl } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { ActionButton, ColsModel } from '@models/modular-table/cols-model';
 import { PrimeNGConfig } from 'primeng/api';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-modular-table',
@@ -28,7 +30,7 @@ export class ModularTableComponent implements OnInit {
   dropdownsControl = new FormControl(null);
   searchControl = new FormControl(null);
 
-  constructor(private primengConfig: PrimeNGConfig) {}
+  constructor(private readonly primengConfig: PrimeNGConfig) {}
 
   ngOnInit(): void {
     this.primengConfig.setTranslation({
@@ -93,8 +95,34 @@ export class ModularTableComponent implements OnInit {
     });
   }
 
-  getColumns(): ColsModel[] {
-    return this.cols;
+  filterUniqueCols(rawCols: ColsModel[], keepLast = false): ColsModel[] {
+    const seen = new Set<string>();
+    const result: ColsModel[] = [];
+
+    const source = keepLast ? [...rawCols].reverse() : rawCols;
+
+    for (const col of source) {
+      if (!seen.has(col.field)) {
+        if (keepLast) {
+          result.unshift(col); // mantener orden original si se invierte
+        } else {
+          result.push(col);
+        }
+        seen.add(col.field);
+      } else {
+        console.warn(`Columna duplicada ignorada: "${col.field}"`);
+      }
+    }
+
+    return result;
+  }
+
+  public getColumns(): ColsModel[] {
+    return this.filterUniqueCols(this.cols);
+  }
+
+  public getGlobalFilterFields(): string[] {
+    return this.getColumns().map((col) => col.field);
   }
 
   clear(dtTable: Table) {
@@ -142,17 +170,17 @@ export class ModularTableComponent implements OnInit {
     return [
       {
         icon: 'pi pi-cog',
-        actionName: 'Parametros',
+        actionName: 'parametros',
         clickHandler: () => this.openParametros(rowData)
       },
       {
         icon: 'pi pi-eye',
-        actionName: 'Ver',
+        actionName: 'ver',
         clickHandler: () => this.ver(rowData)
       },
       {
         icon: 'pi pi-trash',
-        actionName: 'Eliminar',
+        actionName: 'eliminar',
         clickHandler: () => this.handleDelete(rowData)
       }
     ].filter((action) => this.shouldShowAction(col, action.actionName));
@@ -164,5 +192,52 @@ export class ModularTableComponent implements OnInit {
     return this.cols.some(
       (col) => col.field === field && col.filterType === 'date'
     );
+  }
+
+  public shouldRenderDownloadButton(): boolean {
+    const accionesCol = this.cols.find((col) => col.field === 'acciones');
+    return (
+      accionesCol?.actions?.some(
+        (action) => action?.actionName === 'download'
+      ) ?? false
+    );
+  }
+
+  exportTableToExcel(): void {
+    const exportData = this.tableData.map((row) => {
+      const exportRow: any = {};
+      this.getColumns().forEach((col) => {
+        if (col.field && col.field !== 'acciones') {
+          exportRow[col.header] = this.formatExcelValue(
+            row[col.field],
+            col.field
+          );
+        }
+      });
+      return exportRow;
+    });
+
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(exportData);
+    const workbook: XLSX.WorkBook = {
+      Sheets: { Datos: worksheet },
+      SheetNames: ['Datos']
+    };
+    const excelBuffer: any = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array'
+    });
+
+    const blob: Blob = new Blob([excelBuffer], {
+      type: 'application/octet-stream'
+    });
+    FileSaver.saveAs(blob, 'ciclos-pago.xlsx');
+  }
+
+  private formatExcelValue(value: any, field: string): any {
+    // Puedes extender esto si necesitas formatear otras cosas (números, texto, etc.)
+    if (this.isDateField(field) && value) {
+      return new Date(value).toLocaleDateString('es-CL');
+    }
+    return value;
   }
 }

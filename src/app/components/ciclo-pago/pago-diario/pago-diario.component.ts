@@ -62,24 +62,24 @@ export class PagoDiarioComponent implements OnInit {
       displayType: 'menu'
     },
     {
+      field: 'creacion',
+      header: 'Fecha de Creación',
       hasFilter: true,
       filterType: 'date',
-      header: 'Fecha de Creación',
-      field: 'creacion',
       displayType: 'menu'
     },
     {
+      field: 'calculo',
+      header: 'Fecha de Cálculo',
       hasFilter: true,
       filterType: 'date',
-      header: 'Fecha de Cálculo',
-      field: 'calculo',
       displayType: 'menu'
     },
     {
       field: 'segmentacion',
+      header: 'Segmentación',
       hasFilter: true,
       filterType: 'dropdown',
-      header: 'Segmentación',
       displayType: 'menu',
       options: [
         { label: 'Todos', value: null },
@@ -89,40 +89,40 @@ export class PagoDiarioComponent implements OnInit {
     },
     {
       field: 'pensionados',
+      header: 'Pensionados',
       hasFilter: true,
       filterType: 'numeric',
-      header: 'Pensionados',
       displayType: 'menu'
     },
     {
       field: 'disponibilidad',
+      header: 'Fecha de Disponibilidad',
       hasFilter: true,
       filterType: 'date',
-      header: 'Fecha de Disponibilidad',
       displayType: 'menu'
     },
     {
       field: 'estado',
+      header: 'Estado',
       hasFilter: true,
       filterType: 'text',
-      header: 'Estado',
       displayType: 'menu'
     },
     {
       field: 'acciones',
-      hasFilter: false,
       header: 'Acciones',
+      hasFilter: false,
       actions: [
-        {
-          actionName: 'Ver'
-        },
-        {
-          actionName: 'Eliminar'
-        },
-        {
-          actionName: 'Parametros'
-        }
+        { actionName: 'ver' },
+        { actionName: 'eliminar' },
+        { actionName: 'parametros' },
+        { actionName: 'download' }
       ]
+    },
+    {
+      field: 'acciones',
+      header: 'Acciones',
+      hasFilter: false
     }
   ];
 
@@ -132,9 +132,9 @@ export class PagoDiarioComponent implements OnInit {
   pendingCases = false;
 
   constructor(
-    private router: Router,
-    private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private readonly router: Router,
+    private readonly confirmationService: ConfirmationService,
+    private readonly messageService: MessageService
   ) {}
 
   ngOnInit(): void {
