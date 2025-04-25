@@ -2,18 +2,18 @@
   <form [formGroup]="formBusqueda">
     <h3 class="text-lg font-semibold mb-6">Parámetros de búsqueda</h3>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="flex justify-content-center flex-wrap flex justify-content-evenly flex-wrap">
 
       <!-- Período -->
-      <div class="flex flex-col">
+      <div>
         <label for="periodo" class="text-sm font-medium text-gray-700 mb-1">Período</label>
         <div class="w-full">
           <p-calendar
             id="periodo"
             inputId="periodo"
-            formControlName="periodo"
+            formControlName="creacion"
             dateFormat="dd/mm/yy"
-            placeholder="Seleccione"
+            placeholder="Seleccione Período"
             [showIcon]="true"
             class="w-full"
           ></p-calendar>
@@ -21,34 +21,33 @@
       </div>
 
       <!-- Número de Ciclo -->
-      <div class="flex flex-col">
+      <div>
         <label for="numeroCiclo" class="text-sm font-medium text-gray-700 mb-1">Número de Ciclo</label>
         <input
           id="numeroCiclo"
           type="text"
           pInputText
-          placeholder="Placeholder"
-          formControlName="numeroCiclo"
+          placeholder="Ingrese Número de Ciclo"
+          formControlName="numero"
           class="w-full"
         />
       </div>
 
       <!-- Usuario de creación -->
-      <div class="flex flex-col">
+      <div>
         <label for="usuario" class="text-sm font-medium text-gray-700 mb-1">Usuario de creación</label>
         <input
           id="usuario"
           type="text"
           pInputText
-          placeholder="Placeholder"
-          formControlName="usuario"
+          placeholder="Ingrese Usuario de creación"
+          formControlName="usuarioCreacion"
           class="w-full"
         />
       </div>
     </div>
-
     <!-- Botón de búsqueda centrado -->
-    <div class="mt-6 flex justify-center">
+    <div class="flex justify-content-center flex-wrap mt-6 flex justify-center">
       <button
         pButton
         type="submit"
@@ -56,7 +55,9 @@
         icon="pi pi-search"
         class="p-button-outlined p-button-sm"
         [disabled]="formBusqueda.invalid"
+        (click)="onSubmit()"
       ></button>
     </div>
+
   </form>
 </p-card>

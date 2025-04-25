@@ -1,0 +1,105 @@
+<div class="container">
+  <p-messages *ngIf="pendingCases" [closable]="true" [style]="{ width: '100%' }"
+              [(value)]="messages"
+              class="mb-4">
+  </p-messages>
+  <p-card>
+    <app-parametros-busqueda
+      [clear]="clear"
+      (respuestaBusqueda)="respuestaBusqueda($event)">
+    </app-parametros-busqueda>
+
+    <br>
+
+    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-2">
+      <h2 class="text-xl font-semibold">Listado de Ciclos</h2>
+      <div class="sm:ml-auto sm:self-end">
+        <button (click)="navegarANuevoCiclo()" pButton type="button" label="+ Nuevo Ciclo"
+                class="p-button-danger border-round-md"></button>
+      </div>
+    </div>
+
+    <!--Tabla ciclos-->
+    <app-tabla-general
+      [tableData]="ciclos"
+      [cols]="cols"
+      [respuestaBusqueda]="busqueda"
+      (verOutput)="verCiclo($event)"
+      (clearSearch)="clearSearch($event)"
+      (eliminarOutput)="handleDelete($event)"
+      (openParametrosPage)="navegarAParametros($event)"
+    >
+    </app-tabla-general>
+
+    <!--    <app-simulacion *ngIf="abrirParams"-->
+    <!--                    [rowData]="rowData">-->
+    <!--    </app-simulacion>-->
+
+    <!--  Sidebar Detalles-->
+    <p-sidebar
+      [showCloseIcon]="true"
+      [closeOnEscape]="true"
+      [(visible)]="visible"
+      position="right"
+      [baseZIndex]="10000"
+      [modal]="true"
+      [style]="{ width: '100%', maxWidth: '600px' }"
+    >
+      <ng-container *ngIf="selectedCiclo">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-semibold">N° Ciclo {{ selectedCiclo.numero }}</h3>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <strong>Fecha de Creación</strong>
+            <p>{{ selectedCiclo.creacion | date:'dd/MM/yyyy' }}</p>
+          </div>
+          <div>
+            <strong>Fecha de Cálculo</strong>
+            <p>{{ selectedCiclo.calculo | date:'dd/MM/yyyy' }}</p>
+          </div>
+          <div>
+            <strong>Segmentación</strong>
+            <p>{{ selectedCiclo.segmentacion }}</p>
+          </div>
+          <div>
+            <strong>Pensionados</strong>
+            <p>{{ selectedCiclo.pensionados }}</p>
+          </div>
+          <div>
+            <strong>Fecha de Disponibilidad</strong>
+            <p>{{ selectedCiclo.disponibilidad | date:'dd/MM/yyyy' }}</p>
+          </div>
+          <div>
+            <strong>Estado</strong>
+            <p>{{ selectedCiclo.estado }}</p>
+          </div>
+          <div>
+            <strong>Usuario Creación</strong>
+            <p>{{ selectedCiclo.usuarioCreacion }}</p>
+          </div>
+          <div>
+            <strong>Usuario Modificación</strong>
+            <p>{{ selectedCiclo.usuarioModificacion }}</p>
+          </div>
+          <div>
+            <strong>Fecha de Modificación</strong>
+            <p>{{ selectedCiclo.modificacion }}</p>
+          </div>
+        </div>
+        <br>
+        <br>
+        <hr>
+        <div class="mt-6">
+          <button pButton type="button" label="Cerrar" (click)="visible = false" class="p-button-danger"></button>
+        </div>
+      </ng-container>
+    </p-sidebar>
+
+    <!--  Dialogo Confirmar Eliminar -->
+    <p-confirmDialog [style]="{ width: '350px' }">
+    </p-confirmDialog>
+
+    <p-toast></p-toast>
+  </p-card>
+</div>

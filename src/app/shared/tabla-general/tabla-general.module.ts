@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ModularTableComponent } from '@shared/modular-table/modular-table.component';
+import { TablaGeneralComponent } from '@shared/tabla-general/tabla-general.component';
 import { TableModule } from 'primeng/table';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -9,7 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [ModularTableComponent],
+  declarations: [TablaGeneralComponent],
   imports: [
     CommonModule,
     TableModule,
@@ -20,6 +20,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     InputTextModule,
     BrowserAnimationsModule
   ],
-  exports: [ModularTableComponent]
+  exports: [TablaGeneralComponent]
 })
-export class ModularTableModule {}
+export class TablaGeneralModule {}

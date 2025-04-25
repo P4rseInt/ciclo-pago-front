@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModularTableComponent } from './modular-table.component';
+import { TablaGeneralComponent } from './tabla-general.component';
 
 describe('ModularTableComponent', () => {
-  let component: ModularTableComponent;
-  let fixture: ComponentFixture<ModularTableComponent>;
+  let component: TablaGeneralComponent;
+  let fixture: ComponentFixture<TablaGeneralComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ModularTableComponent]
+      declarations: [TablaGeneralComponent]
     });
-    fixture = TestBed.createComponent(ModularTableComponent);
+    fixture = TestBed.createComponent(TablaGeneralComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

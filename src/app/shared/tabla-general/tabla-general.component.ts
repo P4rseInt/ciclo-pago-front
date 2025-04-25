@@ -2,35 +2,48 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Table } from 'primeng/table';
-import { ActionButton, ModeloColumnas } from '@models/modular-table/cols-model';
+import { ActionButton, ModeloColumnas } from '@models/tabla-general/cols-model';
 import { PrimeNGConfig } from 'primeng/api';
 import * as XLSX from 'xlsx';
-import * as FileSaver from 'file-saver';
+import FileSaver from 'file-saver';
+import { ResBusquedaModelo } from '@shared/parametros-busqueda/parametros-busqueda.component';
 
 @Component({
-  selector: 'app-modular-table',
-  templateUrl: './modular-table.component.html',
-  styleUrls: ['./modular-table.component.scss']
+  selector: 'app-tabla-general',
+  templateUrl: './tabla-general.component.html',
+  styleUrls: ['./tabla-general.component.scss']
 })
-export class ModularTableComponent implements OnInit {
+export class TablaGeneralComponent implements OnInit, OnChanges {
   @ViewChild('dtTable') table!: Table;
+
   @Input() public tableData: any[];
   @Input() public cols: ModeloColumnas[];
+  @Input() public respuestaBusqueda: ResBusquedaModelo = null;
 
   @Output() verOutput: EventEmitter<any> = new EventEmitter();
   @Output() eliminarOutput: EventEmitter<any> = new EventEmitter();
+  @Output() clearSearch: EventEmitter<boolean> = new EventEmitter();
+  @Output() openParametrosPage: EventEmitter<any> = new EventEmitter();
 
   dateFormControl = new FormControl(null);
   dropdownsControl = new FormControl(null);
   searchControl = new FormControl(null);
 
   constructor(private readonly primengConfig: PrimeNGConfig) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['respuestaBusqueda'] && this.respuestaBusqueda) {
+      this.resBusqueda();
+    }
+  }
 
   ngOnInit(): void {
     this.primengConfig.setTranslation({
@@ -95,6 +108,19 @@ export class ModularTableComponent implements OnInit {
     });
   }
 
+  resBusqueda() {
+    const criterios = this.respuestaBusqueda;
+    this.table.filterGlobal('', 'contains');
+
+    Object.keys(criterios).forEach((key) => {
+      const valor = criterios[key];
+      console.log('valor', valor);
+      if (valor != null && valor !== '') {
+        this.table.filter(valor, key, 'contains');
+      }
+    });
+  }
+
   filterUniqueCols(
     rawCols: ModeloColumnas[],
     keepLast = false
@@ -128,9 +154,10 @@ export class ModularTableComponent implements OnInit {
     return this.getColumns().map((col) => col.field);
   }
 
-  clear(dtTable: Table) {
+  clearFilters(dtTable: Table) {
     dtTable.clear();
     this.searchControl.setValue('');
+    this.clearSearch.emit(true);
   }
 
   onGlobalFilter(event: Event) {
@@ -144,16 +171,18 @@ export class ModularTableComponent implements OnInit {
         return 'bg-blue-100 text-blue-800';
       case 'danger':
         return 'bg-red-100 text-red-800';
+      case 'success':
+        return 'bg-green-100 text-green-800';
       default:
         return 'bg-gray-100 text-gray-800';
     }
   }
 
-  ver(element) {
+  ver(element: any) {
     this.verOutput.emit(element);
   }
 
-  handleDelete(element) {
+  handleDelete(element: any) {
     console.log(element);
     this.eliminarOutput.emit(element);
   }
@@ -189,7 +218,9 @@ export class ModularTableComponent implements OnInit {
     ].filter((action) => this.shouldShowAction(col, action.actionName));
   }
 
-  private openParametros(element: any) {}
+  public openParametros(rowData) {
+    this.openParametrosPage.emit(rowData);
+  }
 
   isDateField(field: string): boolean {
     return this.cols.some(
@@ -237,7 +268,6 @@ export class ModularTableComponent implements OnInit {
   }
 
   private formatExcelValue(value: any, field: string): any {
-    // Puedes extender esto si necesitas formatear otras cosas (números, texto, etc.)
     if (this.isDateField(field) && value) {
       return new Date(value).toLocaleDateString('es-CL');
     }

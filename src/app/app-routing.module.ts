@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CicloPagoComponent } from '@components/ciclo-pago/ciclo-pago.component';
+import { SimulacionComponent } from '@components/ciclo-pago/simulacion/simulacion.component';
 
 const routes: Routes = [
   {
@@ -12,11 +13,12 @@ const routes: Routes = [
     component: CicloPagoComponent
   },
   {
-    path: 'ciclo-pago-front/pago-diario',
+    path: 'ciclo-pago-front/simulacion',
     loadChildren: () =>
-      import('@components/ciclo-pago/ciclo-pago.module').then(
-        (m) => m.CicloPagoModule
-      )
+      import('@components/ciclo-pago/simulacion/simulacion.module').then(
+        (m) => m.SimulacionModule
+      ),
+    component: SimulacionComponent
   },
   {
     path: 'ciclo-pago-front/nuevo-ciclo',
@@ -25,8 +27,8 @@ const routes: Routes = [
         (m) => m.NuevoCicloModule
       )
   },
-  { path: '', redirectTo: '/ciclo-pago-front/pago-diario', pathMatch: 'full' },
-  { path: '**', redirectTo: '/ciclo-pago-front/pago-diario' }
+  { path: '', redirectTo: 'ciclo-pago-front', pathMatch: 'full' },
+  { path: '**', redirectTo: 'ciclo-pago-front' }
 ];
 
 @NgModule({
