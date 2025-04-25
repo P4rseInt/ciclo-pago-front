@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Table } from 'primeng/table';
-import { ActionButton, ColsModel } from '@models/modular-table/cols-model';
+import { ActionButton, ModeloColumnas } from '@models/modular-table/cols-model';
 import { PrimeNGConfig } from 'primeng/api';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
@@ -21,7 +21,7 @@ import * as FileSaver from 'file-saver';
 export class ModularTableComponent implements OnInit {
   @ViewChild('dtTable') table!: Table;
   @Input() public tableData: any[];
-  @Input() public cols: ColsModel[];
+  @Input() public cols: ModeloColumnas[];
 
   @Output() verOutput: EventEmitter<any> = new EventEmitter();
   @Output() eliminarOutput: EventEmitter<any> = new EventEmitter();
@@ -95,16 +95,19 @@ export class ModularTableComponent implements OnInit {
     });
   }
 
-  filterUniqueCols(rawCols: ColsModel[], keepLast = false): ColsModel[] {
+  filterUniqueCols(
+    rawCols: ModeloColumnas[],
+    keepLast = false
+  ): ModeloColumnas[] {
     const seen = new Set<string>();
-    const result: ColsModel[] = [];
+    const result: ModeloColumnas[] = [];
 
     const source = keepLast ? [...rawCols].reverse() : rawCols;
 
     for (const col of source) {
       if (!seen.has(col.field)) {
         if (keepLast) {
-          result.unshift(col); // mantener orden original si se invierte
+          result.unshift(col);
         } else {
           result.push(col);
         }
@@ -117,7 +120,7 @@ export class ModularTableComponent implements OnInit {
     return result;
   }
 
-  public getColumns(): ColsModel[] {
+  public getColumns(): ModeloColumnas[] {
     return this.filterUniqueCols(this.cols);
   }
 
