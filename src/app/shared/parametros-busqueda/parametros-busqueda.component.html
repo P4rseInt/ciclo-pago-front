@@ -9,6 +9,7 @@
         <label for="periodo" class="text-sm font-medium text-gray-700 mb-1">Período</label>
         <div class="w-full">
           <p-calendar
+            selectionMode="range"
             id="periodo"
             inputId="periodo"
             formControlName="creacion"
@@ -53,8 +54,9 @@
         type="submit"
         label="Buscar"
         icon="pi pi-search"
-        class="p-button-outlined p-button-sm"
+        class="p-button-outlined p-button-sm  p-input-icon-right"
         [disabled]="formBusqueda.invalid"
+        [style.width]="'190px'"
         (click)="onSubmit()"
       ></button>
     </div>

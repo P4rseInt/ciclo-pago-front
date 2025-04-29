@@ -1,8 +1,33 @@
 <div class="overflow-x-auto overflow-y-auto">
+  <div class="flex items-center justify-between mb-2 w-full">
+    <h2 class="text-xl font-bold">{{ tableTitle }}</h2>
+    <div class="flex items-center gap-2 ml-auto">
+      <button *ngIf="boton" pButton
+              [type]="boton.type"
+              [icon]="boton.icono"
+              [label]="boton.titulo"
+              [class]="boton.class"
+              [style]="boton.styles[0]"
+              (click)="boton.action()"
+      >
+      </button>
+
+      <button *ngIf="shouldRenderDownloadButton()" pButton type="button" [icon]="PrimeIcons.DOWNLOAD"
+              label="Descargar Reporte"
+              (click)="exportTableToExcel()"
+              class="p-button-danger">
+      </button>
+
+      <button pButton label="Limpiar Filtros" class="p-button-danger"
+              [icon]="PrimeIcons.FILTER_SLASH"
+              (click)="clearFilters(dtTable)">
+      </button>
+    </div>
+  </div>
   <p-table
     [columns]="getColumns()"
     #dtTable
-    [value]="tableData"
+    [value]="getTableData()"
     dataKey="id"
     [rows]="10"
     [showCurrentPageReport]="true"
@@ -10,38 +35,13 @@
     [paginator]="true"
     currentPageReportTemplate="{first} - {last} de {totalRecords}"
     [globalFilterFields]="getGlobalFilterFields()">
-    <ng-template pTemplate="caption">
-      <div class="flex items-center justify-between mb-2 w-full">
-        <!-- Buscar (izquierda) -->
-        <div class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input
-            id="buscarTabla"
-            [formControl]="searchControl"
-            pInputText
-            type="text"
-            (input)="onGlobalFilter($event)"
-            placeholder="Buscar en la tabla"
-          />
-        </div>
-        <div class="flex items-center gap-2 ml-auto">
-          <button *ngIf="shouldRenderDownloadButton()" pButton type="button" icon="pi pi-download"
-                  label="Descargar Reporte"
-                  (click)="exportTableToExcel()"
-                  class="p-button-outlined p-button-sm">
-          </button>
 
-          <button pButton label="Limpiar filtros" class="p-button-outlined p-button-sm"
-                  icon="pi pi-filter-slash"
-                  (click)="clearFilters(dtTable)">
-          </button>
-        </div>
-      </div>
-    </ng-template>
     <ng-template pTemplate="header" let-columns>
       <tr class="align-content-lg-stretch">
         <th *ngFor="let col of columns" id="cols">
-          <div class="flex align-items-center">
+          <div [style.width]="'max-content'"
+               [style.justify-content]="'center'"
+               class="flex align-items-center justify-content-center">
             {{ col.header }}
 
             <p-columnFilter
@@ -84,42 +84,76 @@
       <tr>
         <ng-container *ngFor="let col of columns">
           <td class="px-2 py-1">
-            <ng-container *ngIf="col.field === 'estado'">
-              <div class="flex justify-center items-center h-full">
-      <span
-        class="px-2 py-1 rounded-full text-sm font-medium text-center whitespace-nowrap"
-        [ngClass]="getEstadoClass(rowData.estadoTipo)">
-        {{ rowData.estado }}
-      </span>
-              </div>
-            </ng-container>
+            <div
+              [style.width]="'max-content'"
+              [style.justify-content]="'center'"
+              class="flex align-items-center justify-content-center">
 
-            <ng-container *ngIf="col.field === 'acciones'">
-              <div class="flex items-center gap-2 justify-center h-full">
-                <ng-container *ngFor="let action of getColumnActions(col, rowData)">
-                  <button
-                    pButton
-                    class="p-button-text p-button-sm"
-                    [icon]="action.icon"
-                    (click)="action.clickHandler()">
-                  </button>
-                </ng-container>
-              </div>
-            </ng-container>
+              <ng-container *ngIf="getNgClassStyle(rowData, col.field) as styleClass">
+                <div class="flex justify-center items-center h-full">
+                      <span
+                        [style.border-radius]="'50px'"
+                        [style.display]="'flex'"
+                        [style.flex-wrap]="'wrap'"
+                        [style.align-content]="'center'"
+                        [style.width]="'10rem'"
+                        [style.height]="'50px'"
+                        [style.justify-content]="'center'"
+                        class="px-2 py-1 rounded-full text-sm font-medium text-center whitespace-nowrap"
+                        [ngClass]="styleClass">
+                        {{ rowData[col.field] }}
+                      </span>
+                </div>
+              </ng-container>
 
-            <ng-container *ngIf="isDateField(col.field)">
-              <div class="flex items-center justify-center h-full">
-                {{ rowData[col.field] | date:'dd/MM/yyyy' }}
-              </div>
-            </ng-container>
+              <ng-container *ngIf="col.field === 'acciones'">
+                <div class="flex items-center gap-2 justify-center h-full">
+                  <ng-container *ngFor="let action of getColumnActions(col, rowData)">
+                    <button
+                      pButton
+                      class="p-button-text p-button-sm"
+                      [icon]="action.icon"
+                      (click)="action.clickHandler()">
+                    </button>
 
-            <ng-container *ngIf="!isDateField(col.field) && col.field !== 'estado' && col.field !== 'acciones'">
-              <div class="flex items-center justify-center h-full">
-                {{ rowData[col.field] }}
-              </div>
-            </ng-container>
+                    <button *ngFor="let prop of renderButton(col)"
+                            pButton
+                            class="p-button-danger"
+                            [icon]="action.icon"
+                            (click)="action.clickHandler()">
+                      {{ prop.text }}
+                    </button>
+                  </ng-container>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="isDateField(col.field)">
+                <div class="flex items-center justify-center h-full">
+                  {{ rowData[col.field] | date:'dd/MM/yyyy' }}
+                </div>
+              </ng-container>
+
+              <ng-container
+                *ngIf="!isDateField(col.field) && col.field !== 'acciones' &&
+                !getNgClassStyle(rowData, col.field)">
+                <div class="flex items-center justify-center h-full">
+                  {{ rowData[col.field] }}
+                </div>
+              </ng-container>
+
+            </div>
           </td>
         </ng-container>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td class="text-center py-4" [attr.colspan]="columns.length">
+            <span class="text-gray-700 text-base">
+          No se encuentran registros de acuerdo a los parámetros de búsqueda
+            </span>
+        </td>
       </tr>
     </ng-template>
 

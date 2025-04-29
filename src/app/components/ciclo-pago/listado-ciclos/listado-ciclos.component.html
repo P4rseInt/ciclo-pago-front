@@ -1,8 +1,12 @@
 <div class="container">
-  <p-messages *ngIf="pendingCases" [closable]="true" [style]="{ width: '100%' }"
+  <p-messages *ngIf="pendingCases"
+              [closable]="true"
+              [style.height]="'53px'"
+              [style]="{ width: '100%' }"
               [(value)]="messages"
               class="mb-4">
   </p-messages>
+  <br>
   <p-card>
     <app-parametros-busqueda
       [clear]="clear"
@@ -11,29 +15,19 @@
 
     <br>
 
-    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-2">
-      <h2 class="text-xl font-semibold">Listado de Ciclos</h2>
-      <div class="sm:ml-auto sm:self-end">
-        <button (click)="navegarANuevoCiclo()" pButton type="button" label="+ Nuevo Ciclo"
-                class="p-button-danger border-round-md"></button>
-      </div>
-    </div>
-
     <!--Tabla ciclos-->
     <app-tabla-general
       [tableData]="ciclos"
+      [tableTitle]="'Listado de Ciclos'"
       [cols]="cols"
       [respuestaBusqueda]="busqueda"
+      [boton]="boton"
       (verOutput)="verCiclo($event)"
       (clearSearch)="clearSearch($event)"
       (eliminarOutput)="handleDelete($event)"
-      (openParametrosPage)="navegarAParametros($event)"
+      (openParametrosPage)="navegarASimulacion($event)"
     >
     </app-tabla-general>
-
-    <!--    <app-simulacion *ngIf="abrirParams"-->
-    <!--                    [rowData]="rowData">-->
-    <!--    </app-simulacion>-->
 
     <!--  Sidebar Detalles-->
     <p-sidebar

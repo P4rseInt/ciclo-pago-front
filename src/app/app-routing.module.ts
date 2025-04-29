@@ -28,7 +28,7 @@ const routes: Routes = [
       )
   },
   { path: '', redirectTo: 'ciclo-pago-front', pathMatch: 'full' },
-  { path: '**', redirectTo: 'ciclo-pago-front' }
+  { path: '**', redirectTo: 'ciclo-pago-front' },
 ];
 
 @NgModule({

@@ -1,3 +1,68 @@
-<div class="container-fluid">
-  <p>simulacion works!</p>
+<div class="container p-4">
+  <!-- Estado de Ciclo -->
+  <p-card class="mt-4">
+    <p-card>
+      <div class="flex flex-wrap justify-between items-center">
+        <div class="flex items-center gap-2">
+          <span class="font-semibold">Estado Ciclo - N° {{ datosCiclo.numero }}</span>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 w-full mt-4">
+          <div>
+            <small class="block text-gray-500">Total Pensionados / Beneficiarios</small>
+            <span class="font-semibold">Sin Información</span>
+          </div>
+          <div>
+            <small class="block text-gray-500">Segmentación</small>
+            <span class="font-semibold">Sin Información</span>
+          </div>
+          <div>
+            <small class="block text-gray-500">Fecha de Cálculo</small>
+            <span class="font-semibold">Sin Información</span>
+          </div>
+          <div>
+            <small class="block text-gray-500">Fecha Disponibilidad</small>
+            <span class="font-semibold">Sin Información</span>
+          </div>
+          <div>
+            <small class="block text-gray-500">Usuario Creación</small>
+            <span class="font-semibold">-</span>
+          </div>
+        </div>
+        <div class="mt-2">
+          <a class="text-blue-600 cursor-pointer">Ver parámetros</a>
+        </div>
+      </div>
+    </p-card>
+    <!-- Listado de Simulaciones -->
+    <div
+      [style.flex-wrap]="'wrap'"
+      [style.margin-top]="'40px'"
+      [style.justify-content]="'space-between'"
+      class="flex justify-between items-center mb-4">
+      <h2 class="text-lg font-semibold">Listado de Simulaciones</h2>
+      <button (click)="onSimular($event)" pButton label="Simular" class="p-button-danger"></button>
+    </div>
+    <app-tabla-general
+      [cols]="colsTablaSimulacion"
+      [tableData]="showDatosSimulacion()">
+    </app-tabla-general>
+
+    <!-- Resultados de Simulación -->
+    <h2 class="text-lg font-semibold mb-2">Resultados de Simulación ID #0</h2>
+
+    <p-accordion>
+      <p-accordionTab header="Resumen de Financiamiento y Haberes">
+        <!-- Contenido Resumen -->
+        <p>Sin datos.</p>
+      </p-accordionTab>
+      <p-accordionTab header="Detalle de Cálculo de Pensión">
+        <!-- Contenido Detalle -->
+        <p>Sin datos.</p>
+      </p-accordionTab>
+    </p-accordion>
+
+    <div class="mt-4">
+      <button pButton label="Cerrar" class="p-button-outlined"></button>
+    </div>
+  </p-card>
 </div>

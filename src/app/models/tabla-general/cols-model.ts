@@ -31,7 +31,8 @@ interface OpcionesDropdown {
 }
 
 interface AccionesTabla {
-  actionName: 'ver' | 'eliminar' | 'parametros' | 'download';
+  actionName: 'ver' | 'eliminar' | 'parametros' | 'download' | 'button';
+  text?: string;
 }
 
 export interface ActionButton {
@@ -41,4 +42,26 @@ export interface ActionButton {
   clickHandler: () => void;
   class?: string;
   severity?: string;
+}
+
+export interface ModeloDataTabla {
+  numero: number;
+  creacion: Date; // mm/dd/yyyy
+  calculo: Date;
+  segmentacion: string;
+  pensionados: number;
+  disponibilidad: Date;
+  estado: string;
+  estadoTipo: string;
+  usuarioCreacion: string;
+  usuarioModificacion: string;
+  modificacion: string;
+  lote: string;
+  tipoCiclo: string;
+  ngClassField: { fields: NgClassFieldItem[] } | null;
+}
+
+export interface NgClassFieldItem {
+  fieldName: string;
+  stylesByValue: Record<string, string>;
 }

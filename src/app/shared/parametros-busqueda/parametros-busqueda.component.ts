@@ -28,6 +28,7 @@ export class ParametrosBusquedaComponent implements OnInit, OnChanges {
       numero: [''],
       usuarioCreacion: ['']
     });
+    console.log(this.formBusqueda.controls['creacion'].value);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -48,19 +49,26 @@ export class ParametrosBusquedaComponent implements OnInit, OnChanges {
 
   onSubmit() {
     const valores: ResBusquedaModelo = this.formBusqueda.value;
-    if (valores.creacion) {
-      this.formatToLocalDate(valores);
-    }
-    this.respuestaBusqueda.emit(this.cleanEmptyValues(valores));
+    this.respuestaBusqueda.emit(
+      this.cleanEmptyValues({
+        ...valores,
+        creacion: this.formatToLocalDate(valores.creacion) as string[]
+      })
+    );
   }
 
-  formatToLocalDate(valores: ResBusquedaModelo) {
-    return moment(valores.creacion).format('DD-MM-YYYY');
+  formatToLocalDate(fechas: string[]) {
+    if (fechas === null || fechas === undefined) {
+      return '';
+    }
+    return fechas.map((fecha) => {
+      return moment(fecha).format('DD-MM-YYYY');
+    });
   }
 
   cleanEmptyValues(valores: ResBusquedaModelo) {
     return Object.entries(valores)
-      .filter(([_, value]) => value !== '')
+      .filter(([value]) => value !== '')
       .reduce((acc, [key, value]) => {
         acc[key] = value;
         return acc;
@@ -69,7 +77,7 @@ export class ParametrosBusquedaComponent implements OnInit, OnChanges {
 }
 
 export interface ResBusquedaModelo {
-  creacion: string;
+  creacion: string[];
   numero: string;
   usuarioCreacion: string;
 }

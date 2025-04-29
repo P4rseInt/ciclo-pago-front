@@ -11,10 +11,11 @@ import {
 import { FormControl } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { ActionButton, ModeloColumnas } from '@models/tabla-general/cols-model';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeIcons, PrimeNGConfig } from 'primeng/api';
 import * as XLSX from 'xlsx';
 import FileSaver from 'file-saver';
 import { ResBusquedaModelo } from '@shared/parametros-busqueda/parametros-busqueda.component';
+import { Boton } from '@models/tabla-general/boton-model';
 
 @Component({
   selector: 'app-tabla-general',
@@ -27,6 +28,8 @@ export class TablaGeneralComponent implements OnInit, OnChanges {
   @Input() public tableData: any[];
   @Input() public cols: ModeloColumnas[];
   @Input() public respuestaBusqueda: ResBusquedaModelo = null;
+  @Input() public boton: Boton = null;
+  @Input() public tableTitle = '';
 
   @Output() verOutput: EventEmitter<any> = new EventEmitter();
   @Output() eliminarOutput: EventEmitter<any> = new EventEmitter();
@@ -106,6 +109,7 @@ export class TablaGeneralComponent implements OnInit, OnChanges {
       gt: 'Mayor que',
       gte: 'Mayor o igual que'
     });
+    console.log('tableData.length', this.tableData.length);
   }
 
   resBusqueda() {
@@ -150,6 +154,10 @@ export class TablaGeneralComponent implements OnInit, OnChanges {
     return this.filterUniqueCols(this.cols);
   }
 
+  public getTableData() {
+    return this.tableData;
+  }
+
   public getGlobalFilterFields(): string[] {
     return this.getColumns().map((col) => col.field);
   }
@@ -165,14 +173,21 @@ export class TablaGeneralComponent implements OnInit, OnChanges {
     this.table.filterGlobal(value, 'contains');
   }
 
-  getEstadoClass(tipo: string): string {
-    switch (tipo) {
+  getNgClass(field: string): string {
+    console.log('field', field);
+    switch (field) {
       case 'info':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-yellow-100 text-yellow-800';
       case 'danger':
         return 'bg-red-100 text-red-800';
       case 'success':
         return 'bg-green-100 text-green-800';
+      case 'Previo':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'Definitivo':
+        return 'bg-green-100 text-green-800';
+      case 'En proceso':
+        return 'bg-yellow-100 text-yellow-800';
       default:
         return 'bg-gray-100 text-gray-800';
     }
@@ -185,10 +200,6 @@ export class TablaGeneralComponent implements OnInit, OnChanges {
   handleDelete(element: any) {
     console.log(element);
     this.eliminarOutput.emit(element);
-  }
-
-  shouldShowAction(col: any, actionName: string): boolean {
-    return col?.actions?.some((a: any) => a.actionName === actionName);
   }
 
   getFilterTemplateType(col: any): 'dropdown' | 'date' | 'default' {
@@ -214,8 +225,25 @@ export class TablaGeneralComponent implements OnInit, OnChanges {
         icon: 'pi pi-trash',
         actionName: 'eliminar',
         clickHandler: () => this.handleDelete(rowData)
+      },
+      {
+        icon: '',
+        actionName: 'button',
+        clickHandler: () => this.verLog(rowData)
       }
     ].filter((action) => this.shouldShowAction(col, action.actionName));
+  }
+
+  shouldShowAction(col: any, actionName: string): boolean {
+    return col?.actions?.some((a: any) => a.actionName === actionName);
+  }
+
+  renderButton(col: any) {
+    console.log(
+      'button',
+      col.actions.filter((col) => col.actionName === 'button')
+    );
+    return col.actions.filter((col) => col.actionName === 'button');
   }
 
   public openParametros(rowData) {
@@ -272,5 +300,28 @@ export class TablaGeneralComponent implements OnInit, OnChanges {
       return new Date(value).toLocaleDateString('es-CL');
     }
     return value;
+  }
+
+  getNgClassStyle(rowData: any, field: string): string | null {
+    if (!rowData?.ngClassField?.fields) {
+      return null;
+    }
+
+    const match = rowData.ngClassField.fields.find(
+      (f: any) => f.fieldName === field
+    );
+
+    if (!match || !match.stylesByValue) {
+      return null;
+    }
+
+    const fieldValue = rowData[field];
+    return match.stylesByValue[fieldValue] || null;
+  }
+
+  protected readonly PrimeIcons = PrimeIcons;
+
+  public verLog(rowData: any) {
+    console.log(rowData);
   }
 }
