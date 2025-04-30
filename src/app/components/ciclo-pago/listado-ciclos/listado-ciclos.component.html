@@ -17,11 +17,10 @@
 
     <!--Tabla ciclos-->
     <app-tabla-general
-      [tableData]="ciclos"
-      [tableTitle]="'Listado de Ciclos'"
       [cols]="cols"
+      [tableData]="ciclos"
+      [funcionesTabla]="caracteristicasTabla"
       [respuestaBusqueda]="busqueda"
-      [boton]="boton"
       (verOutput)="verCiclo($event)"
       (clearSearch)="clearSearch($event)"
       (eliminarOutput)="handleDelete($event)"

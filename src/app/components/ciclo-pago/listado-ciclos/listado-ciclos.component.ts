@@ -8,11 +8,11 @@ import {
 import moment from 'moment/moment';
 import {
   ModeloColumnas,
-  ModeloDataTabla
+  ModeloDataTabla,
+  TablaCaracteristicas
 } from '@models/tabla-general/cols-model';
 import { Router } from '@angular/router';
 import { DataService } from '@services/data.service';
-import { Boton } from '@models/tabla-general/boton-model';
 
 @Component({
   selector: 'app-listado-ciclos',
@@ -20,7 +20,6 @@ import { Boton } from '@models/tabla-general/boton-model';
   styleUrls: ['./listado-ciclos.component.scss']
 })
 export class ListadoCiclosComponent implements OnInit {
-  messages: Message[] | undefined;
   ciclos: ModeloDataTabla[] = [
     {
       numero: 2042,
@@ -342,20 +341,15 @@ export class ListadoCiclosComponent implements OnInit {
       ]
     }
   ];
-
-  selectedCiclo = null;
-  visible = false;
-  cicloParaEliminar = null;
-  pendingCases = true;
-  busqueda = null;
-  clear = false;
-  boton: Boton = {
-    titulo: 'Nuevo Ciclo',
-    icono: PrimeIcons.PLUS,
-    class: 'p-button-danger',
-    type: 'button',
-    styles: [
-      `padding: 10px 20px !important;  background-color: #da1547 !important;  color: white !important;
+  caracteristicasTabla: TablaCaracteristicas = {
+    hasCleanFilter: true,
+    topButton: {
+      titulo: 'Nuevo Ciclo',
+      icono: PrimeIcons.PLUS,
+      class: 'p-button-danger',
+      type: 'button',
+      styles: [
+        `padding: 10px 20px !important;  background-color: #da1547 !important;  color: white !important;
           border: none !important;
           border-radius: 50px !important;
           font-weight: bold !important;
@@ -366,11 +360,22 @@ export class ListadoCiclosComponent implements OnInit {
     }
     .p-button-danger:active {
          background-color: #810c2a !important;`
-    ],
-    action: () => {
-      this.navegarANuevoCiclo();
-    }
+      ],
+      action: () => {
+        this.navegarANuevoCiclo();
+      }
+    },
+    rowSelectionButton: null,
+    tableTitle: 'Listado de Ciclos'
   };
+
+  messages: Message[] | undefined;
+  selectedCiclo = null;
+  visible = false;
+  cicloParaEliminar = null;
+  pendingCases = true;
+  busqueda = null;
+  clear = false;
 
   constructor(
     private readonly router: Router,

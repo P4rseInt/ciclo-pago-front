@@ -65,3 +65,19 @@ export interface NgClassFieldItem {
   fieldName: string;
   stylesByValue: Record<string, string>;
 }
+
+export interface TablaCaracteristicas {
+  hasCleanFilter: boolean;
+  topButton: Boton | null;
+  tableTitle: string;
+  rowSelectionButton: Boton | null;
+}
+
+export interface Boton {
+  titulo?: string;
+  icono?: string;
+  class?: string;
+  type?: string;
+  styles?: string[];
+  action?: (rowData?) => void;
+}

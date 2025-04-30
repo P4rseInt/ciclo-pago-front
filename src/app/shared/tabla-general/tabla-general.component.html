@@ -1,24 +1,28 @@
 <div class="overflow-x-auto overflow-y-auto">
   <div class="flex items-center justify-between mb-2 w-full">
-    <h2 class="text-xl font-bold">{{ tableTitle }}</h2>
+    <h2 class="text-xl font-bold">{{ funcionesTabla?.tableTitle || '' }}</h2>
     <div class="flex items-center gap-2 ml-auto">
-      <button *ngIf="boton" pButton
-              [type]="boton.type"
-              [icon]="boton.icono"
-              [label]="boton.titulo"
-              [class]="boton.class"
-              [style]="boton.styles[0]"
-              (click)="boton.action()"
-      >
+
+      <button *ngIf="funcionesTabla?.topButton" pButton
+              [type]="funcionesTabla?.topButton?.type"
+              [icon]="funcionesTabla?.topButton?.icono"
+              [label]="funcionesTabla?.topButton?.titulo"
+              [class]="funcionesTabla?.topButton?.class"
+              [style]="funcionesTabla?.topButton?.styles[0]"
+              (click)="funcionesTabla?.topButton?.action()">
       </button>
 
-      <button *ngIf="shouldRenderDownloadButton()" pButton type="button" [icon]="PrimeIcons.DOWNLOAD"
+      <button *ngIf="shouldRenderDownloadButton()"
+              pButton type="button"
+              [icon]="PrimeIcons.DOWNLOAD"
               label="Descargar Reporte"
               (click)="exportTableToExcel()"
               class="p-button-danger">
       </button>
 
-      <button pButton label="Limpiar Filtros" class="p-button-danger"
+      <button *ngIf="funcionesTabla.hasCleanFilter"
+              pButton label="Limpiar Filtros"
+              class="p-button-danger"
               [icon]="PrimeIcons.FILTER_SLASH"
               (click)="clearFilters(dtTable)">
       </button>
@@ -30,7 +34,7 @@
     [value]="getTableData()"
     dataKey="id"
     [rows]="10"
-    [showCurrentPageReport]="true"
+    [showCurrentPageReport]="getTableData().length > 0"
     [rowsPerPageOptions]="[5,10,20,30,40,50]"
     [paginator]="true"
     currentPageReportTemplate="{first} - {last} de {totalRecords}"
@@ -38,6 +42,12 @@
 
     <ng-template pTemplate="header" let-columns>
       <tr class="align-content-lg-stretch">
+        <!-- Columna para el radio button -->
+        <th *ngIf="funcionesTabla?.rowSelectionButton?.type === 'radio'"
+            id="radioCol"
+            style="width: 3rem;">
+          Seleccion
+        </th>
         <th *ngFor="let col of columns" id="cols">
           <div [style.width]="'max-content'"
                [style.justify-content]="'center'"
@@ -50,24 +60,16 @@
               [display]="col.displayType"
               [type]="col.filterType !== 'dropdown' && col.filterType !== 'date' ? col.filterType : null">
               <ng-container [ngSwitch]="getFilterTemplateType(col)">
-                <!-- Filtro por dropdown -->
-                <ng-template *ngSwitchCase="'dropdown'"
-                             pTemplate="filter" let-value
+                <ng-template *ngSwitchCase="'dropdown'" pTemplate="filter" let-value
                              let-filterCallback="filterCallback">
                   <p-dropdown
-                    [formControl]="dropdownsControl"
                     [options]="col.options"
                     (onChange)="filterCallback($event.value)"
                     placeholder="Todos">
                   </p-dropdown>
                 </ng-template>
-                <!-- Filtro por fecha -->
-                <ng-template
-                  *ngSwitchCase="'date'"
-                  pTemplate="filter"
-                  let-value let-filterCallback="filterCallback">
+                <ng-template *ngSwitchCase="'date'" pTemplate="filter" let-value let-filterCallback="filterCallback">
                   <p-calendar
-                    [formControl]="dateFormControl"
                     (onSelect)="filterCallback($event)"
                     dateFormat="dd/mm/yy"
                     placeholder="dd/mm/aa"
@@ -80,8 +82,20 @@
         </th>
       </tr>
     </ng-template>
+
     <ng-template pTemplate="body" let-rowData let-columns="columns">
       <tr>
+        <!-- Columna para el radio button -->
+        <ng-container *ngIf="funcionesTabla?.rowSelectionButton?.type === 'radio'">
+          <td class="px-2 py-1" style="width: 3rem;">
+            <p-radioButton
+              name="simulation"
+              (onClick)="funcionesTabla.rowSelectionButton.action(rowData)"
+              [value]="rowData">
+            </p-radioButton>
+          </td>
+        </ng-container>
+
         <ng-container *ngFor="let col of columns">
           <td class="px-2 py-1">
             <div
@@ -91,18 +105,18 @@
 
               <ng-container *ngIf="getNgClassStyle(rowData, col.field) as styleClass">
                 <div class="flex justify-center items-center h-full">
-                      <span
-                        [style.border-radius]="'50px'"
-                        [style.display]="'flex'"
-                        [style.flex-wrap]="'wrap'"
-                        [style.align-content]="'center'"
-                        [style.width]="'10rem'"
-                        [style.height]="'50px'"
-                        [style.justify-content]="'center'"
-                        class="px-2 py-1 rounded-full text-sm font-medium text-center whitespace-nowrap"
-                        [ngClass]="styleClass">
-                        {{ rowData[col.field] }}
-                      </span>
+              <span
+                [style.border-radius]="'50px'"
+                [style.display]="'flex'"
+                [style.flex-wrap]="'wrap'"
+                [style.align-content]="'center'"
+                [style.width]="'10rem'"
+                [style.height]="'50px'"
+                [style.justify-content]="'center'"
+                class="px-2 py-1 rounded-full text-sm font-medium text-center whitespace-nowrap"
+                [ngClass]="styleClass">
+                {{ rowData[col.field] }}
+              </span>
                 </div>
               </ng-container>
 
@@ -134,8 +148,7 @@
               </ng-container>
 
               <ng-container
-                *ngIf="!isDateField(col.field) && col.field !== 'acciones' &&
-                !getNgClassStyle(rowData, col.field)">
+                *ngIf="!isDateField(col.field) && col.field !== 'acciones' && !getNgClassStyle(rowData, col.field)">
                 <div class="flex items-center justify-center h-full">
                   {{ rowData[col.field] }}
                 </div>
@@ -149,7 +162,7 @@
 
     <ng-template pTemplate="emptymessage" let-columns>
       <tr>
-        <td class="text-center py-4" [attr.colspan]="columns.length">
+        <td class="text-center py-4" [attr.colspan]="columns.length + 1">
             <span class="text-gray-700 text-base">
           No se encuentran registros de acuerdo a los parámetros de búsqueda
             </span>

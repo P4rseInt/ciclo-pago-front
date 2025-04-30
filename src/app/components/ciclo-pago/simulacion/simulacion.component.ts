@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '@services/data.service';
-import { MenuItem } from 'primeng/api';
-import { ModeloColumnas } from '@models/tabla-general/cols-model';
+import { MenuItem, PrimeIcons } from 'primeng/api';
+import {
+  ModeloColumnas,
+  TablaCaracteristicas
+} from '@models/tabla-general/cols-model';
 import moment from 'moment';
 
 @Component({
@@ -94,10 +97,41 @@ export class SimulacionComponent implements OnInit {
       ]
     }
   ];
+  caracteristicasTabla: TablaCaracteristicas = {
+    hasCleanFilter: false,
+    topButton: {
+      titulo: 'Simular',
+      icono: '',
+      class: 'p-button-danger',
+      type: 'button',
+      styles: [
+        `padding: 10px 20px !important;  background-color: #da1547 !important;  color: white !important;
+          border: none !important;
+          border-radius: 50px !important;
+          font-weight: bold !important;
+          cursor: pointer !important;
+    }
+    .p-button-danger:hover {
+          background-color: #b4123b !important;
+    }
+    .p-button-danger:active {
+         background-color: #810c2a !important;`
+      ],
+      action: () => {
+        this.simular();
+      }
+    },
+    rowSelectionButton: {
+      type: 'radio',
+      action: (rowData) => {
+        this.simulacionSeleccionada(rowData);
+      }
+    },
+    tableTitle: 'Listado de Simulaciones'
+  };
 
   // Datos para la tabla
   simulaciones: any[] = [];
-  showTableData = false;
 
   constructor(private readonly dataService: DataService) {}
 
@@ -129,10 +163,12 @@ export class SimulacionComponent implements OnInit {
     ];
   }
 
-  onSimular(event: MouseEvent) {
-    if (event) {
-      this.showTableData = true;
-    }
+  simular() {
+    console.log('simular');
+  }
+
+  simulacionSeleccionada(rowData) {
+    console.log('rowData', rowData);
   }
 
   showDatosSimulacion() {

@@ -10,12 +10,16 @@ import {
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Table } from 'primeng/table';
-import { ActionButton, ModeloColumnas } from '@models/tabla-general/cols-model';
+import {
+  ActionButton,
+  Boton,
+  ModeloColumnas,
+  TablaCaracteristicas
+} from '@models/tabla-general/cols-model';
 import { PrimeIcons, PrimeNGConfig } from 'primeng/api';
 import * as XLSX from 'xlsx';
 import FileSaver from 'file-saver';
 import { ResBusquedaModelo } from '@shared/parametros-busqueda/parametros-busqueda.component';
-import { Boton } from '@models/tabla-general/boton-model';
 
 @Component({
   selector: 'app-tabla-general',
@@ -29,15 +33,13 @@ export class TablaGeneralComponent implements OnInit, OnChanges {
   @Input() public cols: ModeloColumnas[];
   @Input() public respuestaBusqueda: ResBusquedaModelo = null;
   @Input() public boton: Boton = null;
-  @Input() public tableTitle = '';
+  @Input() public funcionesTabla: TablaCaracteristicas = null;
 
   @Output() verOutput: EventEmitter<any> = new EventEmitter();
   @Output() eliminarOutput: EventEmitter<any> = new EventEmitter();
   @Output() clearSearch: EventEmitter<boolean> = new EventEmitter();
   @Output() openParametrosPage: EventEmitter<any> = new EventEmitter();
 
-  dateFormControl = new FormControl(null);
-  dropdownsControl = new FormControl(null);
   searchControl = new FormControl(null);
 
   constructor(private readonly primengConfig: PrimeNGConfig) {}
@@ -109,7 +111,6 @@ export class TablaGeneralComponent implements OnInit, OnChanges {
       gt: 'Mayor que',
       gte: 'Mayor o igual que'
     });
-    console.log('tableData.length', this.tableData.length);
   }
 
   resBusqueda() {
@@ -171,26 +172,6 @@ export class TablaGeneralComponent implements OnInit, OnChanges {
   onGlobalFilter(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     this.table.filterGlobal(value, 'contains');
-  }
-
-  getNgClass(field: string): string {
-    console.log('field', field);
-    switch (field) {
-      case 'info':
-        return 'bg-yellow-100 text-yellow-800';
-      case 'danger':
-        return 'bg-red-100 text-red-800';
-      case 'success':
-        return 'bg-green-100 text-green-800';
-      case 'Previo':
-        return 'bg-yellow-100 text-yellow-800';
-      case 'Definitivo':
-        return 'bg-green-100 text-green-800';
-      case 'En proceso':
-        return 'bg-yellow-100 text-yellow-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
-    }
   }
 
   ver(element: any) {

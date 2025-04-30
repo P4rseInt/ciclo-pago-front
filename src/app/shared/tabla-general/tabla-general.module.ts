@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
   declarations: [TablaGeneralComponent],
@@ -18,7 +19,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     DropdownModule,
     InputTextModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    RadioButtonModule
   ],
   exports: [TablaGeneralComponent]
 })
