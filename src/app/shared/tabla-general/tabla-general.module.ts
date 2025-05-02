@@ -8,6 +8,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { TagModule } from 'primeng/tag';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [TablaGeneralComponent],
@@ -20,7 +22,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     DropdownModule,
     InputTextModule,
     BrowserAnimationsModule,
-    RadioButtonModule
+    RadioButtonModule,
+    TagModule,
+    TooltipModule
   ],
   exports: [TablaGeneralComponent]
 })

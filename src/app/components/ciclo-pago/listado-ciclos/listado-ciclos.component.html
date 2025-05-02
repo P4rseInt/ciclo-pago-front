@@ -8,8 +8,9 @@
   </p-messages>
   <br>
   <p-card>
+
     <app-parametros-busqueda
-      [clear]="clear"
+      [clearInputs]="clear"
       (respuestaBusqueda)="respuestaBusqueda($event)">
     </app-parametros-busqueda>
 
@@ -19,79 +20,110 @@
     <app-tabla-general
       [cols]="cols"
       [tableData]="ciclos"
-      [funcionesTabla]="caracteristicasTabla"
-      [respuestaBusqueda]="busqueda"
-      (verOutput)="verCiclo($event)"
-      (clearSearch)="clearSearch($event)"
-      (eliminarOutput)="handleDelete($event)"
-      (openParametrosPage)="navegarASimulacion($event)"
-    >
+      [propiedadesTabla]="propiedadesTabla"
+      [respuestaBusqueda]="busqueda">
     </app-tabla-general>
 
-    <!--  Sidebar Detalles-->
-    <p-sidebar
-      [showCloseIcon]="true"
-      [closeOnEscape]="true"
+    <p-dialog
+      header="N° Ciclo: {{ selectedCiclo?.numero }}"
       [(visible)]="visible"
-      position="right"
-      [baseZIndex]="10000"
+      [style]="{ width: '500px' }"
       [modal]="true"
-      [style]="{ width: '100%', maxWidth: '600px' }"
+      [closable]="false"
+      [draggable]="false"
+      [resizable]="true"
     >
+      <div>
+        <p-divider></p-divider>
+      </div>
       <ng-container *ngIf="selectedCiclo">
-        <div class="flex justify-between items-center mb-4">
-          <h3 class="text-lg font-semibold">N° Ciclo {{ selectedCiclo.numero }}</h3>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-x-8 gap-y-4 text-sm text-gray-800 mt-2"
+             [style.gap]="'10rem'"
+             [style.row-gap]="'2rem'">
+          <!-- Fila 1 -->
           <div>
-            <strong>Fecha de Creación</strong>
-            <p>{{ selectedCiclo.creacion | date:'dd/MM/yyyy' }}</p>
+            <div class="text-xs text-gray-500 mb-1">Fecha de creación</div>
+            <div>{{ selectedCiclo.creacion | date: 'dd/MM/yyyy - HH:mm:ss' }}</div>
           </div>
           <div>
-            <strong>Fecha de Cálculo</strong>
-            <p>{{ selectedCiclo.calculo | date:'dd/MM/yyyy' }}</p>
+            <div class="text-xs text-gray-500 mb-1">Fecha de cálculo</div>
+            <div>{{ selectedCiclo.calculo | date: 'dd/MM/yyyy - HH:mm:ss' }}</div>
+          </div>
+
+          <!-- Fila 2 -->
+          <div>
+            <div class="text-xs text-gray-500 mb-1">Segmentación</div>
+            <div>{{ selectedCiclo.segmentacion || 'Sin segmentación' }}</div>
+          </div>
+          <div [style.margin-left]="'2rem'">
+            <div class="text-xs text-gray-500 mb-1">Pensionados</div>
+            <div>{{ selectedCiclo.pensionados }}</div>
+          </div>
+
+          <!-- Fila 3 -->
+          <div>
+            <div class="text-xs text-gray-500 mb-1">Fecha de disponibilidad</div>
+            <div>{{ selectedCiclo.disponibilidad | date: 'dd/MM/yyyy - HH:mm:ss' }}</div>
           </div>
           <div>
-            <strong>Segmentación</strong>
-            <p>{{ selectedCiclo.segmentacion }}</p>
+            <div class="text-xs text-gray-500 mb-1">Estado</div>
+            <div>{{ selectedCiclo.estado }}</div>
           </div>
+
+          <!-- Fila 4 -->
           <div>
-            <strong>Pensionados</strong>
-            <p>{{ selectedCiclo.pensionados }}</p>
-          </div>
-          <div>
-            <strong>Fecha de Disponibilidad</strong>
-            <p>{{ selectedCiclo.disponibilidad | date:'dd/MM/yyyy' }}</p>
-          </div>
-          <div>
-            <strong>Estado</strong>
-            <p>{{ selectedCiclo.estado }}</p>
-          </div>
-          <div>
-            <strong>Usuario Creación</strong>
-            <p>{{ selectedCiclo.usuarioCreacion }}</p>
-          </div>
-          <div>
-            <strong>Usuario Modificación</strong>
-            <p>{{ selectedCiclo.usuarioModificacion }}</p>
-          </div>
-          <div>
-            <strong>Fecha de Modificación</strong>
-            <p>{{ selectedCiclo.modificacion }}</p>
+            <div class="text-xs text-gray-500 mb-1">Usuario de creación</div>
+            <div>{{ selectedCiclo.usuarioCreacion }}</div>
           </div>
         </div>
-        <br>
-        <br>
-        <hr>
-        <div class="mt-6">
-          <button pButton type="button" label="Cerrar" (click)="visible = false" class="p-button-danger"></button>
+
+        <!-- Botón cerrar -->
+        <div class="flex justify-content-center align-content-center mt-6">
+          <button
+            pButton
+            type="button"
+            label="Cerrar"
+            class="p-button-danger px-6"
+            (click)="visible = false">
+          </button>
         </div>
       </ng-container>
-    </p-sidebar>
+    </p-dialog>
 
     <!--  Dialogo Confirmar Eliminar -->
-    <p-confirmDialog [style]="{ width: '350px' }">
-    </p-confirmDialog>
+    <p-dialog [modal]="true"
+              [(visible)]="deleteDialogVisible"
+              header="Eliminar"
+              [closable]="false"
+              [style]="{ width: 'fit-content', height: 'fit-content'}">
+      <p-divider></p-divider>
+      <span [style.width]="'max-content'"
+            class="p-text-secondary block mb-8">
+        ¿Está seguro que desea eliminar el Ciclo?
+      </span>
+      <div style="display: flex;
+                  justify-content: center;
+                  align-items: baseline;
+                  align-content: center;
+                  flex-wrap: wrap;
+                  gap: 1rem;">
+        <button
+          pButton
+          label="Cancelar"
+          type="button"
+          class="p-button-primary"
+          (click)="deleteDialogVisible = false">
+        </button>
+
+        <button
+          label="Sí, eliminar"
+          pButton
+          type="button"
+          class="p-button-danger"
+          (click)="this.eliminarCiclo()">
+        </button>
+      </div>
+    </p-dialog>
 
     <p-toast></p-toast>
   </p-card>

@@ -1,22 +1,19 @@
 import {
   Component,
-  EventEmitter,
   Input,
   OnChanges,
   OnInit,
-  Output,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { Table } from 'primeng/table';
 import {
-  ActionButton,
+  AccionesTabla,
   Boton,
   ModeloColumnas,
-  TablaCaracteristicas
-} from '@models/tabla-general/cols-model';
-import { PrimeIcons, PrimeNGConfig } from 'primeng/api';
+  PropiedadesTabla
+} from '@models/tabla-general/table-model';
+import { PrimeNGConfig } from 'primeng/api';
 import * as XLSX from 'xlsx';
 import FileSaver from 'file-saver';
 import { ResBusquedaModelo } from '@shared/parametros-busqueda/parametros-busqueda.component';
@@ -33,14 +30,7 @@ export class TablaGeneralComponent implements OnInit, OnChanges {
   @Input() public cols: ModeloColumnas[];
   @Input() public respuestaBusqueda: ResBusquedaModelo = null;
   @Input() public boton: Boton = null;
-  @Input() public funcionesTabla: TablaCaracteristicas = null;
-
-  @Output() verOutput: EventEmitter<any> = new EventEmitter();
-  @Output() eliminarOutput: EventEmitter<any> = new EventEmitter();
-  @Output() clearSearch: EventEmitter<boolean> = new EventEmitter();
-  @Output() openParametrosPage: EventEmitter<any> = new EventEmitter();
-
-  searchControl = new FormControl(null);
+  @Input() public propiedadesTabla: PropiedadesTabla = null;
 
   constructor(private readonly primengConfig: PrimeNGConfig) {}
 
@@ -165,22 +155,11 @@ export class TablaGeneralComponent implements OnInit, OnChanges {
 
   clearFilters(dtTable: Table) {
     dtTable.clear();
-    this.searchControl.setValue('');
-    this.clearSearch.emit(true);
   }
 
   onGlobalFilter(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     this.table.filterGlobal(value, 'contains');
-  }
-
-  ver(element: any) {
-    this.verOutput.emit(element);
-  }
-
-  handleDelete(element: any) {
-    console.log(element);
-    this.eliminarOutput.emit(element);
   }
 
   getFilterTemplateType(col: any): 'dropdown' | 'date' | 'default' {
@@ -190,59 +169,32 @@ export class TablaGeneralComponent implements OnInit, OnChanges {
     return 'default';
   }
 
-  getColumnActions(col: any, rowData: any): ActionButton[] {
-    return [
-      {
-        icon: 'pi pi-cog',
-        actionName: 'parametros',
-        clickHandler: () => this.openParametros(rowData)
-      },
-      {
-        icon: 'pi pi-eye',
-        actionName: 'ver',
-        clickHandler: () => this.ver(rowData)
-      },
-      {
-        icon: 'pi pi-trash',
-        actionName: 'eliminar',
-        clickHandler: () => this.handleDelete(rowData)
-      },
-      {
-        icon: '',
-        actionName: 'button',
-        clickHandler: () => this.verLog(rowData)
-      }
-    ].filter((action) => this.shouldShowAction(col, action.actionName));
-  }
+  public getColumnActions(col: ModeloColumnas): AccionesTabla[] {
+    if (!col?.actions) {
+      return [];
+    }
 
-  shouldShowAction(col: any, actionName: string): boolean {
-    return col?.actions?.some((a: any) => a.actionName === actionName);
-  }
-
-  renderButton(col: any) {
-    console.log(
-      'button',
-      col.actions.filter((col) => col.actionName === 'button')
+    return col.actions.filter((action) =>
+      this.isActionDefinedInColumn(col, action.actionName)
     );
-    return col.actions.filter((col) => col.actionName === 'button');
   }
 
-  public openParametros(rowData) {
-    this.openParametrosPage.emit(rowData);
+  private isActionDefinedInColumn(
+    col: ModeloColumnas,
+    actionName: string
+  ): boolean {
+    return col.actions.some((action) => action.actionName === actionName);
+  }
+
+  renderButton(col: ModeloColumnas) {
+    return col.actions.filter(
+      (col: AccionesTabla) => col.actionName === 'button'
+    );
   }
 
   isDateField(field: string): boolean {
     return this.cols.some(
       (col) => col.field === field && col.filterType === 'date'
-    );
-  }
-
-  public shouldRenderDownloadButton(): boolean {
-    const accionesCol = this.cols.find((col) => col.field === 'acciones');
-    return (
-      accionesCol?.actions?.some(
-        (action) => action?.actionName === 'download'
-      ) ?? false
     );
   }
 
@@ -284,25 +236,24 @@ export class TablaGeneralComponent implements OnInit, OnChanges {
   }
 
   getNgClassStyle(rowData: any, field: string): string | null {
-    if (!rowData?.ngClassField?.fields) {
-      return null;
-    }
-
-    const match = rowData.ngClassField.fields.find(
-      (f: any) => f.fieldName === field
-    );
-
-    if (!match || !match.stylesByValue) {
-      return null;
-    }
-
     const fieldValue = rowData[field];
-    return match.stylesByValue[fieldValue] || null;
+
+    return (
+      rowData?.ngClassField?.fields?.find((f: any) => f.fieldName === field)
+        ?.stylesByValue?.[fieldValue] || null
+    );
   }
 
-  protected readonly PrimeIcons = PrimeIcons;
-
-  public verLog(rowData: any) {
-    console.log(rowData);
+  getTagStyle(styleClass: string | null) {
+    switch (styleClass) {
+      case 'success':
+        return 'background-color: #E1F2D9; color: #2e7d32;';
+      case 'warning':
+        return 'background-color: #FFE5B5; color: #cc7a00;';
+      case 'danger':
+        return 'background-color: #FFD9E1; color: #c62828;';
+      default:
+        return 'text-white-800';
+    }
   }
 }

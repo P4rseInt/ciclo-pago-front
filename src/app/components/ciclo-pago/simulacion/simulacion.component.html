@@ -1,65 +1,147 @@
 <div class="container p-4">
+
   <!-- Estado de Ciclo -->
   <p-card>
-    <p-card>
-      <div class="flex flex-wrap justify-between items-center">
-        <div class="flex items-center gap-2">
-          <span class="font-semibold">Estado Ciclo - N° {{ datosCiclo.numero }}</span>
+    <p-tabView class="custom-tabview">
+      <p-tabPanel header="Simulación">
+        <p-card class="shadow-sm">
+          <!-- Encabezado -->
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-semibold">
+              Estado Ciclo - N° {{ datosCiclo.numero }}
+            </h2>
+            <span
+              style="border-radius: 5rem;
+                 display: flex;
+                 align-content: center;
+                 align-self: center;
+                 flex-wrap: wrap;
+                 width: fit-content;
+                 height: fit-content;
+                 margin-left: 12px;"
+              class="bg-green-100 text-green-700 text-xs font-medium px-2 py-1 rounded-full">
+        {{ datosCiclo.estado || 'Creado' }}
+      </span>
+          </div>
+
+          <!-- Cuerpo en grilla -->
+          <div style="display: flex;
+                  flex-wrap: wrap;
+                  gap: 115px;
+                  row-gap: 3rem">
+
+            <div>
+              <div class="text-xs mb-1">Total de casos</div>
+              <div [style.margin-top]="'30px'" class="font-semibold text-base">{{ datosCiclo.totalCasos || 'N/A' }}
+              </div>
+            </div>
+
+            <div>
+              <div class="text-xs mb-1">Lotes asignados</div>
+              <div [style.margin-top]="'30px'" class="font-semibold text-base">{{ datosCiclo.lotesAsignados || 'N/A' }}
+              </div>
+            </div>
+
+            <div>
+              <div class="text-xs mb-1">Segmentación</div>
+              <div [style.margin-top]="'30px'" class="font-semibold text-base">{{ datosCiclo.segmentacion || 'Todos' }}
+              </div>
+            </div>
+
+            <div>
+              <div class="text-xs mb-1">Fecha de Cálculo</div>
+              <div [style.margin-top]="'30px'" class="font-semibold text-base">{{ datosCiclo.fechaCalculo || 'N/A' }}
+              </div>
+            </div>
+
+            <div>
+              <div class="text-xs mb-1">Parámetros</div>
+              <a [style.margin-top]="'30px'"
+                 class="text-blue-600 font-semibold flex items-center gap-1 cursor-pointer hover:underline"
+                 (click)="verParametros()">
+                <i class="pi pi-check-circle text-blue-500"></i> Ver parámetros
+              </a>
+            </div>
+
+            <div>
+              <div class="text-xs mb-1">Fecha de disponibilidad</div>
+              <div [style.margin-top]="'30px'" class="font-semibold text-base">
+                {{ datosCiclo.fechaDisponibilidad || 'N/A' }}
+              </div>
+            </div>
+
+            <div>
+              <div class="text-xs mb-1">Usuario creación</div>
+              <div [style.margin-top]="'30px'" class="font-semibold text-base">
+                {{ datosCiclo.usuarioCreacion || 'N/A' }}
+              </div>
+            </div>
+
+            <div>
+              <div class="text-xs mb-1">Checklist</div>
+              <a [style.margin-top]="'30px'"
+                 class="text-blue-600 font-semibold flex items-center gap-1 cursor-pointer hover:underline"
+                 (click)="verChecklist()">
+                <i class="pi pi-check-circle text-blue-500"></i>
+                Ver Checklist
+              </a>
+            </div>
+
+          </div>
+        </p-card>
+        <div
+          [style.margin-top]="'40px'"
+          class="flex justify-between items-center mb-4 justify-content-end">
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 w-full mt-4">
-          <div>
-            <small class="block text-gray-500">Total Pensionados / Beneficiarios</small>
-            <span class="font-semibold">Sin Información</span>
-          </div>
-          <div>
-            <small class="block text-gray-500">Segmentación</small>
-            <span class="font-semibold">Sin Información</span>
-          </div>
-          <div>
-            <small class="block text-gray-500">Fecha de Cálculo</small>
-            <span class="font-semibold">Sin Información</span>
-          </div>
-          <div>
-            <small class="block text-gray-500">Fecha Disponibilidad</small>
-            <span class="font-semibold">Sin Información</span>
-          </div>
-          <div>
-            <small class="block text-gray-500">Usuario Creación</small>
-            <span class="font-semibold">-</span>
-          </div>
+        <app-tabla-general
+          [cols]="colsTablaSimulacion"
+          [tableData]="getDatosSimulacion()"
+          [propiedadesTabla]="propiedadesTabla">
+        </app-tabla-general>
+        <div class="mt-3">
+          <!-- Resultados de Simulación -->
+          <h2 class="text-lg font-semibold mb-2">Resultados de Simulación ID #0</h2>
+
+          <p-accordion>
+            <p-accordionTab header="Resumen de Financiamiento y Haberes">
+              <!-- Contenido Resumen -->
+              <p>Sin datos.</p>
+            </p-accordionTab>
+            <p-accordionTab header="Resumen de Cálculo de Cargos">
+              <!-- Contenido Detalle -->
+              <p>Sin datos.</p>
+            </p-accordionTab>
+            <p-accordionTab header="Detalle de Cálculo de Pensión">
+              <!-- Contenido Detalle -->
+              <p>Sin datos.</p>
+            </p-accordionTab>
+          </p-accordion>
         </div>
-        <div class="mt-2">
-          <a class="text-blue-600 cursor-pointer">Ver parámetros</a>
-        </div>
-      </div>
-    </p-card>
-
-    <!-- Listado de Simulaciones -->
-    <div
-      [style.margin-top]="'40px'"
-      class="flex justify-between items-center mb-4 justify-content-end">
-    </div>
-
-    <app-tabla-general
-      [cols]="colsTablaSimulacion"
-      [tableData]="showDatosSimulacion()"
-      [funcionesTabla]="caracteristicasTabla">
-    </app-tabla-general>
-
-    <div class="mt-3">
-      <!-- Resultados de Simulación -->
-      <h2 class="text-lg font-semibold mb-2">Resultados de Simulación ID #0</h2>
-
-      <p-accordion>
-        <p-accordionTab header="Resumen de Financiamiento y Haberes">
-          <!-- Contenido Resumen -->
-          <p>Sin datos.</p>
-        </p-accordionTab>
-        <p-accordionTab header="Detalle de Cálculo de Pensión">
-          <!-- Contenido Detalle -->
-          <p>Sin datos.</p>
-        </p-accordionTab>
-      </p-accordion>
-    </div>
+      </p-tabPanel>
+      <p-tabPanel header="Cálculo de cargos">
+        <p-card>
+          <!--TODO generar componente-->
+          <p>
+            Cálculo de cargos
+          </p>
+        </p-card>
+      </p-tabPanel>
+      <p-tabPanel header="Acreditación">
+        <p-card>
+          <!--TODO generar componente-->
+          <p>
+            Acreditación
+          </p>
+        </p-card>
+      </p-tabPanel>
+      <p-tabPanel header="Cálculo de pensión">
+        <p-card>
+          <!--TODO generar componente-->
+          <p>
+            Cálculo de pensión
+          </p>
+        </p-card>
+      </p-tabPanel>
+    </p-tabView>
   </p-card>
 </div>

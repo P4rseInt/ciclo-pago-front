@@ -1,16 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  ConfirmationService,
-  Message,
-  MessageService,
-  PrimeIcons
-} from 'primeng/api';
+import { Message, PrimeIcons } from 'primeng/api';
 import moment from 'moment/moment';
 import {
   ModeloColumnas,
-  ModeloDataTabla,
-  TablaCaracteristicas
-} from '@models/tabla-general/cols-model';
+  ModeloDatosTabla,
+  PropiedadesTabla
+} from '@models/tabla-general/table-model';
 import { Router } from '@angular/router';
 import { DataService } from '@services/data.service';
 
@@ -20,7 +15,7 @@ import { DataService } from '@services/data.service';
   styleUrls: ['./listado-ciclos.component.scss']
 })
 export class ListadoCiclosComponent implements OnInit {
-  ciclos: ModeloDataTabla[] = [
+  ciclos: ModeloDatosTabla[] = [
     {
       numero: 2042,
       creacion: moment('04/15/2025').toDate(), // mm/dd/yyyy
@@ -40,16 +35,16 @@ export class ListadoCiclosComponent implements OnInit {
           {
             fieldName: 'tipoCiclo',
             stylesByValue: {
-              Previo: 'bg-yellow-100 text-yellow-800',
-              Definitivo: 'bg-green-100 text-green-800'
+              Previo: 'warning',
+              Definitivo: 'success'
             }
           },
           {
             fieldName: 'estado',
             stylesByValue: {
-              'Simulación - En proceso': 'bg-yellow-100 text-yellow-800',
-              Eliminado: 'bg-red-100 text-red-800',
-              Terminado: 'bg-green-100 text-green-800'
+              'Simulación - En proceso': 'warning',
+              Eliminado: 'danger',
+              Terminado: 'success'
             }
           }
         ]
@@ -74,16 +69,16 @@ export class ListadoCiclosComponent implements OnInit {
           {
             fieldName: 'tipoCiclo',
             stylesByValue: {
-              Previo: 'bg-yellow-100 text-yellow-800',
-              Definitivo: 'bg-green-100 text-green-800'
+              Previo: 'warning',
+              Definitivo: 'success'
             }
           },
           {
             fieldName: 'estado',
             stylesByValue: {
-              'Simulación - En proceso': 'bg-yellow-100 text-yellow-800',
-              Eliminado: 'bg-red-100 text-red-800',
-              Terminado: 'bg-green-100 text-green-800'
+              'Simulación - En proceso': 'warning',
+              Eliminado: 'danger',
+              Terminado: 'success'
             }
           }
         ]
@@ -108,16 +103,16 @@ export class ListadoCiclosComponent implements OnInit {
           {
             fieldName: 'tipoCiclo',
             stylesByValue: {
-              Previo: 'bg-yellow-100 text-yellow-800',
-              Definitivo: 'bg-green-100 text-green-800'
+              Previo: 'warning',
+              Definitivo: 'success'
             }
           },
           {
             fieldName: 'estado',
             stylesByValue: {
-              'Simulación - En proceso': 'bg-yellow-100 text-yellow-800',
-              Eliminado: 'bg-red-100 text-red-800',
-              Terminado: 'bg-green-100 text-green-800'
+              'Simulación - En proceso': 'warning',
+              Eliminado: 'danger',
+              Terminado: 'success'
             }
           }
         ]
@@ -142,16 +137,16 @@ export class ListadoCiclosComponent implements OnInit {
           {
             fieldName: 'tipoCiclo',
             stylesByValue: {
-              Previo: 'bg-yellow-100 text-yellow-800',
-              Definitivo: 'bg-green-100 text-green-800'
+              Previo: 'warning',
+              Definitivo: 'success'
             }
           },
           {
             fieldName: 'estado',
             stylesByValue: {
-              'Simulación - En proceso': 'bg-yellow-100 text-yellow-800',
-              Eliminado: 'bg-red-100 text-red-800',
-              Terminado: 'bg-green-100 text-green-800'
+              'Simulación - En proceso': 'warning',
+              Eliminado: 'danger',
+              Terminado: 'success'
             }
           }
         ]
@@ -176,16 +171,16 @@ export class ListadoCiclosComponent implements OnInit {
           {
             fieldName: 'tipoCiclo',
             stylesByValue: {
-              Previo: 'bg-yellow-100 text-yellow-800',
-              Definitivo: 'bg-green-100 text-green-800'
+              Previo: 'warning',
+              Definitivo: 'success'
             }
           },
           {
             fieldName: 'estado',
             stylesByValue: {
-              'Simulación - En proceso': 'bg-yellow-100 text-yellow-800',
-              Eliminado: 'bg-red-100 text-red-800',
-              Terminado: 'bg-green-100 text-green-800'
+              'Simulación - En proceso': 'warning',
+              Eliminado: 'danger',
+              Terminado: 'success'
             }
           }
         ]
@@ -210,16 +205,16 @@ export class ListadoCiclosComponent implements OnInit {
           {
             fieldName: 'tipoCiclo',
             stylesByValue: {
-              Previo: 'bg-yellow-100 text-yellow-800',
-              Definitivo: 'bg-green-100 text-green-800'
+              Previo: 'warning',
+              Definitivo: 'success'
             }
           },
           {
             fieldName: 'estado',
             stylesByValue: {
-              'Simulación - En proceso': 'bg-yellow-100 text-yellow-800',
-              Eliminado: 'bg-red-100 text-red-800',
-              Terminado: 'bg-green-100 text-green-800'
+              'Simulación - En proceso': 'warning',
+              Eliminado: 'danger',
+              Terminado: 'success'
             }
           }
         ]
@@ -244,16 +239,16 @@ export class ListadoCiclosComponent implements OnInit {
           {
             fieldName: 'tipoCiclo',
             stylesByValue: {
-              Previo: 'bg-yellow-100 text-yellow-800',
-              Definitivo: 'bg-green-100 text-green-800'
+              Previo: 'warning',
+              Definitivo: 'success'
             }
           },
           {
             fieldName: 'estado',
             stylesByValue: {
-              'Simulación - En proceso': 'bg-yellow-100 text-yellow-800',
-              Eliminado: 'bg-red-100 text-red-800',
-              Terminado: 'bg-green-100 text-green-800'
+              'Simulación - En proceso': 'warning',
+              Eliminado: 'danger',
+              Terminado: 'success'
             }
           }
         ]
@@ -334,39 +329,45 @@ export class ListadoCiclosComponent implements OnInit {
       header: 'Acciones',
       hasFilter: false,
       actions: [
-        { actionName: 'ver' },
-        { actionName: 'eliminar' },
-        { actionName: 'parametros' },
-        { actionName: 'download' }
+        {
+          actionName: 'ver',
+          icon: 'pi pi-eye',
+          clickHandler: (data) => {
+            this.verCiclo(data);
+          }
+        },
+        {
+          actionName: 'eliminar',
+          icon: 'pi pi-trash',
+          clickHandler: (data) => {
+            this.eliminar(data);
+          }
+        },
+        {
+          actionName: 'parametros',
+          icon: 'pi pi-cog',
+          clickHandler: (data) => {
+            this.navegarAParametros(data);
+          }
+        }
       ]
     }
   ];
-  caracteristicasTabla: TablaCaracteristicas = {
-    hasCleanFilter: true,
-    topButton: {
-      titulo: 'Nuevo Ciclo',
-      icono: PrimeIcons.PLUS,
-      class: 'p-button-danger',
-      type: 'button',
-      styles: [
-        `padding: 10px 20px !important;  background-color: #da1547 !important;  color: white !important;
-          border: none !important;
-          border-radius: 50px !important;
-          font-weight: bold !important;
-          cursor: pointer !important;
-    }
-    .p-button-danger:hover {
-          background-color: #b4123b !important;
-    }
-    .p-button-danger:active {
-         background-color: #810c2a !important;`
-      ],
-      action: () => {
-        this.navegarANuevoCiclo();
+  propiedadesTabla: PropiedadesTabla = {
+    topButtons: [
+      {
+        title: 'Nuevo Ciclo',
+        icon: PrimeIcons.PLUS,
+        class: 'p-button-danger',
+        type: 'button',
+        clickHandler: () => {
+          this.navegarANuevoCiclo();
+        }
       }
-    },
-    rowSelectionButton: null,
-    tableTitle: 'Listado de Ciclos'
+    ],
+    tableTitle: 'Listado de Ciclos',
+    hasCleanFilterButton: false,
+    hasDownloadButton: true
   };
 
   messages: Message[] | undefined;
@@ -376,11 +377,10 @@ export class ListadoCiclosComponent implements OnInit {
   pendingCases = true;
   busqueda = null;
   clear = false;
+  deleteDialogVisible = false;
 
   constructor(
     private readonly router: Router,
-    private readonly confirmationService: ConfirmationService,
-    private readonly messageService: MessageService,
     private readonly dataService: DataService
   ) {}
 
@@ -394,47 +394,25 @@ export class ListadoCiclosComponent implements OnInit {
     ];
   }
 
-  verCiclo(ciclo: any) {
-    this.selectedCiclo = ciclo;
+  private verCiclo(data) {
+    this.selectedCiclo = data;
     this.visible = true;
   }
 
-  handleDelete(ciclo: { numero: any }) {
-    this.cicloParaEliminar = ciclo;
-    this.confirmationService.confirm({
-      message: `¿Está seguro de eliminar el ciclo N° ${ciclo.numero}?`,
-      header: 'Eliminar Ciclo',
-      icon: 'pi pi-info-circle',
-      acceptLabel: 'Eliminar',
-      rejectLabel: 'Cancelar',
-      accept: () => {
-        const removed = this.eliminarCiclo();
-        //  this.showAlerts(removed ? 'success' : 'danger');
-      },
-      reject: () => {
-        //   this.showAlerts('warn');
-      }
-    });
+  private eliminar(data: { numero: any }) {
+    this.deleteDialogVisible = true;
+    this.cicloParaEliminar = data;
+  }
+
+  private navegarAParametros(data) {
+    const ruta = ['ciclo-pago-front/simulacion'];
+    this.dataService.setDatosSimulacion(data);
+    this.router.navigate(ruta).then();
   }
 
   eliminarCiclo() {
+    this.deleteDialogVisible = false;
     return this.ciclos.splice(this.ciclos.indexOf(this.cicloParaEliminar), 1);
-  }
-
-  showAlerts(severity: string) {
-    const msg = {
-      success: {
-        severity: 'success',
-        summary: 'Éxito',
-        detail: `Ciclo N°${this.cicloParaEliminar.numero} eliminado correctamente`
-      },
-      warn: {
-        severity: 'warn',
-        summary: 'Cancelado',
-        detail: 'Se canceló la operación'
-      }
-    };
-    this.messageService.add(msg[severity]);
   }
 
   respuestaBusqueda(res: any) {
@@ -447,11 +425,7 @@ export class ListadoCiclosComponent implements OnInit {
   }
 
   navegarANuevoCiclo() {
-    this.router.navigate(['ciclo-pago-front', 'nuevo-ciclo']).then();
-  }
-
-  async navegarASimulacion(rowData: any) {
-    this.dataService.setDatosSimulacion(rowData);
-    await this.router.navigate(['ciclo-pago-front', 'simulacion']);
+    const ruta = ['ciclo-pago-front/nuevo-ciclo'];
+    this.router.navigate(ruta).then();
   }
 }

@@ -7,7 +7,7 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import moment from 'moment';
 
 @Component({
@@ -18,28 +18,27 @@ import moment from 'moment';
 export class ParametrosBusquedaComponent implements OnInit, OnChanges {
   formBusqueda!: FormGroup;
   @Output() respuestaBusqueda: EventEmitter<any> = new EventEmitter();
-  @Input() clear;
+  @Input() clearInputs = false;
 
-  constructor(private readonly fb: FormBuilder) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.formBusqueda = this.fb.group({
-      creacion: [null],
-      numero: [''],
-      usuarioCreacion: ['']
+    this.formBusqueda = new FormGroup({
+      creacion: new FormControl(null),
+      numero: new FormControl(),
+      usuarioCreacion: new FormControl()
     });
-    console.log(this.formBusqueda.controls['creacion'].value);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['clear'] && this.clear) {
+    if (changes['clear'] && this.clearInputs) {
       this.clearSearch();
     }
   }
 
   clearSearch(): void {
-    console.log('clear', this.clear);
-    if (this.clear)
+    console.log('clear', this.clearInputs);
+    if (this.clearInputs)
       this.formBusqueda.setValue({
         creacion: null,
         numero: '',

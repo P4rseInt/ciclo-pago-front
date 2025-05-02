@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '@services/data.service';
-import { MenuItem, PrimeIcons } from 'primeng/api';
 import {
   ModeloColumnas,
-  TablaCaracteristicas
-} from '@models/tabla-general/cols-model';
+  PropiedadesTabla
+} from '@models/tabla-general/table-model';
 import moment from 'moment';
 
 @Component({
@@ -92,20 +91,23 @@ export class SimulacionComponent implements OnInit {
       actions: [
         {
           actionName: 'button',
-          text: 'Ver log'
+          text: 'Ver log',
+          clickHandler: (data) => {
+            this.verLog(data);
+          }
         }
       ]
     }
   ];
-  caracteristicasTabla: TablaCaracteristicas = {
-    hasCleanFilter: false,
-    topButton: {
-      titulo: 'Simular',
-      icono: '',
-      class: 'p-button-danger',
-      type: 'button',
-      styles: [
-        `padding: 10px 20px !important;  background-color: #da1547 !important;  color: white !important;
+  propiedadesTabla: PropiedadesTabla = {
+    topButtons: [
+      {
+        title: 'Simular',
+        icon: '',
+        class: 'p-button-danger',
+        type: 'button',
+        styles: [
+          `padding: 10px 20px !important;  background-color: #da1547 !important;  color: white !important;
           border: none !important;
           border-radius: 50px !important;
           font-weight: bold !important;
@@ -116,14 +118,15 @@ export class SimulacionComponent implements OnInit {
     }
     .p-button-danger:active {
          background-color: #810c2a !important;`
-      ],
-      action: () => {
-        this.simular();
+        ],
+        clickHandler: () => {
+          this.simular();
+        }
       }
-    },
+    ],
     rowSelectionButton: {
       type: 'radio',
-      action: (rowData) => {
+      clickHandler: (rowData) => {
         this.simulacionSeleccionada(rowData);
       }
     },
@@ -154,7 +157,7 @@ export class SimulacionComponent implements OnInit {
             {
               fieldName: 'estadoSimulacion',
               stylesByValue: {
-                'Simulación - En proceso': 'bg-yellow-100 text-yellow-800'
+                'Simulación - En proceso': 'warning'
               }
             }
           ]
@@ -171,7 +174,15 @@ export class SimulacionComponent implements OnInit {
     console.log('rowData', rowData);
   }
 
-  showDatosSimulacion() {
+  getDatosSimulacion() {
     return this.simulaciones;
+  }
+
+  verChecklist() {}
+
+  verParametros() {}
+
+  private verLog(data) {
+    console.log('verLog', data);
   }
 }

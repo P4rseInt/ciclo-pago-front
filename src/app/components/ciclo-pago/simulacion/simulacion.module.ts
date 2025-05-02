@@ -9,6 +9,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { FormsModule } from '@angular/forms';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TablaGeneralModule } from '@shared/tabla-general/tabla-general.module';
+import { TabViewModule } from 'primeng/tabview';
+import { DividerModule } from 'primeng/divider';
 
 @NgModule({
   declarations: [SimulacionComponent],
@@ -21,7 +23,9 @@ import { TablaGeneralModule } from '@shared/tabla-general/tabla-general.module';
     InputSwitchModule,
     FormsModule,
     TabMenuModule,
-    TablaGeneralModule
+    TablaGeneralModule,
+    TabViewModule,
+    DividerModule
   ],
   exports: [SimulacionComponent]
 })

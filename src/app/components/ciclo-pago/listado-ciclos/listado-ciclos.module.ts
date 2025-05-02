@@ -12,6 +12,8 @@ import { RouterModule } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { CardModule } from 'primeng/card';
 import { SimulacionModule } from '@components/ciclo-pago/simulacion/simulacion.module';
+import { DialogModule } from 'primeng/dialog';
+import { DividerModule } from 'primeng/divider';
 
 @NgModule({
   declarations: [ListadoCiclosComponent],
@@ -27,7 +29,9 @@ import { SimulacionModule } from '@components/ciclo-pago/simulacion/simulacion.m
     ParametrosBusquedaModule,
     RouterModule,
     CardModule,
-    SimulacionModule
+    SimulacionModule,
+    DialogModule,
+    DividerModule
   ],
   exports: [ListadoCiclosComponent]
 })

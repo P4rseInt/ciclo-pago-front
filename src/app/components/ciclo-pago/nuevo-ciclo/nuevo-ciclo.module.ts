@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { NuevoCicloComponent } from '@components/ciclo-pago/nuevo-ciclo/nuevo-ciclo.component';
 import { NuevoCicloRoutingModule } from '@components/ciclo-pago/nuevo-ciclo/nuevo-ciclo-routing.module';
 import { ClickOutsideDirective } from '../../../directives/click-outside.directive';
-import { SpinnerModule } from '@shared/spinner/spinner.module';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { DividerModule } from 'primeng/divider';
@@ -17,7 +16,6 @@ import { UniversoPagoModule } from '@components/ciclo-pago/universo-pago/univers
   imports: [
     CommonModule,
     NuevoCicloRoutingModule,
-    SpinnerModule,
     ButtonModule,
     CardModule,
     DividerModule,

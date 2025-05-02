@@ -1,54 +1,56 @@
 <div class="overflow-x-auto overflow-y-auto">
-  <div class="flex items-center justify-between mb-2 w-full">
-    <h2 class="text-xl font-bold">{{ funcionesTabla?.tableTitle || '' }}</h2>
-    <div class="flex items-center gap-2 ml-auto">
-
-      <button *ngIf="funcionesTabla?.topButton" pButton
-              [type]="funcionesTabla?.topButton?.type"
-              [icon]="funcionesTabla?.topButton?.icono"
-              [label]="funcionesTabla?.topButton?.titulo"
-              [class]="funcionesTabla?.topButton?.class"
-              [style]="funcionesTabla?.topButton?.styles[0]"
-              (click)="funcionesTabla?.topButton?.action()">
-      </button>
-
-      <button *ngIf="shouldRenderDownloadButton()"
-              pButton type="button"
-              [icon]="PrimeIcons.DOWNLOAD"
-              label="Descargar Reporte"
-              (click)="exportTableToExcel()"
-              class="p-button-danger">
-      </button>
-
-      <button *ngIf="funcionesTabla.hasCleanFilter"
-              pButton label="Limpiar Filtros"
-              class="p-button-danger"
-              [icon]="PrimeIcons.FILTER_SLASH"
-              (click)="clearFilters(dtTable)">
+  <div class="flex items-center justify-between mb-2 w-full" [style.gap]="'1rem'">
+    <h2 class="text-xl font-bold">{{ propiedadesTabla?.tableTitle || '' }}</h2>
+    <div class="flex items-center gap-2 ml-auto" *ngIf="propiedadesTabla.topButtons.length > 0">
+      <button *ngFor="let button of propiedadesTabla.topButtons"
+              pButton
+              [type]="button.type"
+              [icon]="button.icon"
+              [label]="button.title"
+              [class]="button.class"
+              [style]="button.styles"
+              (click)="button.clickHandler(button)">
       </button>
     </div>
+    <button *ngIf="propiedadesTabla.hasCleanFilterButton"
+            pButton label="Limpiar Filtros"
+            class="p-button-danger"
+            icon="pi pi-filter-slash"
+            (click)="clearFilters(dtTable)">
+    </button>
+
+    <button *ngIf="propiedadesTabla.hasDownloadButton"
+            pButton label="Descargar Reporte"
+            class="p-button-danger"
+            icon="pi pi-download"
+            (click)="exportTableToExcel()">
+    </button>
   </div>
   <p-table
-    [columns]="getColumns()"
     #dtTable
-    [value]="getTableData()"
-    dataKey="id"
-    [rows]="10"
+    [columns]="getColumns()"
     [showCurrentPageReport]="getTableData().length > 0"
+    [value]="getTableData()"
+    [globalFilterFields]="getGlobalFilterFields()"
+    [rows]="10"
     [rowsPerPageOptions]="[5,10,20,30,40,50]"
     [paginator]="true"
+    [loading]="false"
+    dataKey="id"
     currentPageReportTemplate="{first} - {last} de {totalRecords}"
-    [globalFilterFields]="getGlobalFilterFields()">
+    styleClass="p-datatable-gridlines"
+  >
 
     <ng-template pTemplate="header" let-columns>
       <tr class="align-content-lg-stretch">
         <!-- Columna para el radio button -->
-        <th *ngIf="funcionesTabla?.rowSelectionButton?.type === 'radio'"
+        <th *ngIf="propiedadesTabla?.rowSelectionButton?.type === 'radio'"
+            class="bg-gray-800 text-white font-medium text-sm px-3 py-2"
             id="radioCol"
             style="width: 3rem;">
           Seleccion
         </th>
-        <th *ngFor="let col of columns" id="cols">
+        <th class="bg-gray-800 text-white font-medium text-sm px-3 py-2" *ngFor="let col of columns" id="cols">
           <div [style.width]="'max-content'"
                [style.justify-content]="'center'"
                class="flex align-items-center justify-content-center">
@@ -59,7 +61,7 @@
               [field]="col.field"
               [display]="col.displayType"
               [type]="col.filterType !== 'dropdown' && col.filterType !== 'date' ? col.filterType : null">
-              <ng-container [ngSwitch]="getFilterTemplateType(col)">
+              <ng-container [ngSwitch]="getFilterTemplateType(col)" [style.background-color]="'white'">
                 <ng-template *ngSwitchCase="'dropdown'" pTemplate="filter" let-value
                              let-filterCallback="filterCallback">
                   <p-dropdown
@@ -86,11 +88,11 @@
     <ng-template pTemplate="body" let-rowData let-columns="columns">
       <tr>
         <!-- Columna para el radio button -->
-        <ng-container *ngIf="funcionesTabla?.rowSelectionButton?.type === 'radio'">
+        <ng-container *ngIf="propiedadesTabla?.rowSelectionButton?.type === 'radio'">
           <td class="px-2 py-1" style="width: 3rem;">
             <p-radioButton
               name="simulation"
-              (onClick)="funcionesTabla.rowSelectionButton.action(rowData)"
+              (onClick)="propiedadesTabla.rowSelectionButton.clickHandler(rowData)"
               [value]="rowData">
             </p-radioButton>
           </td>
@@ -105,29 +107,31 @@
 
               <ng-container *ngIf="getNgClassStyle(rowData, col.field) as styleClass">
                 <div class="flex justify-center items-center h-full">
-              <span
-                [style.border-radius]="'50px'"
-                [style.display]="'flex'"
-                [style.flex-wrap]="'wrap'"
-                [style.align-content]="'center'"
-                [style.width]="'10rem'"
-                [style.height]="'50px'"
-                [style.justify-content]="'center'"
-                class="px-2 py-1 rounded-full text-sm font-medium text-center whitespace-nowrap"
-                [ngClass]="styleClass">
+                  <span
+                    [style.border-radius]="'50px'"
+                    [style.display]="'flex'"
+                    [style.flex-wrap]="'wrap'"
+                    [style.align-content]="'center'"
+                    [style.width]="'10rem'"
+                    [style.height]="'45px'"
+                    [style.justify-content]="'center'"
+                    class="px-2 py-1 rounded-full text-sm font-medium text-center whitespace-nowrap"
+                    [style]="getTagStyle(styleClass)">
                 {{ rowData[col.field] }}
               </span>
                 </div>
               </ng-container>
 
               <ng-container *ngIf="col.field === 'acciones'">
-                <div class="flex items-center gap-2 justify-center h-full">
-                  <ng-container *ngFor="let action of getColumnActions(col, rowData)">
+                <div class="flex items-center gap-0 justify-center h-full">
+                  <ng-container *ngFor="let action of getColumnActions(col)">
                     <button
+                      [pTooltip]="action.actionName | titlecase"
+                      tooltipPosition="top"
                       pButton
                       class="p-button-text p-button-sm"
                       [icon]="action.icon"
-                      (click)="action.clickHandler()">
+                      (click)="action.clickHandler(rowData)">
                     </button>
 
                     <button *ngFor="let prop of renderButton(col)"
