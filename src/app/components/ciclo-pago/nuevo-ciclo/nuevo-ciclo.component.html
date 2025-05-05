@@ -1,10 +1,10 @@
-<div class="container-fluid">
+<div class="container">
   <div class="crear-nuevo-ciclo">
 
     <div class="p-steps" style="margin-top: 15px">
       <p-steps [model]="steps" [(activeIndex)]="currentStep" [readonly]="true"></p-steps>
     </div>
-
+    <br>
     <p-card>
       <div class="mt-4">
         <ng-container [ngSwitch]="currentStep">
@@ -23,5 +23,6 @@
         <button (click)="goToNext()" pButton label="Continuar" class="bg-red-600 text-white hover:bg-red-700"></button>
       </div>
     </p-card>
+
   </div>
 </div>
