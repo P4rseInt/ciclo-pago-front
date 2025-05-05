@@ -4,7 +4,7 @@ import {
   ModeloColumnas,
   PropiedadesTabla
 } from '@models/tabla-general/table-model';
-import moment from 'moment';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-simulacion',
@@ -136,33 +136,36 @@ export class SimulacionComponent implements OnInit {
   // Datos para la tabla
   simulaciones: any[] = [];
 
-  constructor(private readonly dataService: DataService) {}
+  constructor(
+    private readonly dataService: DataService,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
     this.datosCiclo = this.dataService.getDatosSimulacion();
     this.simulaciones = [
-      {
-        idSimulacion: 1,
-        usuario: this.datosCiclo.usuarioCreacion,
-        fechaHora: moment(this.datosCiclo.creacion).toDate(),
-        porcentajeAvance: '5%',
-        totalRegistro: '0/0',
-        omitidos: 0,
-        pensionadosSinSaldo: 0,
-        duracion: '00:00:00',
-        etapa: 'Proceso finalizado',
-        estadoSimulacion: this.datosCiclo.estado,
-        ngClassField: {
-          fields: [
-            {
-              fieldName: 'estadoSimulacion',
-              stylesByValue: {
-                'Simulación - En proceso': 'warning'
-              }
-            }
-          ]
-        }
-      }
+      // {
+      //   idSimulacion: 1,
+      //   usuario: this.datosCiclo.usuarioCreacion,
+      //   fechaHora: moment(this.datosCiclo.creacion).toDate(),
+      //   porcentajeAvance: '5%',
+      //   totalRegistro: '0/0',
+      //   omitidos: 0,
+      //   pensionadosSinSaldo: 0,
+      //   duracion: '00:00:00',
+      //   etapa: 'Proceso finalizado',
+      //   estadoSimulacion: this.datosCiclo.estado,
+      //   ngClassField: {
+      //     fields: [
+      //       {
+      //         fieldName: 'estadoSimulacion',
+      //         stylesByValue: {
+      //           'Simulación - En proceso': 'warning'
+      //         }
+      //       }
+      //     ]
+      //   }
+      // }
     ];
   }
 

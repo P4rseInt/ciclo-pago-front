@@ -8,6 +8,7 @@ import { SegmentacionModule } from '@components/ciclo-pago/segmentacion/segmenta
 import { CicloPagoComponent } from '@components/ciclo-pago/ciclo-pago.component';
 import { ListadoCiclosModule } from '@components/ciclo-pago/listado-ciclos/listado-ciclos.module';
 import { SimulacionModule } from '@components/ciclo-pago/simulacion/simulacion.module';
+import { DataService } from '@services/data.service';
 
 @NgModule({
   declarations: [CicloPagoComponent],
@@ -21,6 +22,7 @@ import { SimulacionModule } from '@components/ciclo-pago/simulacion/simulacion.m
     CommonModule,
     CicloPagoRoutingModule
   ],
-  exports: [CicloPagoComponent]
+  exports: [CicloPagoComponent],
+  providers: [DataService]
 })
 export class CicloPagoModule {}

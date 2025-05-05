@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, delay } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 export class DataService {
   datosSimulacion: BehaviorSubject<any> = new BehaviorSubject(null);
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   setDatosSimulacion(data: any) {
     this.datosSimulacion.next(data);
@@ -15,5 +16,9 @@ export class DataService {
 
   getDatosSimulacion() {
     return this.datosSimulacion.getValue();
+  }
+
+  getData() {
+    return this.http.get<any>('https://pokeapi.co/api/v2/pokemon/ditto');
   }
 }

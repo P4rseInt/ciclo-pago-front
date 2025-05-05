@@ -392,6 +392,7 @@ export class ListadoCiclosComponent implements OnInit {
         icon: PrimeIcons.INFO_CIRCLE
       }
     ];
+    this.getData();
   }
 
   private verCiclo(data) {
@@ -427,5 +428,11 @@ export class ListadoCiclosComponent implements OnInit {
   navegarANuevoCiclo() {
     const ruta = ['ciclo-pago-front/nuevo-ciclo'];
     this.router.navigate(ruta).then();
+  }
+
+  getData() {
+    this.dataService.getData().subscribe((data) => {
+      console.log(data);
+    });
   }
 }

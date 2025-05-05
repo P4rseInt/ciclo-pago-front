@@ -8,6 +8,7 @@ export class LoaderService {
   private readonly loading = new BehaviorSubject<boolean>(false);
 
   setLoading(isLoading: boolean) {
+    console.log('isLoading', isLoading);
     this.loading.next(isLoading);
   }
 
