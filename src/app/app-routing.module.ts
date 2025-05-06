@@ -14,6 +14,13 @@ const routes: Routes = [
     component: CicloPagoComponent
   },
   {
+    path: 'ciclo-pago-front/nuevo-ciclo',
+    loadChildren: () =>
+      import('@components/ciclo-pago/nuevo-ciclo/nuevo-ciclo.module').then(
+        (m) => m.NuevoCicloModule
+      )
+  },
+  {
     path: 'ciclo-pago-front/simulacion',
     loadChildren: () =>
       import('@components/ciclo-pago/simulacion/simulacion.module').then(
@@ -28,13 +35,6 @@ const routes: Routes = [
         (m) => m.ChecklistModule
       ),
     component: ChecklistComponent
-  },
-  {
-    path: 'ciclo-pago-front/nuevo-ciclo',
-    loadChildren: () =>
-      import('@components/ciclo-pago/nuevo-ciclo/nuevo-ciclo.module').then(
-        (m) => m.NuevoCicloModule
-      )
   },
   { path: '', redirectTo: 'ciclo-pago-front', pathMatch: 'full' },
   { path: '**', redirectTo: 'ciclo-pago-front' }
