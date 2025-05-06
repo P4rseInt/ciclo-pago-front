@@ -4,7 +4,7 @@
     <p class="text-sm text-gray-600 mb-4">Seleccionar un lote y segmentarlo para asignarlo al ciclo en proceso.</p>
     <p-divider></p-divider>
     <div class="flex items-center gap-4 mb-4">
-      <button pButton label="Ver Checklist" class="p-button-outlined"></button>
+      <button pButton label="Ver Checklist" class="p-button-primary"></button>
       <div class="flex items-center text-green-600 font-medium"
            style="justify-content: center; align-content: center; flex-wrap: wrap;">
         <i class="pi pi-check-circle mr-2"></i> Checklist Terminado
@@ -12,7 +12,7 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <p-card [style]="{width:'20rem'}" *ngFor="let lote of lotes">
+      <p-card [style]="{width:'15rem'}" *ngFor="let lote of lotes">
         <ng-template pTemplate="content">
           <div class="flex items-start gap-2 mb-2">
             <p-checkbox (onChange)="getCheckboxSelection($event)" formControlName="lotes" [value]="lote.nombre">
@@ -38,9 +38,7 @@
 
     <div>
       <h3 class="text-lg font-semibold mb-1">Segmentación</h3>
-      <p class="text-sm text-gray-600 mb-2">Seleccionar la segmentación para el o los lotes, puede ser por Apellidos o
-        por
-        Financiamiento.</p>
+      <p class="text-sm text-gray-600 mb-2">Seleccionar segmentación para el lote.</p>
       <br>
 
       <label for="segmentacion" class="block mb-2 font-medium">Tipo de Segmentación</label>

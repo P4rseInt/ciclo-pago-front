@@ -73,10 +73,11 @@ export interface NgClassFieldItem {
 
 export interface PropiedadesTabla {
   topButtons: Boton[] | [];
-  tableTitle: string;
+  tableTitle?: string;
   rowSelectionButton?: Boton;
   hasCleanFilterButton?: boolean;
   hasDownloadButton?: boolean;
+  hasPaginator?: boolean;
 }
 
 export interface Boton {

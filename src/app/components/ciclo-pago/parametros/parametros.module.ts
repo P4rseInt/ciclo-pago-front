@@ -9,6 +9,7 @@ import { MessageModule } from 'primeng/message';
 import { TableModule } from 'primeng/table';
 import { MessagesModule } from 'primeng/messages';
 import { ButtonModule } from 'primeng/button';
+import { StyleClassModule } from 'primeng/styleclass';
 
 @NgModule({
   declarations: [ParametrosComponent],
@@ -21,7 +22,8 @@ import { ButtonModule } from 'primeng/button';
     MessageModule,
     TableModule,
     MessagesModule,
-    ButtonModule
+    ButtonModule,
+    StyleClassModule
   ],
   exports: [ParametrosComponent]
 })

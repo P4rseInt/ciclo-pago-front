@@ -256,4 +256,10 @@ export class TablaGeneralComponent implements OnInit, OnChanges {
         return 'text-white-800';
     }
   }
+
+  rowClass(rowIndex: number) {
+    return rowIndex % 2 === 0
+      ? 'bg-white-200 text-black'
+      : 'bg-gray-200 text-black';
+  }
 }

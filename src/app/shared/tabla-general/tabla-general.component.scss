@@ -20,3 +20,7 @@
 .p-datatable-wrapper {
   width: max-content !important;
 }
+
+:host ::ng-deep.p-table thead th .pi-filter {
+  color: #fff !important;
+}

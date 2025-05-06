@@ -9,6 +9,7 @@ import { CicloPagoComponent } from '@components/ciclo-pago/ciclo-pago.component'
 import { ListadoCiclosModule } from '@components/ciclo-pago/listado-ciclos/listado-ciclos.module';
 import { SimulacionModule } from '@components/ciclo-pago/simulacion/simulacion.module';
 import { DataService } from '@services/data.service';
+import { ChecklistModule } from '@components/ciclo-pago/checklist/checklist.module';
 
 @NgModule({
   declarations: [CicloPagoComponent],
@@ -19,6 +20,7 @@ import { DataService } from '@services/data.service';
     SegmentacionModule,
     UniversoPagoModule,
     SimulacionModule,
+    ChecklistModule,
     CommonModule,
     CicloPagoRoutingModule
   ],

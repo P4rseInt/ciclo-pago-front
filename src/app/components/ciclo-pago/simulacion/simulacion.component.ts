@@ -4,7 +4,8 @@ import {
   ModeloColumnas,
   PropiedadesTabla
 } from '@models/tabla-general/table-model';
-import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import moment from 'moment';
 
 @Component({
   selector: 'app-simulacion',
@@ -99,7 +100,87 @@ export class SimulacionComponent implements OnInit {
       ]
     }
   ];
-  propiedadesTabla: PropiedadesTabla = {
+  colsTablaFinaciamientos: ModeloColumnas[] = [
+    {
+      field: 'financiamientohaberes',
+      header: 'Financiamientos/Haberes',
+      hasFilter: true,
+      displayType: 'menu',
+      filterType: 'text'
+    },
+    {
+      field: 'N° Pensionados / Beneficiarios',
+      header: 'N° Pensionados / Beneficiarios',
+      hasFilter: true,
+      displayType: 'menu',
+      filterType: 'numeric'
+    },
+    {
+      field: 'Autofinanciada $ / UF',
+      header: 'Autofinanciada $ / UF',
+      hasFilter: true,
+      displayType: 'menu',
+      filterType: 'text'
+    },
+    {
+      field: 'Monto Cia. Seguros $ / UF',
+      header: 'Monto Cia. Seguros $ / UF',
+      hasFilter: true,
+      displayType: 'menu',
+      filterType: 'numeric'
+    },
+    {
+      field: 'Monto Beneficio Estatal $ / UF',
+      header: 'Monto Beneficio Estatal $ / UF',
+      hasFilter: true,
+      displayType: 'menu',
+      filterType: 'numeric'
+    },
+    {
+      field: 'Otros haberes autofinanciados',
+      header: 'Otros haberes autofinanciados',
+      hasFilter: true,
+      displayType: 'menu',
+      filterType: 'numeric'
+    },
+    {
+      field: 'Otros haberes financiamiento externo',
+      header: 'Otros haberes financiamiento externo',
+      hasFilter: true,
+      displayType: 'menu',
+      filterType: 'numeric'
+    },
+    {
+      field: 'Total descuentos $',
+      header: 'Total descuentos $',
+      hasFilter: true,
+      displayType: 'menu',
+      filterType: 'numeric'
+    },
+    {
+      field: 'Bonificación de salud $',
+      header: 'Bonificación de salud $',
+      hasFilter: true,
+      displayType: 'menu',
+      filterType: 'numeric'
+    },
+    {
+      field: 'Asignación familiar $',
+      header: 'Asignación familiar $',
+      hasFilter: true,
+      displayType: 'menu',
+      filterType: 'numeric'
+    },
+    {
+      field: 'Totales líquidos $',
+      header: 'Totales líquidos $',
+      hasFilter: true,
+      displayType: 'menu',
+      filterType: 'numeric'
+    }
+  ];
+  propiedadesTablaSimulaciones: PropiedadesTabla = {
+    hasPaginator: false,
     topButtons: [
       {
         title: 'Simular',
@@ -132,40 +213,44 @@ export class SimulacionComponent implements OnInit {
     },
     tableTitle: 'Listado de Simulaciones'
   };
+  propiedadesTablaFinaciamientos: PropiedadesTabla = {
+    topButtons: [],
+    hasPaginator: false
+  };
 
   // Datos para la tabla
   simulaciones: any[] = [];
 
   constructor(
     private readonly dataService: DataService,
-    private http: HttpClient
+    private readonly router: Router
   ) {}
 
   ngOnInit() {
     this.datosCiclo = this.dataService.getDatosSimulacion();
     this.simulaciones = [
-      // {
-      //   idSimulacion: 1,
-      //   usuario: this.datosCiclo.usuarioCreacion,
-      //   fechaHora: moment(this.datosCiclo.creacion).toDate(),
-      //   porcentajeAvance: '5%',
-      //   totalRegistro: '0/0',
-      //   omitidos: 0,
-      //   pensionadosSinSaldo: 0,
-      //   duracion: '00:00:00',
-      //   etapa: 'Proceso finalizado',
-      //   estadoSimulacion: this.datosCiclo.estado,
-      //   ngClassField: {
-      //     fields: [
-      //       {
-      //         fieldName: 'estadoSimulacion',
-      //         stylesByValue: {
-      //           'Simulación - En proceso': 'warning'
-      //         }
-      //       }
-      //     ]
-      //   }
-      // }
+      {
+        idSimulacion: 1,
+        usuario: this.datosCiclo.usuarioCreacion,
+        fechaHora: moment(this.datosCiclo.creacion).toDate(),
+        porcentajeAvance: '5%',
+        totalRegistro: '0/0',
+        omitidos: 0,
+        pensionadosSinSaldo: 0,
+        duracion: '00:00:00',
+        etapa: 'Proceso finalizado',
+        estadoSimulacion: this.datosCiclo.estado,
+        ngClassField: {
+          fields: [
+            {
+              fieldName: 'estadoSimulacion',
+              stylesByValue: {
+                'Simulación - En proceso': 'warning'
+              }
+            }
+          ]
+        }
+      }
     ];
   }
 
@@ -181,7 +266,9 @@ export class SimulacionComponent implements OnInit {
     return this.simulaciones;
   }
 
-  verChecklist() {}
+  async navegarAChecklist() {
+    await this.router.navigate(['ciclo-pago-front/simulacion/checklist']);
+  }
 
   verParametros() {}
 

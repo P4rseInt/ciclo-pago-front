@@ -19,9 +19,8 @@ export class LoadingInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     this.totalRequests++;
     this.loadingService.setLoading(true);
-    console.log('totalRequests', this.totalRequests);
     return next.handle(request).pipe(
-      delay(2000),
+      // delay(2000),
       finalize(() => {
         this.totalRequests--;
         if (!this.totalRequests) {

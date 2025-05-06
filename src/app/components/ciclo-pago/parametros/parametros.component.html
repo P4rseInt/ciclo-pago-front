@@ -1,9 +1,43 @@
 <div class="container">
-  <h2 class="text-2xl font-bold mb-1">Parámetros</h2>
-  <p class="text-sm text-gray-600 mb-4">Estos son los parámetros correspondientes al ciclo. No se encontraron todos
-    los
-    parámetros.
-  </p>
+
+  <div style="display: flex;
+              gap: 15px;
+              flex-wrap: wrap;
+              align-items: baseline;">
+    <p><strong>Parámetros:</strong></p>
+    <p class="text-sm text-gray-600 mb-4">
+      Estos son los parámetros correspondientes al ciclo. No se encontraron todos los parámetros.
+    </p>
+  </div>
+
+  <p-divider></p-divider>
+
+  <div style="display: flex;
+              gap: 15px;
+              flex-wrap: wrap;
+              align-items: baseline;">
+    <p><strong>Responsable:</strong></p>
+    <p class="text-sm text-gray-600 mb-4" style="display: flex;
+                  align-items: center;
+                  font-size: 14px;
+                  line-height: 100%;
+                  letter-spacing: 0;
+                  text-align: center;">
+      Los parámetros fueron aprobados el 03/04/2025 por <strong>epinob</strong>
+      <button style="width: max-content;
+                    margin-left: 10px;
+                    height: 32px;
+                    gap: 4px;
+                    padding: 8px 16px;
+                    border-radius: 21px;"
+              pButton class="p-button-danger"
+              icon="pi pi-download">
+        <p style="font-weight: 500">
+          Descargar Reporte
+        </p>
+      </button>
+    </p>
+  </div>
 
   <p-divider></p-divider>
 
@@ -21,7 +55,7 @@
     <!-- Información del Proceso -->
     <div>
       <h3 class="text-lg font-semibold border-b pb-1 mb-2">Información del Proceso</h3>
-      <div style="display: flex; justify-content: space-between;">
+      <div style="display: flex; gap: 7rem;">
         <div><strong>Tipo de Proceso</strong><br>Pago Diario</div>
         <br>
         <div><strong>Fecha de Disponibilidad</strong><br>17/04/2025</div>
@@ -35,17 +69,20 @@
     <!-- Detalle de Valor Cuota -->
     <div>
       <h3 class="text-lg font-semibold border-b pb-1 mb-2">Detalle de Valor Cuota</h3>
-      <div style="display: flex; justify-content: space-between">
-        <div><strong>Fondo:</strong><br><span class="text-red-600">Sin Información</span></div>
-        <br>
+      <div style="display: flex; gap: 7rem;">
         <div><strong>Fecha Valor Cuota</strong><br>10/04/2025</div>
+        <div><strong>Fondo A:</strong><br><span class="text-red-600">75.916,46</span></div>
+        <div><strong>Fondo B:</strong><br><span class="text-red-600">67.911,46</span></div>
+        <div><strong>Fondo C:</strong><br><span class="text-red-600">70.843,46</span></div>
+        <div><strong>Fondo D:</strong><br><span class="text-red-600">53.416</span></div>
+        <div><strong>Fondo E:</strong><br><span class="text-red-600">58.846,32</span></div>
       </div>
     </div>
     <br>
     <!-- Valor UF -->
     <div>
       <h3 class="text-lg font-semibold border-b pb-1 mb-2">Valor UF</h3>
-      <div style="display: flex; justify-content: space-between">
+      <div style="display: flex; gap: 7rem;">
         <div><strong>Fecha UF Salud</strong><br>09/04/2025</div>
         <br>
         <div><strong>Valor UF Salud</strong><br>38.939,22</div>
@@ -59,7 +96,7 @@
     <!-- Salud -->
     <div>
       <h3 class="text-lg font-semibold border-b pb-1 mb-2">Salud</h3>
-      <div style="display: flex; justify-content: space-between">
+      <div style="display: flex; gap: 7rem;">
         <div><strong>Porcentaje Imponible</strong><br>7</div>
         <br>
         <div><strong>Tope Imponible UF</strong><br>60</div>
@@ -69,7 +106,7 @@
     <!-- Monto de Pensión Mínima -->
     <div>
       <h3 class="text-lg font-semibold border-b pb-1 mb-2">Monto de Pensión Mínima</h3>
-      <div style="display: flex; justify-content: space-between">
+      <div style="display: flex; gap: 7rem;">
         <div><strong>Menores de 70 años</strong><br>$ 190.695,98</div>
         <br>
         <div><strong>Entre 70 y 74 años</strong><br>$ 208.511,41</div>
@@ -81,7 +118,7 @@
     <!-- Pensión Básica Solidaria -->
     <div>
       <h3 class="text-lg font-semibold border-b pb-1 mb-2">Pensión Básica Solidaria</h3>
-      <div style="display: flex; justify-content: space-between">
+      <div style="display: flex; gap: 7rem;">
         <div><strong>Menor a 75 años</strong><br>$ 221.616</div>
         <br>
         <div><strong>Entre 75 y 79 años</strong><br>$ 221.616</div>
@@ -118,7 +155,7 @@
     <!-- Valores de Ingreso Mínimo -->
     <div>
       <h3 class="text-lg font-semibold border-b pb-1 mb-2">Valores de Ingreso Mínimo</h3>
-      <div style="display: flex; justify-content: space-between">
+      <div style="display: flex; gap: 7rem;">
         <div><strong>Valor Ingreso Mínimo</strong><br>$ 510.636</div>
         <br>
         <div><strong>Valor Ingreso Mínimo sin Incrementos</strong><br>$ 329.151</div>
@@ -130,14 +167,14 @@
     <!-- PMAS -->
     <div>
       <h3 class="text-lg font-semibold border-b pb-1 mb-2">PMAS (Pensión Máxima con Aporte Solidario)</h3>
-      <div style="display: flex; justify-content: space-between">
+      <div style="display: flex; gap: 7rem;">
         <div><strong>Valor</strong><br>$ 654.877</div>
       </div>
     </div>
     <br>
     <div>
       <h3 class="text-lg font-semibold border-b pb-1 mb-2">Rebaja Asignación de Zona Extrema</h3>
-      <div style="display: flex; justify-content: space-between">
+      <div style="display: flex; gap: 7rem;">
         <div><strong>Valor</strong><br>$ 715.858</div>
       </div>
     </div>

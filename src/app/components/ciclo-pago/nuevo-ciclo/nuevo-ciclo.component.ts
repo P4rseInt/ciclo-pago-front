@@ -11,7 +11,7 @@ export class NuevoCicloComponent implements OnInit {
   currentStep = 0;
   steps: MenuItem[] | undefined;
 
-  constructor(private router: Router) {}
+  constructor(private readonly router: Router) {}
 
   public ngOnInit(): void {
     this.steps = [

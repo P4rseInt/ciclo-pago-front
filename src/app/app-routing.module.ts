@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CicloPagoComponent } from '@components/ciclo-pago/ciclo-pago.component';
 import { SimulacionComponent } from '@components/ciclo-pago/simulacion/simulacion.component';
+import { ChecklistComponent } from '@components/ciclo-pago/checklist/checklist.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,14 @@ const routes: Routes = [
     component: SimulacionComponent
   },
   {
+    path: 'ciclo-pago-front/simulacion/checklist',
+    loadChildren: () =>
+      import('@components/ciclo-pago/checklist/checklist.module').then(
+        (m) => m.ChecklistModule
+      ),
+    component: ChecklistComponent
+  },
+  {
     path: 'ciclo-pago-front/nuevo-ciclo',
     loadChildren: () =>
       import('@components/ciclo-pago/nuevo-ciclo/nuevo-ciclo.module').then(
@@ -28,7 +37,7 @@ const routes: Routes = [
       )
   },
   { path: '', redirectTo: 'ciclo-pago-front', pathMatch: 'full' },
-  { path: '**', redirectTo: 'ciclo-pago-front' },
+  { path: '**', redirectTo: 'ciclo-pago-front' }
 ];
 
 @NgModule({
