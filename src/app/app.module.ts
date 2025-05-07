@@ -6,7 +6,7 @@ import { CicloPagoModule } from '@components/ciclo-pago/ciclo-pago.module';
 import { LoaderModule } from '@shared/loader/loader.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoadingInterceptor } from './interceptors/loading/loading.interceptor';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { BreaddcrumbModule } from '@shared/breadcrumb/breadcrumb.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +16,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     CicloPagoModule,
     LoaderModule,
     HttpClientModule,
-    BreadcrumbModule
+    BreaddcrumbModule
   ],
   providers: [
     {

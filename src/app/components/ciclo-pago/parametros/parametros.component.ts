@@ -98,7 +98,7 @@ export class ParametrosComponent implements OnInit {
     }
   ];
 
-  constructor(private router: Router) {}
+  constructor(private readonly router: Router) {}
 
   ngOnInit() {
     console.log('Componente parametros');

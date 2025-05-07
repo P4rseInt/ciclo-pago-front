@@ -34,6 +34,6 @@ export class NuevoCicloComponent implements OnInit {
   }
 
   async navigateToCicloPago() {
-    await this.router.navigate(['ciclo-pago-front']);
+    await this.router.navigate(['']);
   }
 }

@@ -406,7 +406,7 @@ export class ListadoCiclosComponent implements OnInit {
   }
 
   private navegarAParametros(data) {
-    const ruta = ['ciclo-pago-front/simulacion'];
+    const ruta = ['simulacion'];
     this.dataService.setDatosSimulacion(data);
     this.router.navigate(ruta).then();
   }
@@ -417,17 +417,13 @@ export class ListadoCiclosComponent implements OnInit {
   }
 
   respuestaBusqueda(res: any) {
-    console.log('respuestaBusqueda', res);
     this.busqueda = res;
   }
 
-  clearSearch($event: boolean) {
-    this.clear = $event;
-  }
-
   navegarANuevoCiclo() {
-    const ruta = ['ciclo-pago-front/nuevo-ciclo'];
-    this.router.navigate(ruta).then();
+    this.router
+      .navigate(['nuevo-ciclo'])
+      .then((ok) => console.log('Navegación exitosa?', ok));
   }
 
   getData() {

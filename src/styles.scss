@@ -52,3 +52,24 @@
   box-shadow: none;
   outline: none;
 }
+
+/* Hover opcional */
+.mi-breadcrumb .p-breadcrumb-list .p-menuitem-link:hover .p-menuitem-text {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.mi-breadcrumb {
+  border: none !important; /* quita el borde */
+}
+
+/* Texto de cada paso */
+.mi-breadcrumb .p-breadcrumb-list .p-menuitem-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #0e7490;
+}
+
+
+
+

@@ -11,7 +11,6 @@ export class SegmentacionComponent implements OnInit {
   form: FormGroup;
   lotes: any[];
   tiposSegmentacionesList: any[];
-  arr = [];
 
   constructor() {}
 

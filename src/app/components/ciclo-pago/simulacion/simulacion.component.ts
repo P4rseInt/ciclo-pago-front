@@ -267,7 +267,7 @@ export class SimulacionComponent implements OnInit {
   }
 
   async navegarAChecklist() {
-    await this.router.navigate(['ciclo-pago-front/simulacion/checklist']);
+    await this.router.navigate(['checklist']);
   }
 
   verParametros() {}

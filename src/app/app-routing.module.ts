@@ -2,41 +2,24 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CicloPagoComponent } from '@components/ciclo-pago/ciclo-pago.component';
 import { SimulacionComponent } from '@components/ciclo-pago/simulacion/simulacion.component';
-import { ChecklistComponent } from '@components/ciclo-pago/checklist/checklist.component';
+import { NuevoCicloComponent } from '@components/ciclo-pago/nuevo-ciclo/nuevo-ciclo.component';
 
 const routes: Routes = [
   {
-    path: 'ciclo-pago-front',
-    loadChildren: () =>
-      import('@components/ciclo-pago/ciclo-pago.module').then(
-        (m) => m.CicloPagoModule
-      ),
-    component: CicloPagoComponent
+    path: '',
+    component: CicloPagoComponent,
+    data: { breadcrumb: 'Ciclos de pago' }
   },
   {
-    path: 'ciclo-pago-front/nuevo-ciclo',
-    loadChildren: () =>
-      import('@components/ciclo-pago/nuevo-ciclo/nuevo-ciclo.module').then(
-        (m) => m.NuevoCicloModule
-      )
+    path: 'nuevo-ciclo',
+    component: NuevoCicloComponent,
+    data: { breadcrumb: 'Nuevo ciclo' }
   },
   {
-    path: 'ciclo-pago-front/simulacion',
-    loadChildren: () =>
-      import('@components/ciclo-pago/simulacion/simulacion.module').then(
-        (m) => m.SimulacionModule
-      ),
-    component: SimulacionComponent
+    path: 'simulacion',
+    component: SimulacionComponent,
+    data: { breadcrumb: 'Simulación' }
   },
-  {
-    path: 'ciclo-pago-front/simulacion/checklist',
-    loadChildren: () =>
-      import('@components/ciclo-pago/checklist/checklist.module').then(
-        (m) => m.ChecklistModule
-      ),
-    component: ChecklistComponent
-  },
-  { path: '', redirectTo: 'ciclo-pago-front', pathMatch: 'full' },
   { path: '**', redirectTo: 'ciclo-pago-front' }
 ];
 
