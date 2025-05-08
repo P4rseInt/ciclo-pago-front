@@ -1,0 +1,165 @@
+// VARIABLES ASOCIADAS A COLORES
+
+$bg_body: #F1F3F4;
+//generales
+$white: #fff;
+$black: #000;
+$gray_gral: #4c4c4a;
+$color-base: #4C4C4A;
+$color-primary: #B4123B;
+$color-second: #002F56;
+$color-second-light: #D5E0E3;
+$color-links: #0085B2;
+$color-gray-light: #F9F8F6;
+$color-light-borde: #BFC9CC;
+$color-middle-grey: #E4E8E9;
+$color-deep-grey: #51575D;
+$color-aux-brand: #6BA3B7;
+$color-aux-second: #EB6915;
+$color-aux-second-dark: #215EAC;
+$color-aux-fondo: #ED6900;
+$color-aux-fondo-second: #2660AA;
+$color-success:#5CAE3B;
+$color-border: #DDD;
+$bg-table: #F7F7F7;
+$bg-th: #51575D;
+$step-grey: #d8d8d8;
+$color-th: #4C4C4A;
+//color textos
+$link_txt: #0085b2;
+$blue_light: #c5dcee;
+$lightblue_txt: #6ba3b7;
+$red_txt: #b4123b;
+// escala de grises - número más bajo es gris más claro  - número más alto es gris más oscuro
+$gray_29: #51575c;
+$gray_28: #908E8F;
+$gray_27: #edf2f5;
+$gray_26: #dcddde;
+$gray_25: #fbfbfb;
+$gray_24: #fafafa;
+$gray-23: #eaeaea;
+$gray-22: #6C6C69;
+$gray-21: #8D8E8B;
+$gray-20: #EEF3F4;
+$gray-19: #ffe7e7;
+$gray-18: #6E6E6E;
+$gray_17: #f4f4f4;
+$gray_16: #636466;
+$gray_15: #acabab;
+$gray_14: #e8f0fe;
+$gray_13: #a8a8a8;
+$gray_12: #CCC;
+$gray_11: #676666;
+$gray_10: #e9e9e9;
+$gray_9: #333;
+$gray_8: #565654;
+$gray_7: #777;
+$gray_6: #969696;
+$gray_5: #afafaf;
+$gray_4: #bfbfbf;
+$gray_3: #d8d8d8;
+$gray_2: #e1e1e1;
+$gray_1: #f1f3f4;
+$gray_0: #f6f6f6;
+//multifondos
+$fondo_a: #b52a29;
+$fondo_b: #eb6915;
+$fondo_c: #5cae3b;
+$fondo_d: #2e8ecd;
+$fondo_e: #2660aa;
+//cuentas
+$cuenta_obligatoria: #005385;
+$cuenta_2: #FF8B00;
+$cuenta_cai: #2BD3DC;
+$cuenta_apv: #B4123B;
+$cuenta_depositos_convenidos: #EF3A51;
+$cuenta_ciav: #3A9812;
+$cuenta_apvc: #FFCC4F;
+$bono_reconocimiento: #983912;
+// alertas - color textos
+$txt_danger: #b4123b;
+$txt_success: #5cae3b;
+$txt_warning: #d88c20;
+$txt_info: #488398;
+//alertas - color background
+$bg_danger: #FFD9E1;
+$bg_success: #e1f2d9;
+$bg_warning: #ffe5b5;
+$bg_info: #c4e4ef;
+//background generales - azules
+$bg_blue_1: #223877;
+$bg_blue_2: #0085b2;
+$bg_blue_3: #2098d1;
+$bg_blue_4: #e1edf7;
+$bg_blue_5: #6ba3b7;
+$bg_blue_6: #528291;
+$bg_blue_7: #494E54;
+$bg_blue_8: #273a7a;
+$bg_blue_9: #026482;
+$bg_blue_10: #255988;
+$bg_blue_11: #69a3b7;
+$bg_blue_12: #67A4B5; //color botones
+$bg_blue_13: #273a79;
+$bg_blue_14: #253d71;
+$bg_blue_15: #a8ccd7;
+$bg_blue_16: #4274A0;
+$bg_blue_17: #C2CAD6;
+$bg_blue_18: #233E56;
+$bg_blue_19: #338ece;
+$bg_blue_20: #69a3b8;
+$bg_blue_21: #84b5c2;
+$bg_blue_22: #00326B;
+$bg_blue_23: #7EB6C2;
+
+//bg celeste grisaceo
+$gray_blue_1: #edf3f5;
+$gray_blue_2: #DDE6E9;
+$gray_blue_3: #84B5C2;
+
+// rojos
+$red_5: #8d0628;
+$red_4: #f00;
+$red_3: #8a0b28;
+$red_2: #b4123b;
+$red_1: #be3756;
+$red_0: #fed9e1;
+//amarillos
+$yellow_5: #fbbc04;
+$yellow_4: #ff9;
+$yellow_3: #cc7e00;
+$yellow_2: #ffa632;
+$yellow_1: #ffbf00;
+//verdes
+$green_5: #E1F2D9;
+$green_4: #00A90F;
+$green_3: #0cad1a;
+$green_2: #2a9900;
+$green_1: #6ce26c;
+
+//negros
+$black_1: #0003;
+
+// Tablas
+$border_white: #DDD;
+$back_groud_color_white: #E0EAED;
+
+//outline inputs
+$outline-focus: #51cbee;
+
+//menu lateral
+$gray_menu: #F0F0F0;
+$bg_gradient: #d1d1d1;
+
+// footer privado
+$bg_blue_border: #739BA7;
+
+//Header
+$bg_buscador: #d9bbc2;
+$txt_buscador: #CC6882;
+
+$bg_header_azul: #263c76;
+
+// Chat
+$chat_black: #484848;
+$chat_gray: #666;
+$chat_white: #dedede;

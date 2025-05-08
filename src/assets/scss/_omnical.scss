@@ -1,0 +1,51 @@
+@use "_colores.scss" as color;
+@use  "_varfuentes.scss" as var;
+@use "_fuentes.scss" as fuente;
+
+.encuestas {
+  background: #FFF4DA;
+  padding: 20px 15px 10px;
+  margin: 10px -30px 30px;
+}
+
+.th-omnical-red th {
+background-color: color.$red_txt !important;
+}
+
+.negoc-success {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: color.$color-success;
+  margin-left: 10px;
+}
+
+.satis-warning {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: color.$yellow_5;
+  margin-left: 10px;
+}
+
+.alert-fuga {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: color.$color-primary;
+  margin-left: 10px;
+}
+
+.alert-no-data {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  margin-left: 10px;
+  border: 1px solid black;
+}
+
+.fug-rot{
+  width: 50px !important;
+  margin-left: 10px;
+}

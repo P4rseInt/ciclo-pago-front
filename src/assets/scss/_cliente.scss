@@ -1,0 +1,237 @@
+@use "colores" as color;
+@use "varfuentes" as var;
+@use "perfiles" as perfiles;
+
+.line-cliente {
+  border-top: 15px solid color.$color-primary;
+  border-radius: 6px 0 0 0;
+}
+
+.cliente-cerrar {
+  display: flex;
+  justify-content: flex-end;
+
+  .btn {
+    border-radius: 6px 6px 0 0;
+}
+}
+
+.head-cliente{
+padding: 30px;
+background: color.$color-primary;
+}
+
+.menu-cliente{
+background: color.$color-primary;
+
+.nav-pills {
+
+  .dropdown-toggle::after {
+    top: 7px;
+    }
+
+    .nav-item:hover {
+      .dropdown-toggle{
+        color: #0085B2 !important;
+    }
+  }
+}
+}
+
+.btn-border-white{
+ background: transparent !important;
+ border: 1px solid color.$white !important;
+}
+
+.sub-menu-cliente {
+  display: flex;
+  justify-content: flex-end;
+
+  .sub-menu-item {
+    list-style: none;
+    text-align: center;
+    color: color.$white;
+    cursor: pointer;
+    transition: all .3s ease;
+
+    &:hover{
+        color: color.$gray_13;
+      }
+
+    i {
+      font-size: 35px;
+  }
+
+  a {
+      color: color.$white;
+
+      &:hover{
+        color: color.$gray_13;
+      }
+  }
+}
+}
+
+.indicadores-cliente{
+  justify-content: space-between;
+  align-items: center;
+  .contenedor-indicadores {
+    h3{
+      max-width: 80%;
+    }
+  }
+
+  .col-4 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.tipo-cliente {
+  padding: 5px 25px;
+  background: color.$back_groud_color_white;
+  border-radius: 30px;
+}
+
+.contenido-clientes {
+  padding: 30px;
+  box-shadow: 0 0 6px 0 #00000038;
+  border-radius: 0 0 6px 6px;
+  margin-bottom: 40px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+
+.menu-acord {
+  display: flex;
+
+  a {
+    padding: 10px 20px;
+    background: white;
+    border: 1px solid color.$color-links;
+    color: color.$color-links;
+    border-radius: 6px 6px 0 0;
+    margin-right: 2px;
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  a:last-child {
+    margin-right: 0 !important;
+  }
+
+  .active {
+    background: #6AA3B7 !important;
+    color: white !important;
+    margin-top: -10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: roboto-bold ,sans-serif;
+  }
+
+}
+
+.estado-crec {
+  padding: 5px 10px;
+  border-radius: 30px;
+  color: white;
+  min-width: 100px;
+  text-align: center;
+}
+
+.estado-crec.cerrado{
+  background: color.$color-primary;
+  }
+
+  .estado-crec.proceso {
+  background: color.$yellow_5;
+  }
+
+.estado-pension {
+  padding: 5px 10px;
+  border-radius: 30px;
+  color: white;
+  min-width: 100px;
+  text-align: center;
+}
+
+.estado-pension.proceso {
+  background: color.$yellow_5;
+}
+
+.estado-pension.rechazado {
+  background: color.$color-primary;
+  }
+
+
+
+.estado-pension.aprobado {
+  background: color.$color-success;
+}
+
+.saldos-cuentas {
+
+  .bg-cuenta {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 7px;
+  }
+  .obligatoria {
+    background: #005385;
+    }
+
+  .apv {
+    background: #B4123B;
+    }
+
+  .cav {
+    background: #FF8B00;
+    }
+
+  .apvc {
+    background: #FFCC4F;
+    }
+
+  .dep-conv {
+    background: #EF3A51;
+    }
+
+  .cai {
+    background: #2BD3DC;
+    }
+
+  .cciav {
+    background: #3A9812;
+    }
+
+  .br {
+    background: #983912;
+
+  }
+
+  tfoot{
+    border-top: 1px solid #A4CAD6;
+  }
+}
+
+.negoc-filtros {
+  .btn {
+      background: white;
+      color: #84B5C2;
+      border: 1px solid #84B5C2;
+      padding: 8px 15px;
+  }
+
+  .btn:hover,
+  .btn:active,
+  .active{
+      background: #84B5C2;
+      color: white;
+  }
+}

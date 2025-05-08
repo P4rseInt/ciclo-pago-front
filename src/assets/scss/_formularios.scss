@@ -1,0 +1,433 @@
+// Migas de pan
+
+@use "_colores.scss" as color;
+@use "_varfuentes.scss" as var;
+@use "_fuentes.scss" as fuente;
+
+// Migas de pan
+.breadcrumbs-private {
+  margin: 30px 0 30px 0;
+  padding-left: 0px;
+}
+
+.breadcrumbs-private li {
+  display: inline-block;
+  vertical-align: middle;
+  font-family: var.$font-regular;
+  margin-right: 10px;
+  font-size: 12px !important;
+}
+
+.breadcrumbs-private li a {
+  color: color.$color-links;
+  font-size: 12px !important;
+}
+
+.breadcrumbs-private li a:after {
+  font-size: 8px;
+  margin-left: 10px;
+  font-family: var.$font-icon;
+  content: "\e929";
+  color: color.$bg_blue_1;
+}
+.breadcrumbs-private .animate-link:hover:before{
+  left:0%;
+  right:30%;
+}
+
+.bg-form{
+background-color: color.$gray_1 !important;
+}
+
+// Titulos & subtítulos
+.title-page {
+  font: 28px var.$font-regular;
+  margin-bottom: 20px
+}
+
+.subtitle-data {
+  font-size: 16px;
+  font-family: var.$font-medium;
+}
+
+.subtitle-form {
+  font-size: 14px !important;
+  font-family: var.$font-medium;
+  margin-bottom: 10px;
+}
+
+.sub__content span {
+color: color.$color-primary;
+}
+
+.legend-form {
+  color: color.$red_txt;
+  font-size: 12px;
+  font-family: var.$font-regular;
+  padding-left: 5px;
+}
+
+// Select o Combobox
+select {
+  border: 0px solid color.$gray_12;
+  border-radius: 0px;
+  display: block;
+  width: 100%;
+  font-size: 16px;
+  font-family: var.$font-regular;
+  color: color.$gray_gral;
+  appearance: none;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+  outline: none;
+}
+
+.custom-select {
+  position: relative;
+  background:color.$white;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.custom-select:after {
+  position: absolute;
+  top: 0;
+  right: 15px;
+  width: 10px;
+  height: 37px;
+  padding: 0 5px;
+  line-height: 35px;
+  pointer-events: none;
+  background-color: color.$white;
+  margin: 2px;
+  font-size: 7px;
+  border-radius: 5px;
+  color: color.$bg_blue_12;
+  z-index: 1;
+  font-family: var.$font-icon;
+  content: "\e914"
+}
+
+.custom-select .tooltip-error,
+.group-radio .tooltip-error {
+  position: relative;
+  top: 0;
+  width: 100%;
+  display: table
+}
+
+input[type="text"],
+input[type="date"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+textarea {
+  height: 40px;
+  border: 1px solid color.$gray_12;
+  border-radius: 5px;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  background-color: color.$white;
+  font-size: 14px;
+  font-family: var.$font-regular;
+  color: color.$gray_gral;
+}
+
+.hidden-change {
+  display: none
+}
+
+.custom-radio-private {
+  padding: 0;
+  position: relative
+}
+
+.custom-radio-private input[type="radio"] {
+  display: none
+}
+
+.custom-radio-private label {
+  display: block;
+  color: #4C4C4A
+}
+
+.custom-radio-private label .text-label {
+  display: inline-block;
+}
+
+.custom-radio-private label .custom {
+  background-color: color.$white;
+  vertical-align: middle
+}
+
+.custom-radio-private label .custom:before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 10px;
+  height: 10px;
+  opacity: 0;
+  border-radius: 50%;
+  background-color: color.$color-links;
+  transition: all 0.25s ease-in-out
+}
+
+.custom-radio-private label .custom+img {
+  display: inline-block;
+  vertical-align: middle
+}
+
+@media (max-width: 700px) {
+  .custom-radio-private label .text-label {
+      max-width: calc(100% - 30px)
+  }
+}
+
+.custom-radio-private input[type="radio"] ~ label .custom {
+  width: 18px;
+  height: 18px;
+  border: 1px solid color.$color-links;
+  position: relative;
+  border-radius: 50%;
+  top: 1px;
+  margin-right: 5px;
+  display: inline-block
+}
+
+.custom-radio-private input[type="radio"]:checked ~ label .custom:before {
+  opacity: 1
+}
+
+.tooltip-error {
+  position: relative;
+  display: table;
+  z-index: 1000;
+  min-width: 160px;
+  margin: 2px 0 0;
+  font-size: 14px;
+  font-family: var.$font-regular;
+  text-align: left;
+  color: color.$color-primary;
+  background-color: color.$red_0;
+  border: 1px solid color.$color-primary;
+  border-radius: 5px;
+  top: calc(100% - 19px);
+  left: 0;
+  width: 100%;
+  padding: 8px 10px;
+  line-height: 140%
+}
+
+.tooltip-error:after {
+  position: absolute;
+  content: "";
+  width: 10px;
+  height: 10px;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  top: -6px;
+  left: 14px;
+  border-left: 1px solid color.$color-primary;
+  border-top: 1px solid color.$color-primary;
+  background-color: color.$red_0;
+}
+
+.tooltip-error.static {
+  top: 0;
+  width: 100%;
+  display: inline-block;
+  position: relative
+}
+
+
+.form-group {
+position: relative;
+margin: 0
+}
+
+.form-group:after {
+visibility: hidden;
+display: block;
+font-size: 0;
+content: " ";
+clear: both;
+height: 0
+}
+
+.form-group+.form-group {
+margin-top: 20px
+}
+
+.form-group label {
+font-size: 18px;
+margin-bottom: 10px;
+display: block
+}
+
+.form-group label.label-small {
+font-size: 14px
+}
+
+.form-group .icon-search {
+color: color.$color-links;
+background-color: transparent;
+border: 0;
+font-size: 24px;
+position: absolute;
+top: 50%;
+right: 10px;
+cursor: pointer;
+-webkit-transform: translate3d(0, -50%, 0);
+transform: translate3d(0, -50%, 0)
+}
+
+.form-group.inline .form-group {
+display: inline-block;
+vertical-align: top;
+margin-top: 0;
+margin-right: 20px
+}
+
+.form-group.sin-label {
+padding-top: 28px
+}
+
+.custom-checkbox-private {
+position: relative;
+clear: both
+}
+
+.custom-checkbox-private input[type="checkbox"] {
+display: none
+}
+
+.custom-checkbox-private .custom {
+color: color.$bg_blue_12;
+background-color: color.$white;
+overflow: hidden;
+top: -1px
+}
+
+.custom-checkbox-private .custom:before {
+font-size: var.$font-size-xs;
+position: absolute;
+top: 5px;
+left: -15px;
+-webkit-transform: translate3d(0, 0, 0);
+transform: translate3d(0, 0, 0);
+width: 11px;
+height: 11px;
+opacity: 0;
+display: block;
+transition: all 0.25s ease-in-out
+}
+
+.custom-checkbox-private .custom,
+.custom-checkbox-private .text-label {
+float: left
+}
+
+.custom-checkbox-private label {
+margin-bottom: 0
+}
+
+.custom-checkbox-private label span {
+width: calc(100% - 22px)
+}
+
+.custom-checkbox-private input[type="checkbox"]~label .custom {
+width: 17px;
+height: 17px;
+border: 1px solid color.$gray-18;
+position: relative;
+margin-right: 5px;
+display: inline-block
+}
+
+.custom-checkbox-private input[type="checkbox"]:checked~label .custom {
+border-color: color.$bg_blue_12
+}
+
+.custom-checkbox-private input[type="checkbox"]:checked~label .custom:before {
+opacity: 1;
+left: 50%;
+-webkit-transform: translate3d(-50%, -50%, 0);
+transform: translate3d(-50%, -50%, 0)
+}
+
+.custom-checkbox-center {
+display: table;
+margin: auto
+}
+
+.ht-icons-check:before,
+.box-number.complete .number:before,
+.wizard .wizard-step.complete .wizard-dot:before,
+.custom-checkbox-private .custom:before {
+  content: "\f00c";
+  font-family: var.$font-icon !important;
+}
+
+.form-control:focus{
+  box-shadow:  0 0 5px color.$outline-focus;
+}
+
+@media (max-width: 576px){
+  .title-page {
+      font-size: 24px;
+  }
+}
+
+/*
+* Estilos dropdown
+*/
+.dropdown-toggle {
+&:hover {
+  color: color.$gray_gral !important;
+  opacity: 1 !important;
+}
+&::after {
+  position: absolute;
+  top: 0;
+  right: 15px;
+  width: 10px;
+  height: 37px;
+  padding: 0 5px;
+  line-height: 35px;
+  pointer-events: none;
+  background-color: color.$white !important;
+  margin: 2px;
+  font-size: 7px;
+  color: color.$bg_blue_12;
+  z-index: 1;
+  font-family: var.$font-icon;
+  content: "\e914";
+  border: none;
+}
+background: color.$white !important;
+color: color.$gray_gral !important;
+border: 1px solid rgba(0, 0, 0, 0.15) !important;
+overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+padding-left: 25px !important;
+padding-right: 30px !important;
+}
+.dropdown-menu {
+max-height: 350px;
+overflow-y: auto;
+overflow-x: inherit;
+}
+.dropdown-item {
+white-space: normal;
+&:hover {
+  background-color: color.$back_groud_color_white;
+}
+&:focus {
+  background-color: color.$back_groud_color_white;
+}
+}

@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class DataService {
   datosSimulacion: BehaviorSubject<any> = new BehaviorSubject(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   setDatosSimulacion(data: any) {
     this.datosSimulacion.next(data);

@@ -1,0 +1,71 @@
+@use "colores" as color;
+@use "varfuentes" as var;
+@use "fuentes" as fuente;
+
+.huella {
+  width: 85px;
+  height: 95px;
+  border: 1px solid color.$gray_2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+
+  .ht-icons-fingerprint {
+    font-size: 65px;
+    color: color.$gray_2;
+  }
+
+  .huella-ok {
+    font-size: 10px;
+    background: color.$color-success;
+    color: white;
+    padding: 3px;
+  }
+
+  .huella-no {
+    font-size: 10px;
+    background: color.$color-primary;
+    color: white;
+    padding: 3px;
+  }
+}
+
+.nav-pills {
+
+  .nav-item{
+  padding: inherit;
+  transition: all .3s ease;
+  text-align: center;
+}
+
+.nav-link {
+    padding: 0.5rem 1rem !important;
+}
+
+li:hover{
+  background: rgba(255, 255, 255, 0.8);
+}
+}
+
+.active-cliente {
+    background: #ffffff38;
+    border-bottom: 5px solid color.$color-primary;
+    border-left: 1px solid color.$bg_blue_18;
+  border-right: 1px solid color.$bg_blue_18;
+}
+
+.active-ejecutivo {
+    background: #ffffff38;
+    border-bottom: 5px solid color.$color-links;
+    border-left: 1px solid color.$bg_blue_18;
+  border-right: 1px solid color.$bg_blue_18;
+}
+
+.active-empleador {
+    background: #ffffff38;
+    border-bottom: 5px solid color.$bg_blue_23;
+    border-left: 1px solid color.$bg_blue_18;
+  border-right: 1px solid color.$bg_blue_18;
+}
+

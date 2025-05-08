@@ -1,0 +1,150 @@
+@use "_colores.scss" as color;
+@use "_varfuentes.scss" as var;
+@use "_fuentes.scss" as fuente;
+
+.wizard {
+  display: table;
+  width: 100%;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid color.$border_white;
+}
+.wizard.step-two .wizard-step.active .progress-bar {
+  width: 100%
+}
+.wizard .wizard-step {
+  display: table-cell;
+  position: relative;
+  width: 2%
+}
+.wizard .wizard-step:first-child .wizard-progress {
+  left: 50%;
+  width: 50%
+}
+.wizard .wizard-step:first-child.active .progress-bar {
+  width: 0
+}
+
+.wizard .wizard-step:last-child .wizard-progress {
+  width: 50%
+}
+.wizard .wizard-step:last-child.active .progress-bar {
+  width: 100%
+}
+.wizard .wizard-step.complete .progress-bar {
+  width: 100%
+}
+.wizard .wizard-step.complete .wizard-dot {
+  color: transparent;
+  border-color: color.$color-aux-brand
+}
+.wizard .wizard-step.complete .wizard-dot:before {
+  color: color.$color-aux-brand;
+  left: 50%;
+  top: 50%;
+  position: absolute;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+  font-size: 14px
+}
+.wizard .wizard-step.active .progress-bar {
+  width: 50%
+}
+.wizard .wizard-step.active .progress-bartra {
+  width: 50%
+}
+.wizard .wizard-step.active .wizard-dot {
+  color: color.$white;
+  background-color: color.$color-aux-brand;
+  border-color: transparent
+}
+.wizard .wizard-progress {
+  position: relative;
+  border-radius: 0px;
+  height: 1px;
+  box-shadow: none;
+  margin: 20px 0;
+  overflow: hidden;
+  background-color: color.$step-grey
+}
+.wizard .progress-bar {
+  float: left;
+  width: 0;
+  height: 100%;
+  font-size: 12px;
+  line-height: 20px;
+  color: color.$white;
+  text-align: center;
+  background-color: color.$color-aux-brand;
+  transition: width .3s ease
+}
+.wizard .wizard-text {
+  text-align: center;
+  padding-top: 15px;
+  color: color.$gray-21;
+  font-family: var.$font-light;
+}
+
+.wizard .wizard-text.extendido {
+  font-size: 14px;
+}
+
+.wizard .wizard-dot {
+  width: 44px;
+  height: 44px;
+  position: absolute;
+  top: 0;
+  left: calc(50% - 22px);
+  color: color.$step-grey;
+  z-index: 10;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: color.$white;
+  border: 1px solid color.$step-grey
+}
+@media (max-width: 700px) {
+  .wizard {
+      display: none
+  }
+}
+.step-holder-mobile {
+  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid color.$color-border;
+  margin-bottom: 20px;
+  font-size: 18px;
+
+  p{
+      margin-bottom: 0;
+  }
+
+  p, h4{
+      font-family: var.$font-regular;
+  }
+}
+.step-holder-mobile .current {
+  font-family: var.$font-black;
+}
+@media (min-width: 700px) {
+  .step-holder-mobile {
+      display: none
+  }
+}
+@media (max-width: 699px) {
+  .step-holder-mobile {
+      display: block
+  }
+}
+
+@media (min-width: 700px) {
+  .step-holder-mobile {
+      display: none
+  }
+}
+@media (max-width: 699px) {
+  .step-holder-mobile {
+      display: block
+  }
+}

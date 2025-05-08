@@ -1,0 +1,24 @@
+@use "colores" as color;
+@use "varfuentes" as var;
+@use "perfiles" as perfiles;
+@use "_fuentes.scss" as fuentes;
+.line-ejecu {
+  border-radius: 6px;
+}
+
+.menu-ejec{
+background: color.$bg_blue_2;
+border-radius: 5px 5px 0 0;
+
+  .nav-pills {
+    .nav-item:hover {
+      .dropdown-toggle{
+          color: #0086b3 !important;
+      }
+    }
+
+    .dropdown-toggle::after {
+        top: 0;
+    }
+  }
+}

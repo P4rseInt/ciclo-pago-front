@@ -1,0 +1,351 @@
+@use "_colores.scss" as color;
+@use "_varfuentes.scss" as var;
+@use "_fuentes.scss" as fuente;
+
+table.table-private:not(.break) thead th {
+  color: white;
+  background-color: color.$gray_gral
+}
+table.table-private:not(.break) tbody tr,
+table.table-private:not(.break) tfoot tr {
+  border-top: 1px solid color.$gray_6;
+}
+table.table-private:not(.break) tbody tr td,
+table.table-private:not(.break) tfoot tr td {
+  border-left: 1px solid color.$gray_6;
+  border-right: 1px solid color.$gray_6;
+  border-bottom: 1px solid color.$gray_6;
+}
+
+table.table-private:not(.break) tbody tr:nth-child(even),
+table.table-private:not(.break) tfoot tr:nth-child(even) {
+  background: color.$gray-23;
+}
+
+table.table-private:not(.break) tbody tr td .th-content,
+table.table-private:not(.break) tfoot tr td .th-content {
+  display: none
+}
+table.table-private:not(.break) tbody tr .th-texto,
+table.table-private:not(.break) tfoot tr .th-texto {
+  display: none
+}
+table.table-private:not(.break) tbody .show-break,
+table.table-private:not(.break) tfoot .show-break {
+  display: none
+}
+table.table-private:not(.break) tbody td.hidden-break,
+table.table-private:not(.break) tfoot td.hidden-break {
+  display: table-cell
+}
+table.table-private:not(.break).table-text-center th,
+table.table-private:not(.break).table-text-center td {
+  text-align: center
+}
+table.table-private.break thead {
+  display: none
+}
+table.table-private.break tbody tr,
+table.table-private.break tfoot tr {
+  display: block;
+  border-top: 1px solid color.$gray_6;
+  margin-bottom: 20px
+}
+table.table-private.break tbody td,
+table.table-private.break tfoot td {
+  display: table;
+  width: 100%;
+  border-left: 1px solid color.$gray_6;
+  border-right: 1px solid color.$gray_6;
+  border-bottom: 1px solid color.$gray_6;
+}
+table.table-private.break tbody .th-content,
+table.table-private.break tbody .td-content,
+table.table-private.break tfoot .th-content,
+table.table-private.break tfoot .td-content {
+  display: table-cell;
+  padding: 10px;
+  vertical-align: middle;
+  width: 50%
+}
+table.table-private.break tbody .th-content,
+table.table-private.break tfoot .th-content {
+  color: white;
+  background-color: color.$gray_gral
+}
+table.table-private.break tbody .hidden-break,
+table.table-private.break tfoot .hidden-break {
+  display: none
+}
+table.table-private.break tfoot tr {
+  background-color: transparent !important
+}
+table.table-private.break tfoot tr .th-content {
+  color: #4C4C4A;
+  background-color: color.$back_groud_color_white !important
+}
+table.table-private.table-private-simple tr,
+table.table-private.table-private-simple td,
+table.table-private.table-private-simple th {
+  border: 0 !important;
+  padding: 0
+}
+table.table-private.table-private-simple tr {
+  border: 0 !important;
+  background-color: transparent !important
+}
+table.table-private.table-private-simple.break {
+  border-top: 1px solid color.$gray_12 !important;
+  border-bottom: 1px solid color.$gray_12 !important
+}
+table.table-private.table-private-simple.break tr {
+  display: table;
+  clear: both;
+  width: 100%;
+  margin-bottom: 0;
+  background-color: color.$white !important;
+  border-top: 0 !important;
+  border-right: 1px solid color.$gray_12 !important
+}
+table.table-private.table-private-simple.break tr+tr {
+  border-top: 1px solid color.$gray_12 !important
+}
+table.table-private.table-private-simple.break tr th,
+table.table-private.table-private-simple.break tr td {
+  padding: 10px;
+  display: table-cell;
+  vertical-align: middle;
+  width: 50%;
+  border: 0 !important
+}
+table.table-private.table-private-simple.break tr th {
+  color: white;
+  background-color: color.$gray_gral
+}
+table.table-private.table-private-simple.break tr td {
+  background-color: white;
+  padding-left: 10px
+}
+table.table-private.table-private-border tr {
+  border-left: 1px solid color.$gray_6;
+}
+table.table-private.table-private-border tfoot th {
+  font-size: 18px;
+  font-family: var.$font-medium;
+  border-bottom: 1px solid color.$gray_6;
+}
+table.table-private.table-private-simple-border td,
+table.table-private.table-private-simple-border th {
+  border: 1px solid color.$gray_6;
+}
+table.table-private.table-private-simple-border tfoot th {
+  padding-left: 10px !important
+}
+table.table-private.table-width-auto {
+  width: auto
+}
+table.table-private.table-width-auto.table-private-simple th {
+  padding-right: 20px
+}
+table.table-private-rows thead tr:last-child th {
+  padding-top: 0
+}
+table.table-private-fondo {
+  border-collapse: collapse;
+  border-spacing: 0
+}
+table.table-private-fondo tr,
+table.table-private-fondo td,
+table.table-private-fondo th {
+  border: 0 !important
+}
+table.table-private-fondo .ht-icons-bullet {
+  font-size: 24px;
+  color: color.$color-success
+}
+table.table-private-fondo .ht-icons-informacion {
+  font-size: 16px
+}
+table.table-private-fondo .form-group-radio .custom-radio-private,
+table.table-private-fondo .form-group-radio .ht-icons-informacion {
+  display: inline-block;
+  vertical-align: middle
+}
+table.table-private-fondo .form-group-radio .ht-icons-informacion {
+  top: 2px
+}
+table.table-private-fondo .monto-fondo {
+  text-align: center;
+  background: color.$color-light-borde;
+  border-radius: 5px;
+  padding: 0 5px;
+  font-size: 16px;
+  line-height: 39px
+}
+table.table-private-fondo:not(.break) thead tr {
+  border-bottom: 10px solid color.$white !important
+}
+table.table-private-fondo:not(.break) tr {
+  background-color: color.$gray_blue_2 !important
+}
+table.table-private-fondo:not(.break) .bg-nuevo-fondo {
+  background-color: color.$gray_blue_2;
+}
+table.table-private-fondo:not(.break) th {
+  text-align: center
+}
+table.table-private-fondo:not(.break) td {
+  vertical-align: middle
+}
+table.table-private-fondo:not(.break) .ht-icons-bullet {
+  display: table;
+  margin: auto
+}
+table.table-private-fondo:not(.break) .custom-select,
+table.table-private-fondo:not(.break) input[type="text"] {
+  display: table;
+  margin: auto
+}
+table.table-private-fondo:not(.break) .custom-select {
+  width: 140px;
+}
+table.table-private-fondo:not(.break) input[type="text"] {
+  width: 80px;
+}
+table.table-private-fondo:not(.break) .separar {
+  border-top: 10px solid color.$white !important
+}
+table.table-private-fondo.break tr {
+  margin-bottom: 20px !important;
+  background-color: transparent !important
+}
+table.table-private-fondo.break tr:not(.parents) {
+  padding: 20px;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2)
+}
+table.table-private-fondo.break tr.parents .th-texto {
+  padding-top: 20px;
+  margin-top: 20px;
+  border-top: 2px solid color.$gray_1
+}
+table.table-private-fondo.break .th-texto,
+table.table-private-fondo.break .td-texto {
+  text-align: left
+}
+table.table-private-fondo.break .th-texto {
+  font-size: 16px;
+  font-family: var.$font-medium;
+}
+table.table-private-fondo.break .td-texto {
+  margin-bottom: 10px
+}
+table.table-private-fondo.break .monto-fondo {
+  text-align: left
+}
+table.table-private-fondo.break .box-arrow:after {
+  display: none
+}
+table.table-rows-basic:not(.break) {
+  border-collapse: separate;
+  border-spacing: 10px
+}
+table.table-rows-basic:not(.break) td {
+  text-align: center;
+  font-size: 16px;
+  background-color: color.$gray-20;
+  border: 0 !important;
+  border-radius: 5px
+}
+table.table-rows-basic:not(.break) td[rowspan] {
+  font-family: var(----font-roboto-bold);
+  font-size: 18px
+}
+table.table-rows-basic:not(.break) tr {
+  border: 0 !important
+}
+table.table-rows-basic:not(.break) .bg td {
+  background-color: color.$gray_10;
+  border-bottom: 5px solid color.$white;
+}
+table.break {
+  border-spacing: inherit;
+  border-collapse: collapse
+}
+table.break .hidden-break {
+  display: none !important
+}
+table.break .visible-break {
+  display: table !important;
+  width: 100%;
+  border: 0 !important;
+  margin-bottom: 0 !important;
+  background-color: transparent !important
+}
+table.break .visible-break td {
+  display: block !important;
+  margin-bottom: 10px;
+  width: 100% !important;
+  font-family: var.$font-bold;
+  font-size: 18px;
+  border: 0 !important;
+  background-color: transparent !important
+}
+
+table.break tr {
+  background-color: transparent
+}
+
+table.break td {
+  text-align: left;
+  background-color: transparent
+}
+
+table th, table td {
+  padding: 10px;
+  text-align: left;
+  color: color.$gray_gral;
+  font-size: 14px;
+  font-weight: initial;
+  background-color: transparent;
+}
+
+.border-all{
+  border: 1px solid color.$gray_2;
+  }
+  .border-l{
+  border-left: 1px solid color.$gray_2;
+  }
+  .border-r{
+  border-right: 1px solid color.$gray_2;
+  }
+  .border-t{
+  border-top: 1px solid color.$gray_2;
+  }
+  .border-b{
+  border-bottom: 1px solid color.$gray_2;
+  }
+
+  @media (max-width:700px){
+
+      .ht-scrollbar-xs {
+             height: 150px;
+      }
+
+      .hidden-border-all{
+          border:none;
+      }
+      .hidden-border-l{
+          border-left:none;
+      }
+      .hidden-border-r{
+          border-right:none;
+      }
+      .hidden-border-t{
+          border-top:none;
+      }
+      .hidden-border-b{
+          border-bottom:none;
+      }
+
+
+  }
