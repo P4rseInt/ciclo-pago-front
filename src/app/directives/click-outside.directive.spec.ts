@@ -1,4 +1,3 @@
-// Test unitario para la directiva ClickOutsideDirective en Angular con Jest
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ClickOutsideDirective } from './click-outside.directive';
@@ -36,7 +35,9 @@ describe('ClickOutsideDirective', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
-    directiveElement = fixture.debugElement.query(By.directive(ClickOutsideDirective)); // Usar By.directive para asegurar que se obtiene el elemento correcto
+    directiveElement = fixture.debugElement.query(
+      By.directive(ClickOutsideDirective)
+    ); // Usar By.directive para asegurar que se obtiene el elemento correcto
     fixture.detectChanges();
   });
 
@@ -80,7 +81,7 @@ describe('ClickOutsideDirective', () => {
       document.createElement('div'),
       document.createElement('div'),
       document.createElement('div'),
-      document.createElement('div'),
+      document.createElement('div')
     ];
 
     ignoredElements[0].classList.add('mat-mdc-button-touch-target');
@@ -106,13 +107,15 @@ describe('ClickOutsideDirective', () => {
     ignoredElements[19].appendChild(document.createElement('span'));
 
     if (directiveElement && directiveElement.nativeElement) {
-      ignoredElements.forEach(element => {
+      ignoredElements.forEach((element) => {
         directiveElement.nativeElement.appendChild(element);
         element.click();
         expect(component.clickedOutside).toBe(false);
       });
     } else {
-      fail('El elemento directiveElement o directiveElement.nativeElement es undefined');
+      fail(
+        'El elemento directiveElement o directiveElement.nativeElement es undefined'
+      );
     }
   });
 });

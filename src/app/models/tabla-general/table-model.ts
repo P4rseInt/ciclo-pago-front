@@ -20,7 +20,6 @@ export interface TablaBase {
   hasFilter: boolean;
   displayType?: string;
   filterType?: FilterType;
-  // propiedadesTabla?: PropiedadesTabla | null;
 }
 
 export interface ColumnasDropdown extends TablaBase {

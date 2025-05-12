@@ -13,7 +13,6 @@ import {
   ModeloColumnas,
   PropiedadesTabla
 } from '@models/tabla-general/table-model';
-import { PrimeNGConfig } from 'primeng/api';
 import * as XLSX from 'xlsx';
 import FileSaver from 'file-saver';
 import { ResBusquedaModelo } from '@shared/parametros-busqueda/parametros-busqueda.component';

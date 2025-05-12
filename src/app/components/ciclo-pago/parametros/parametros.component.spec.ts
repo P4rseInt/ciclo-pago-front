@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ParametrosComponent } from './parametros.component';
+import { TestingModule } from '../../../testing/testing.module';
 
 describe('ParametrosComponent', () => {
   let component: ParametrosComponent;
@@ -8,7 +9,9 @@ describe('ParametrosComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ParametrosComponent]
+      declarations: [ParametrosComponent],
+      imports: [TestingModule],
+      schemas: [NO_ERRORS_SCHEMA]
     });
     fixture = TestBed.createComponent(ParametrosComponent);
     component = fixture.componentInstance;

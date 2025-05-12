@@ -10,7 +10,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
-  declarations: [UniversoPagoComponent],
+  declarations: [UniversoPagoComponent, MockDividerComponent],
   imports: [
     CommonModule,
     CardModule,

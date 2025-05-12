@@ -1,26 +1,26 @@
-//.p-button-danger {
-//  padding: 10px 20px !important;
-//  background-color: #da1547 !important;
-//  color: white !important;
-//  border: none !important;
-//  border-radius: 50px !important;
-//  font-weight: bold !important;
-//  cursor: pointer !important;
-//  height: fit-content !important;
-//}
-//
-//.p-button-danger:hover {
-//  background-color: #b4123b !important;
-//}
-//
-//.p-button-danger:active {
-//  background-color: #810c2a !important;
-//}
-//
-//.p-datatable-wrapper {
-//  width: max-content !important;
-//}
-//
-//:host ::ng-deep.p-table thead th .pi-filter {
-//  color: #fff !important;
-//}
+.p-button-danger {
+  padding: 10px 20px !important;
+  background-color: #da1547 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 50px !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  height: fit-content !important;
+}
+
+.p-button-danger:hover {
+  background-color: #b4123b !important;
+}
+
+.p-button-danger:active {
+  background-color: #810c2a !important;
+}
+
+.p-datatable-wrapper {
+  width: max-content !important;
+}
+
+:host ::ng-deep.p-table thead th .pi-filter {
+  color: #fff !important;
+}

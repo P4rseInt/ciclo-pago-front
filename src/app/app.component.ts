@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'afp-habitat-app-root',
@@ -12,6 +13,14 @@ export class AppComponent implements OnInit {
   private readonly primengConfig = inject(PrimeNGConfig);
 
   constructor(private readonly router: Router) {
+    // const registroDatosSentry = new SentryUser(
+    //   this.oauthService,
+    //   VERSION.version
+    // );
+    // const datosusuarios = JSON.parse(sessionStorage.getItem('datos_usuario'));
+    // if (datosusuarios && datosusuarios.email) {
+    //   registroDatosSentry.setearDatosUsuarioPGS(datosusuarios.email);
+    // }
     console.table(this.router.config); // Muestra las rutas en formato tabla en la consola
   }
 

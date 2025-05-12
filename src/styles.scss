@@ -1,89 +1,71 @@
-//.custom-tabview .p-tabview-nav {
-//  border: none;
-//  display: flex;
-//  gap: 4px;
-//}
-//
-//.custom-tabview .p-tabview-nav li {
-//  border: 1px solid #cfe4ed;
-//  background-color: white;
-//  border-radius: 4px 4px 0 0;
-//  font-weight: 500;
-//  color: white;
-//}
-//
-//.custom-tabview .p-tabview-nav li.p-highlight {
-//  background-color: #4c9bbd;
-//  color: white;
-//  border-color: #4c9bbd;
-//}
-//
-//.custom-tabview .p-tabview-nav li.p-highlight a {
-//  color: white !important;
-//}
-//
-//.custom-tabview .p-tabview-nav li:not(.p-highlight):hover {
-//  background-color: #f5fbfd;
-//}
-//
-//.custom-tabview .p-tabview-panels {
-//  border: none;
-//  padding: 1rem 0;
-//}
-//
-///* También eliminamos posibles decoraciones internas */
-//.custom-tabview .p-tabview-nav-link {
-//  box-shadow: none !important;
-//  outline: none !important;
-//  background: transparent;
-//}
-//
-///* Tabs inactivos */
-//.custom-tabview .p-tabview-nav li {
-//  background-color: white;
-//  color: #333;
-//  border: 1px solid #cfe4ed;
-//  font-weight: 600;
-//  border-radius: 4px 4px 0 0;
-//}
-//
-///* Otros ajustes */
-//.custom-tabview .p-tabview-nav li .p-tabview-nav-link {
-//  box-shadow: none;
-//  outline: none;
-//}
-//
-///* Hover opcional */
-//.mi-breadcrumb .p-breadcrumb-list .p-menuitem-link:hover .p-menuitem-text {
-//  text-decoration: underline;
-//  cursor: pointer;
-//}
-//
-//.mi-breadcrumb {
-//  border: none !important; /* quita el borde */
-//}
-//
-///* Texto de cada paso */
-//.mi-breadcrumb .p-breadcrumb-list .p-menuitem-text {
-//  font-size: 0.875rem;
-//  font-weight: 500;
-//  color: #0e7490;
-//}
-//
-//
-//
-//
+.custom-tabview .p-tabview-nav {
+  border: none;
+  display: flex;
+  gap: 4px;
+}
 
-@use "./assets/scss/varfuentes" as var;
-@use "./assets/scss/fuentes";
-@use "./assets/scss/colores" as color;
-@use "./assets/scss/generales";
-@use "./assets/scss/iconos";
-@use "./assets/scss/alertas";
-@use "./assets/scss/botones";
-@use "./assets/scss/contenedores";
-@use "./assets/scss/tablas";
-@use "./assets/scss/formularios";
-@use "./assets/scss/wizard";
-@use "./assets/scss/bienvenida";
-@use "./assets/scss/cliente";
+.custom-tabview .p-tabview-nav li {
+  border: 1px solid #cfe4ed;
+  background-color: white;
+  border-radius: 4px 4px 0 0;
+  font-weight: 500;
+  color: white;
+}
+
+.custom-tabview .p-tabview-nav li.p-highlight {
+  background-color: #4c9bbd;
+  color: white;
+  border-color: #4c9bbd;
+}
+
+.custom-tabview .p-tabview-nav li.p-highlight a {
+  color: white !important;
+}
+
+.custom-tabview .p-tabview-nav li:not(.p-highlight):hover {
+  background-color: #f5fbfd;
+}
+
+.custom-tabview .p-tabview-panels {
+  border: none;
+  padding: 1rem 0;
+}
+
+/* También eliminamos posibles decoraciones internas */
+.custom-tabview .p-tabview-nav-link {
+  box-shadow: none !important;
+  outline: none !important;
+  background: transparent;
+}
+
+/* Tabs inactivos */
+.custom-tabview .p-tabview-nav li {
+  background-color: white;
+  color: #333;
+  border: 1px solid #cfe4ed;
+  font-weight: 600;
+  border-radius: 4px 4px 0 0;
+}
+
+/* Otros ajustes */
+.custom-tabview .p-tabview-nav li .p-tabview-nav-link {
+  box-shadow: none;
+  outline: none;
+}
+
+/* Hover opcional */
+.mi-breadcrumb .p-breadcrumb-list .p-menuitem-link:hover .p-menuitem-text {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.mi-breadcrumb {
+  border: none !important; /* quita el borde */
+}
+
+/* Texto de cada paso */
+.mi-breadcrumb .p-breadcrumb-list .p-menuitem-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #0e7490;
+}
