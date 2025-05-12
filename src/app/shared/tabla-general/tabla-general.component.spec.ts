@@ -16,7 +16,6 @@ jest.mock('file-saver', () => ({
 }));
 
 describe('TablaGeneralComponent', () => {
-describe('TablaGeneralComponent', () => {
   let component: TablaGeneralComponent;
   let fixture: ComponentFixture<TablaGeneralComponent>;
 
